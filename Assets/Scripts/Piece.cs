@@ -46,7 +46,6 @@ public class Piece : MonoBehaviour
 
     private void OnMouseDown()
     {
-
         selected = true;
 
         //Actual calculating legal moves
@@ -57,8 +56,18 @@ public class Piece : MonoBehaviour
                 foreach (Transform sq in board.GetComponent<Board>().children)
                 {
                     //This magnitude gives every square around (standard king's move)
-                    if ((sq.position - this.transform.position).sqrMagnitude <= 250f && !sq.GetComponent<Square>().occupied)
+                    if ((sq.position - this.transform.position).sqrMagnitude <= 250f)
                     {
+                        if (sq.GetComponent<Square>().occupied)
+                        {
+                            if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                            {
+                                legalSquares.Add(sq.gameObject.GetComponent<Square>());
+                            }
+
+                            continue;
+                        }
+
                         legalSquares.Add(sq.gameObject.GetComponent<Square>());
                     }
                 }
@@ -140,6 +149,43 @@ public class Piece : MonoBehaviour
                             }
                         }
                     }
+                }
+
+                break;
+
+            case PieceType.Pawn:
+                int j = 0;
+                foreach (Transform sq in board.GetComponent<Board>().children)
+                {
+                    if (this.white)
+                    {
+                        //If first move (you can move 2 squares)
+                        //If pawn is in second row (can double move), second square !occupied, it's actually the square 2 ahead,                                it's in the same column                                         the square 1 ahead is not occupied
+                        //Overall: can move two squares ahead
+                        if(this.currentSquare.row == 1 && !sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().row == this.currentSquare.row + 2 && sq.GetComponent<Square>().column == this.currentSquare.column && !board.GetComponent<Board>().children[j + 8].GetComponent<Square>().occupied)
+                        {
+                            legalSquares.Add(sq.GetComponent<Square>());
+                        }
+                        //Square's one ahead,                                               it's in the same column,                                        is not occupied
+                        if(sq.GetComponent<Square>().row == this.currentSquare.row + 1 && sq.GetComponent<Square>().column == this.currentSquare.column && !sq.GetComponent<Square>().occupied)
+                        {
+                            legalSquares.Add(sq.GetComponent<Square>());
+                        }
+                    }
+                    else
+                    {
+                        //Look above basically
+                        if(this.currentSquare.row == 6 && !sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().row == this.currentSquare.row - 2 && sq.GetComponent<Square>().column == this.currentSquare.column && !board.GetComponent<Board>().children[j - 8].GetComponent<Square>().occupied)
+                        {
+                            legalSquares.Add(sq.GetComponent<Square>());
+                        }
+                        if(sq.GetComponent<Square>().row == this.currentSquare.row - 1 && sq.GetComponent<Square>().column == this.currentSquare.column && !sq.GetComponent<Square>().occupied)
+                        {
+                            legalSquares.Add(sq.GetComponent<Square>());
+                        }
+                    }
+
+                    j++;
                 }
 
                 break;
