@@ -101,6 +101,9 @@ public class Piece : MonoBehaviour
                                 int i = 1;
                                 //Math.Abs is translation from chess notation (squares being counted from bottom-left) to normal notation (from top-left)
                                 //Basically while is iterating through legal moves (while condition indicates legal)
+                                //Ifs are checking if the sq is occupied, then if its diffrent color than current piece
+                                // if yes, then we add it to legal then break
+                                // if no, then we just break
                                 while (sq.column + i < 8)
                                 {
                                     if(board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
@@ -120,8 +123,16 @@ public class Piece : MonoBehaviour
                             {
                                 //Case left
                                 int i = -1;
-                                while (sq.column + i >= 0 && !board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                while (sq.column + i >= 0)
                                 {
+                                    if(board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                    {
+                                        if(board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                        }
+                                        break;
+                                    }
                                     temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
                                     i--;
                                 }
@@ -133,8 +144,16 @@ public class Piece : MonoBehaviour
                             {
                                 //Case up
                                 int i = 1;
-                                while (sq.row - i < 8 && !board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                while (sq.row - i < 8)
                                 {
+                                    if(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                    {
+                                        if(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                        }
+                                        break;
+                                    }
                                     temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
                                     i++;
                                 }
@@ -143,8 +162,16 @@ public class Piece : MonoBehaviour
                             {
                                 //Case bottom
                                 int i = -1;
-                                while (sq.row - i >= 0 && !board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                while (sq.row - i >= 0)
                                 {
+                                    if(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                    {
+                                        if(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                        }
+                                        break;
+                                    }
                                     temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
                                     i--;
                                 }

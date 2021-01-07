@@ -9754,7 +9754,7 @@ MonoBehaviour:
   - {fileID: 1194459970}
   - {fileID: 1348858999}
   - {fileID: 265452538}
-  legalColor: {r: 1, g: 0, b: 0, a: 0.54509807}
+  legalColor: {r: 0.092196584, g: 1, b: 0, a: 0.54509807}
 --- !u!1 &2007329033
 GameObject:
   m_ObjectHideFlags: 0
