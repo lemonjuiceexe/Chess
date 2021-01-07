@@ -25,6 +25,8 @@ public class Piece : MonoBehaviour
     List<Square> legalSquares = new List<Square>();
     List<Square> temp = new List<Square>();
 
+    private float big = 0f;
+
     private void Start()
     {
         foreach(Transform sq in board.children)
@@ -41,6 +43,15 @@ public class Piece : MonoBehaviour
 
     private void Update()
     {
+        if(big > 0f)
+        {
+            gameObject.transform.localScale = new Vector2(1.1f, 1.1f);
+            big -= Time.deltaTime;
+        } 
+        else
+        {
+            gameObject.transform.localScale = new Vector2(1f, 1f);
+        }
         currentSquare.occupied = true;
     }
 
@@ -48,6 +59,9 @@ public class Piece : MonoBehaviour
     {
         ClearLegal();
 
+        big = 0.1f;
+
+        selected = true;
         if (selected)
         {
             selected = false;
