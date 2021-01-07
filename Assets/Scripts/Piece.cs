@@ -100,10 +100,64 @@ public class Piece : MonoBehaviour
                 case PieceType.Bishop:
                     foreach (Transform sq in board.children)
                     {
-                        //This magnitude gives squares top, bottom, left and right (relative to current)
+                        //This magnitude gives squares top-left, top-right, bottom-left and bottom-right (relative to current)
                         if ((sq.position - this.transform.position).sqrMagnitude > 150f && (sq.position - this.transform.position).sqrMagnitude <= 250f && !sq.GetComponent<Square>().occupied)
                         {
                             legalSquares.Add(sq.gameObject.GetComponent<Square>());
+                        }
+                    }
+
+                    foreach(Square sq in legalSquares)
+                    {
+                        //Four possibilities
+                        
+                        if(sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row + 1)
+                        {
+                            //Case bottom-right
+                            int i = 1;
+                            if (!(sq.column == 7 || sq.row == 7))
+                            {
+                                while(sq.column + i < 8 && sq.row + i < 8)
+                                {
+                                    temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) + i, currentSquare.column + i]);
+                                    i++;
+                                }
+                            }
+                        }
+                        else if(sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row - 1)
+                        {
+                            //Case top-right
+                            int i = 1;
+                            if(!(sq.column == 7 || sq.row == 0))
+                            {
+                                while (sq.column + i < 8 && sq.row - i < 8) //TODO: ?? shouldn't it be >= 0
+                                {
+                                    temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) - i, currentSquare.column + i]);
+                                    i++;
+                                }
+                            }
+                        }
+                        else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row - 1)
+                        {
+                            //Case top-left
+                            int i = 1;
+                            if (!(sq.column == 0 || sq.row == 0))
+                            {
+                                while (sq.column - i >= 0 && sq.row - i >= 0)
+                                {
+                                    temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) - i, currentSquare.column - i]);
+                                    i++;
+                                }
+                            }
+                        }
+                        else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row + 1)
+                        {
+                            int i = 1;
+                            //Case top-right
+                            if (!(sq.column == 0 || sq.row == 7))
+                            {
+
+                            }
                         }
                     }
                     break;
@@ -121,7 +175,6 @@ public class Piece : MonoBehaviour
 
                     foreach (Square sq in legalSquares)
                     {
-                        Debug.Log("psiuu");
                         //If legal move is on the edge, it's the last in this direction anyway, so sort it out here
                         //Four possibilities: this square is top, left, bottom or right relatively to here
                         if (sq.row == currentSquare.row)
