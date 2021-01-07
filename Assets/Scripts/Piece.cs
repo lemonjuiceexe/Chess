@@ -16,7 +16,7 @@ public class Piece : MonoBehaviour
     //0 - black, 1 - white
     public bool white;
 
-    public GameObject board;
+    public Board board;
 
     public PieceType type;
 
@@ -27,7 +27,7 @@ public class Piece : MonoBehaviour
 
     private void Start()
     {
-        foreach(Transform sq in board.GetComponent<Board>().children)
+        foreach(Transform sq in board.children)
         {
             //If a piece is close to a square - if it's on the square
             if((sq.position - this.transform.position).sqrMagnitude < 1f)
@@ -53,7 +53,7 @@ public class Piece : MonoBehaviour
         {
             case PieceType.King:
                 //For all squares
-                foreach (Transform sq in board.GetComponent<Board>().children)
+                foreach (Transform sq in board.children)
                 {
                     //This magnitude gives every square around (standard king's move)
                     if ((sq.position - this.transform.position).sqrMagnitude <= 250f)
@@ -75,7 +75,7 @@ public class Piece : MonoBehaviour
                 break;
 
             case PieceType.Rook:
-                foreach (Transform sq in board.GetComponent<Board>().children)
+                foreach (Transform sq in board.children)
                 {
                     //This magnitude gives squares top, bottom, left and right (relative to current)
                     if ((sq.position - this.transform.position).sqrMagnitude <= 150f && !sq.GetComponent<Square>().occupied)
@@ -101,16 +101,16 @@ public class Piece : MonoBehaviour
                                 //Basically while is iterating through legal moves (while condition indicates legal)
                                 while (sq.column + i < 8)
                                 {
-                                    if(board.GetComponent<Board>().squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                    if(board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
                                     {
-                                        if (board.GetComponent<Board>().squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white)
+                                        if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white)
                                         {
-                                            temp.Add(board.GetComponent<Board>().squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
                                         }
 
                                         break;
                                     }
-                                    temp.Add(board.GetComponent<Board>().squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
                                     i++;
                                 }
                             }
@@ -118,9 +118,9 @@ public class Piece : MonoBehaviour
                             {
                                 //Case left
                                 int i = -1;
-                                while (sq.column + i >= 0 && !board.GetComponent<Board>().squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                while (sq.column + i >= 0 && !board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
                                 {
-                                    temp.Add(board.GetComponent<Board>().squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
                                     i--;
                                 }
                             }
@@ -131,9 +131,9 @@ public class Piece : MonoBehaviour
                             {
                                 //Case up
                                 int i = 1;
-                                while (sq.row - i < 8 && !board.GetComponent<Board>().squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                while (sq.row - i < 8 && !board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
                                 {
-                                    temp.Add(board.GetComponent<Board>().squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
                                     i++;
                                 }
                             }
@@ -141,9 +141,9 @@ public class Piece : MonoBehaviour
                             {
                                 //Case bottom
                                 int i = -1;
-                                while (sq.row - i >= 0 && !board.GetComponent<Board>().squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                while (sq.row - i >= 0 && !board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
                                 {
-                                    temp.Add(board.GetComponent<Board>().squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
                                     i--;
                                 }
                             }
@@ -155,14 +155,14 @@ public class Piece : MonoBehaviour
 
             case PieceType.Pawn:
                 int j = 0;
-                foreach (Transform sq in board.GetComponent<Board>().children)
+                foreach (Transform sq in board.children)
                 {
                     if (this.white)
                     {
                         //If first move (you can move 2 squares)
                         //If pawn is in second row (can double move), second square !occupied, it's actually the square 2 ahead,                                it's in the same column                                         the square 1 ahead is not occupied
                         //Overall: can move two squares ahead
-                        if(this.currentSquare.row == 1 && !sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().row == this.currentSquare.row + 2 && sq.GetComponent<Square>().column == this.currentSquare.column && !board.GetComponent<Board>().children[j + 8].GetComponent<Square>().occupied)
+                        if(this.currentSquare.row == 1 && !sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().row == this.currentSquare.row + 2 && sq.GetComponent<Square>().column == this.currentSquare.column && !board.children[j + 8].GetComponent<Square>().occupied)
                         {
                             legalSquares.Add(sq.GetComponent<Square>());
                         }
@@ -175,7 +175,7 @@ public class Piece : MonoBehaviour
                     else
                     {
                         //Look above basically
-                        if(this.currentSquare.row == 6 && !sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().row == this.currentSquare.row - 2 && sq.GetComponent<Square>().column == this.currentSquare.column && !board.GetComponent<Board>().children[j - 8].GetComponent<Square>().occupied)
+                        if(this.currentSquare.row == 6 && !sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().row == this.currentSquare.row - 2 && sq.GetComponent<Square>().column == this.currentSquare.column && !board.children[j - 8].GetComponent<Square>().occupied)
                         {
                             legalSquares.Add(sq.GetComponent<Square>());
                         }

@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
 --- !u!61 &11706852
@@ -880,7 +880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &127442344
@@ -1006,7 +1006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
 --- !u!61 &171422083
@@ -1720,7 +1720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
 --- !u!61 &255814627
@@ -1874,7 +1874,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 288552448}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15, y: 15, z: 0}
+  m_LocalPosition: {x: -15, y: 25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 389683639}
@@ -1944,7 +1944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &288552452
@@ -2168,7 +2168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &300207271
@@ -2536,7 +2536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &391790890
@@ -3235,7 +3235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 1
   currentSquare: {fileID: 0}
 --- !u!61 &523748425
@@ -3361,7 +3361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &566534399
@@ -3711,7 +3711,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 673655359}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15, y: 5, z: 0}
+  m_LocalPosition: {x: -15, y: -25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 112323394}
@@ -3781,7 +3781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &673655363
@@ -4005,7 +4005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
 --- !u!61 &706669441
@@ -4131,7 +4131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
 --- !u!61 &718336536
@@ -4355,7 +4355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
 --- !u!61 &754782208
@@ -4411,7 +4411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 769267950}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 15, z: 0}
+  m_LocalPosition: {x: -5, y: -25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 112323394}
@@ -4481,7 +4481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &769267954
@@ -4607,7 +4607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &811979612
@@ -5027,7 +5027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
 --- !u!61 &857662066
@@ -5153,7 +5153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 1
   currentSquare: {fileID: 0}
 --- !u!61 &891201143
@@ -5671,7 +5671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &1140075641
@@ -6091,7 +6091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &1292567679
@@ -6166,7 +6166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 0
   currentSquare: {fileID: 0}
 --- !u!61 &1328611656
@@ -6637,7 +6637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &1376335191
@@ -6763,7 +6763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &1379248782
@@ -7085,7 +7085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
 --- !u!61 &1441894312
@@ -7551,7 +7551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &1547671701
@@ -7901,7 +7901,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1598379279}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15, y: -15, z: 0}
+  m_LocalPosition: {x: -25, y: -35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 112323394}
@@ -7971,7 +7971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
 --- !u!61 &1598379283
@@ -8195,7 +8195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &1614313479
@@ -8909,7 +8909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &1796728129
@@ -9231,7 +9231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
 --- !u!61 &1879642490
@@ -9455,7 +9455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
 --- !u!61 &1948499435
@@ -9949,7 +9949,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
 --- !u!61 &2011586237
@@ -10107,7 +10107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
 --- !u!61 &2039214685
@@ -10456,7 +10456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
-  board: {fileID: 2001880198}
+  board: {fileID: 2001880200}
   type: 0
   currentSquare: {fileID: 0}
 --- !u!61 &2072622951
