@@ -22,7 +22,7 @@ public class Piece : MonoBehaviour
 
     //bool selected = false;
     public Square currentSquare;
-    List<Square> legalSquares = new List<Square>();
+    public List<Square> legalSquares = new List<Square>();
     List<Square> temp = new List<Square>();
 
     private float big = 0f;
@@ -57,6 +57,7 @@ public class Piece : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Debug.Log("You've clicked some mate, mate");
         ClearLegal();
 
         big = 0.1f;

@@ -9,7 +9,10 @@ public class Square : MonoBehaviour
     public int row;
 
     public bool occupied = false;
+    public bool legalForSelectedPiece = false;
     public Piece currentPiece;
+
+    public Board board;
 
     private void Start()
     {
@@ -75,6 +78,25 @@ public class Square : MonoBehaviour
             default:
                 Debug.LogError("Square's y position is not correct");
                 break;
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        if (legalForSelectedPiece)
+        {
+            board.selectedPiece.currentSquare.currentPiece = null;
+            board.selectedPiece.currentSquare.occupied = false;
+
+            board.selectedPiece.transform.position = this.transform.position;
+
+            this.occupied = true;
+            board.selectedPiece.currentSquare = this;
+            this.currentPiece = board.selectedPiece;
+
+            board.selectedPiece = null;
+
+            board.ClearLegal();
         }
     }
 }
