@@ -61,7 +61,6 @@ public class Piece : MonoBehaviour
 
         big = 0.1f;
 
-        selected = true;
         if (selected)
         {
             selected = false;
