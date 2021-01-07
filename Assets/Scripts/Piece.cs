@@ -101,8 +101,17 @@ public class Piece : MonoBehaviour
                     foreach (Transform sq in board.children)
                     {
                         //This magnitude gives squares top-left, top-right, bottom-left and bottom-right (relative to current)
-                        if ((sq.position - this.transform.position).sqrMagnitude > 150f && (sq.position - this.transform.position).sqrMagnitude <= 250f && !sq.GetComponent<Square>().occupied)
+                        if ((sq.position - this.transform.position).sqrMagnitude > 150f && (sq.position - this.transform.position).sqrMagnitude <= 250f)
                         {
+                            if (sq.GetComponent<Square>().occupied)
+                            {
+                                if(sq.GetComponent<Square>().currentPiece.white != this.white)
+                                {
+                                    temp.Add(sq.GetComponent<Square>());
+                                }
+
+                                continue;
+                            }
                             legalSquares.Add(sq.gameObject.GetComponent<Square>());
                         }
                     }
@@ -123,8 +132,17 @@ public class Piece : MonoBehaviour
                             if (sq.column != 7 && sq.row != 7)
                             {
                                 int i = 1;
-                                while(sq.column + i < 8 && sq.row + i < 8 && !board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].occupied)
+                                while(sq.column + i < 8 && sq.row + i < 8)
                                 {
+                                    if(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].occupied)
+                                    {
+                                        if(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
+                                        }
+
+                                        break;
+                                    }
                                     temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
                                     i++;
                                 }
@@ -142,7 +160,6 @@ public class Piece : MonoBehaviour
                                     {
                                         if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].currentPiece.white != this.white)
                                         {
-                                            Debug.Log("wziu");
                                             temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
                                         }
 
@@ -159,8 +176,17 @@ public class Piece : MonoBehaviour
                             if(sq.column != 0 && sq.row != 0)
                             {
                                 int i = 1;
-                                while(sq.column - i >= 0 && sq.row - i >= 0 && !board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].occupied)
+                                while(sq.column - i >= 0 && sq.row - i >= 0)
                                 {
+                                    if(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].occupied)
+                                    {
+                                        if(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
+                                        }
+
+                                        break;
+                                    }
                                     temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
                                     i++;
                                 }
@@ -172,8 +198,17 @@ public class Piece : MonoBehaviour
                             if (sq.column != 0 && sq.row != 7)
                             {
                                 int i = 1;
-                                while (sq.column - i >= 0 && sq.row + i < 8 && !board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].occupied)
+                                while (sq.column - i >= 0 && sq.row + i < 8)
                                 {
+                                    if(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].occupied)
+                                    {
+                                        if(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
+                                        }
+
+                                        break;
+                                    }
                                     temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
                                     i++;
                                 }
@@ -244,8 +279,17 @@ public class Piece : MonoBehaviour
                     foreach (Transform sq in board.children)
                     {
                         //This magnitude gives squares top, bottom, left and right (relative to current)
-                        if ((sq.position - this.transform.position).sqrMagnitude <= 150f && !sq.GetComponent<Square>().occupied)
+                        if ((sq.position - this.transform.position).sqrMagnitude <= 150f)
                         {
+                            if (sq.GetComponent<Square>().occupied)
+                            {
+                                if(sq.GetComponent<Square>().currentPiece.white != this.white)
+                                {
+                                    temp.Add(sq.GetComponent<Square>());
+                                }
+
+                                continue;
+                            }
                             legalSquares.Add(sq.gameObject.GetComponent<Square>());
                         }
                     }
