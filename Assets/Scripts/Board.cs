@@ -8,6 +8,8 @@ public class Board : MonoBehaviour
     public Square[,] squares = new Square[8, 8];
     public Transform[] children;
 
+    public Piece selectedPiece;
+
     public Color legalColor;
 
     private void Start()

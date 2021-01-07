@@ -20,7 +20,7 @@ public class Piece : MonoBehaviour
 
     public PieceType type;
 
-    bool selected = false;
+    //bool selected = false;
     public Square currentSquare;
     List<Square> legalSquares = new List<Square>();
     List<Square> temp = new List<Square>();
@@ -61,13 +61,13 @@ public class Piece : MonoBehaviour
 
         big = 0.1f;
 
-        if (selected)
+        if (board.selectedPiece == this)
         {
-            selected = false;
+            board.selectedPiece = null;
         }
         else
         {
-            selected = true;
+            board.selectedPiece = this;
 
             //Actual calculating legal moves
             switch (type)
