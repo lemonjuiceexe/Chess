@@ -96,6 +96,18 @@ public class Piece : MonoBehaviour
 
                     break;
                 #endregion
+                #region Bishop
+                case PieceType.Bishop:
+                    foreach (Transform sq in board.children)
+                    {
+                        //This magnitude gives squares top, bottom, left and right (relative to current)
+                        if ((sq.position - this.transform.position).sqrMagnitude > 150f && (sq.position - this.transform.position).sqrMagnitude <= 250f && !sq.GetComponent<Square>().occupied)
+                        {
+                            legalSquares.Add(sq.gameObject.GetComponent<Square>());
+                        }
+                    }
+                    break;
+                #endregion 
                 #region Rook
                 case PieceType.Rook:
                     foreach (Transform sq in board.children)
