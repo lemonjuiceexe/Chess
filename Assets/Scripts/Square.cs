@@ -14,6 +14,13 @@ public class Square : MonoBehaviour
 
     public Board board;
 
+    bool transitioning = false;
+    Transform startPos;
+    Transform endPos;
+    private float startTime;
+    private float dist;
+    GameObject transPiece;
+
     private void Start()
     {
 
@@ -81,6 +88,21 @@ public class Square : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        if(transitioning)
+        {
+            float distCovered = (Time.time - startTime) * board.transitionSpeed; // calculates covered distance
+            float distFraction = distCovered / dist; // calculates what fraction of the distance it covered
+            transPiece.transform.position = Vector3.Lerp(startPos.position, endPos.position, distFraction); // moves the piece using fancy math stuff
+            // if the piece is near its destination, then stop moving, we dont need it
+            if (Vector3.Distance(transPiece.transform.position, this.transform.position) < 0.01f)
+            {
+                transitioning = false;
+            }
+        }
+    }
+
     private void OnMouseDown()
     {
         if (legalForSelectedPiece)
@@ -88,7 +110,20 @@ public class Square : MonoBehaviour
             board.selectedPiece.currentSquare.currentPiece = null;
             board.selectedPiece.currentSquare.occupied = false;
 
-            board.selectedPiece.transform.position = this.transform.position;
+            // old teleporting, without transition
+            //board.selectedPiece.transform.position = this.transform.position;
+
+            #region transition
+            //basically assigns every needed variable
+            startPos = board.selectedPiece.transform; //sets start and end positions
+            endPos = this.transform; 
+            transPiece = board.selectedPiece.gameObject; // keeps the piece in memory since its erased from selectedPiece now
+            startTime = Time.time; // time when we started moving
+            dist = Vector3.Distance(startPos.position, endPos.position); //calculates transition distance
+            // sets info that we can now move the piece
+            transitioning = true;
+            #endregion
+
 
             this.occupied = true;
             board.selectedPiece.currentSquare = this;
