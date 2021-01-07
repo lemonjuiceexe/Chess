@@ -22,7 +22,7 @@ public class Piece : MonoBehaviour
 
     //bool selected = false;
     public Square currentSquare;
-    List<Square> legalSquares = new List<Square>();
+    public List<Square> legalSquares = new List<Square>();
     List<Square> temp = new List<Square>();
 
     private float big = 0f;
@@ -96,6 +96,232 @@ public class Piece : MonoBehaviour
 
                     break;
                 #endregion
+                #region Queen
+                case PieceType.Queen:
+                    foreach (Transform sq in board.children)
+                    {
+                        //This magnitude gives squares top-left, top-right, bottom-left and bottom-right (relative to current)
+                        if ((sq.position - this.transform.position).sqrMagnitude > 150f && (sq.position - this.transform.position).sqrMagnitude <= 250f)
+                        {
+                            if (sq.GetComponent<Square>().occupied)
+                            {
+                                if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                                {
+                                    temp.Add(sq.GetComponent<Square>());
+                                }
+
+                                continue;
+                            }
+                            legalSquares.Add(sq.gameObject.GetComponent<Square>());
+                        }
+                    }
+
+                    foreach (Square sq in legalSquares)
+                    {
+                        //Four possibilities
+                        //indicating squares works properly
+                        if (sq.column == currentSquare.column + 1 && sq.row == currentSquare.row + 1)
+                        {
+                            //Top right
+                            if (sq.column != 7 && sq.row != 7)
+                            {
+                                int i = 1;
+                                while (sq.column + i < 8 && sq.row + i < 8)
+                                {
+                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].occupied)
+                                    {
+                                        if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
+                                        }
+
+                                        break;
+                                    }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
+                                    i++;
+                                }
+                            }
+                        }
+                        else if (sq.column == currentSquare.column + 1 && sq.row == currentSquare.row - 1)
+                        {
+                            //Bottom right
+                            if (sq.column != 7 && sq.row != 0)
+                            {
+                                int i = 1;
+                                while (sq.column + i < 8 && sq.row - i >= 0)
+                                {
+                                    if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].occupied)
+                                    {
+                                        if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
+                                        }
+
+                                        break;
+                                    }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
+                                    i++;
+                                }
+                            }
+                        }
+                        else if (sq.column == currentSquare.column - 1 && sq.row == currentSquare.row - 1)
+                        {
+                            //Bottom left
+                            if (sq.column != 0 && sq.row != 0)
+                            {
+                                int i = 1;
+                                while (sq.column - i >= 0 && sq.row - i >= 0)
+                                {
+                                    if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].occupied)
+                                    {
+                                        if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
+                                        }
+
+                                        break;
+                                    }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
+                                    i++;
+                                }
+                            }
+                        }
+                        else if (sq.column == currentSquare.column - 1 && sq.row == currentSquare.row + 1)
+                        {
+                            //Top left
+                            if (sq.column != 0 && sq.row != 7)
+                            {
+                                int i = 1;
+                                while (sq.column - i >= 0 && sq.row + i < 8)
+                                {
+                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].occupied)
+                                    {
+                                        if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
+                                        }
+
+                                        break;
+                                    }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
+                                    i++;
+                                }
+                            }
+                        }
+                    }
+
+                    temp.AddRange(legalSquares);
+                    legalSquares.Clear();
+
+                    foreach (Transform sq in board.children)
+                    {
+                        //This magnitude gives squares top, bottom, left and right (relative to current)
+                        if ((sq.position - this.transform.position).sqrMagnitude <= 150f)
+                        {
+                            if (sq.GetComponent<Square>().occupied)
+                            {
+                                if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                                {
+                                    temp.Add(sq.GetComponent<Square>());
+                                }
+
+                                continue;
+                            }
+                            legalSquares.Add(sq.gameObject.GetComponent<Square>());
+                        }
+                    }
+
+                    foreach (Square sq in legalSquares)
+                    {
+                        //If legal move is on the edge, it's the last in this direction anyway, so sort it out here
+                        //Four possibilities: this square is top, left, bottom or right relatively to here
+                        if (sq.row == currentSquare.row)
+                        {
+                            if (sq.column > currentSquare.column && sq.column != 7)
+                            {
+                                //Case right
+                                int i = 1;
+                                //Math.Abs is translation from chess notation (squares being counted from bottom-left) to normal notation (from top-left)
+                                //Basically while is iterating through legal moves (while condition indicates legal)
+                                //Ifs are checking if the sq is occupied, then if its diffrent color than current piece
+                                // if yes, then we add it to legal then break
+                                // if no, then we just break
+                                while (sq.column + i < 8)
+                                {
+                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                    {
+                                        if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                        }
+
+                                        break;
+                                    }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                    i++;
+                                }
+                            }
+                            else if (sq.column != 0)
+                            {
+                                //Case left
+                                int i = -1;
+                                while (sq.column + i >= 0)
+                                {
+                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                    {
+                                        if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                        }
+                                        break;
+                                    }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                    i--;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (sq.row > currentSquare.row && sq.row != 7)
+                            {
+                                //Case up
+                                int i = 1;
+                                while (sq.row + i < 8)
+                                {
+                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                    {
+                                        if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                        }
+                                        break;
+                                    }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                    i++;
+                                }
+                            }
+                            else if (sq.row != 0)
+                            {
+                                //Case bottom
+                                int i = -1;
+                                while (sq.row + i >= 0)
+                                {
+                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                    {
+                                        if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                        }
+                                        break;
+                                    }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                    i--;
+                                }
+                            }
+                        }
+                    }
+                    break;
+                #endregion
                 #region Bishop
                 case PieceType.Bishop:
                     foreach (Transform sq in board.children)
@@ -115,12 +341,6 @@ public class Piece : MonoBehaviour
                             legalSquares.Add(sq.gameObject.GetComponent<Square>());
                         }
                     }
-
-                    //Fine
-                    //Debug.Log("Current column:");
-                    //Debug.Log(currentSquare.column);
-                    //Debug.Log("Current row:");
-                    //Debug.Log(currentSquare.row);
 
                     foreach(Square sq in legalSquares)
                     {
@@ -214,66 +434,87 @@ public class Piece : MonoBehaviour
                                 }
                             }
                         }
-
-
-
-                        //if(sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row + 1)
-                        //{
-                        //    //Case top-right
-                        //    //Debug.Log(sq);
-                        //    int i = 1;
-                        //    if (!(sq.column == 7 || sq.row == 7))
-                        //    {
-                        //        while((sq.column + i) < 8 && (Mathf.Abs(sq.row - 7) - (i - 1)) >= 0)
-                        //        {
-                        //            //Debug.Log(board.squares[Mathf.Abs(currentSquare.row - 7) - i, currentSquare.column + i]);
-                        //            temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) - i, currentSquare.column + i]);
-                        //            i++;
-                        //        }
-                        //    }
-                        //}
-                        //else if (sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row - 1)
-                        //{
-                        //    //Case bottom-right
-                        //    int i = 1;
-                        //    if (!(sq.column == 7 || sq.row == 0))
-                        //    {
-                        //        while ((sq.column + i) < 8 && (Mathf.Abs(sq.row - 7) + (i - 1)) < 8)
-                        //        {
-                        //            temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) + i, currentSquare.column + i]);
-                        //            i++;
-                        //        }
-                        //    }
-                        //}
-                        //    else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row - 1)
-                        //    {
-                        //        //Case bottom-left
-                        //        int i = 1;
-                        //        if (!(sq.column == 0 || sq.row == 0))
-                        //        {
-                        //            while ((sq.column - i) >= 0 && (sq.row - i) >= 0)
-                        //            {
-                        //                temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) - i, currentSquare.column - i]);
-                        //                i++;
-                        //            }
-                        //        }
-                        //    }
-                        //    else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row + 1)
-                        //    {
-                        //        int i = 1;
-                        //        //Case top-left
-                        //        if (!(sq.column == 0 || sq.row == 7))
-                        //        {
-                        //            while ((sq.column - i) >= 0 && (sq.row + i) < 8)
-                        //            {
-                        //                temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) + i, currentSquare.column - i]);
-                        //                i++;
-                        //            }
-                        //        }
-                        //    }
                     }
                     break;
-                #endregion 
+                #endregion
+                #region Knight
+                case PieceType.Knight:
+
+                    foreach(Transform s in board.children)
+                    {
+                        Square sq = s.gameObject.GetComponent<Square>();
+
+                        if(currentSquare.row + 2 < 8 && sq.row == currentSquare.row + 2)
+                        {
+                            if(sq.column == currentSquare.column - 1 || sq.column == currentSquare.column + 1)
+                            {
+                                if (sq.GetComponent<Square>().occupied)
+                                {
+                                    if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                                    {
+                                        temp.Add(sq.gameObject.GetComponent<Square>());
+                                    }
+
+                                    continue;
+                                }
+
+                                temp.Add(sq);
+                            }
+                        }
+                        else if(currentSquare.column + 2 < 8 && sq.column == currentSquare.column + 2)
+                        {
+                            if(sq.row == currentSquare.row + 1 || sq.row == currentSquare.row - 1)
+                            {
+                                if (sq.GetComponent<Square>().occupied)
+                                {
+                                    if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                                    {
+                                        temp.Add(sq.gameObject.GetComponent<Square>());
+                                    }
+
+                                    continue;
+                                }
+
+                                temp.Add(sq);
+                            }
+                        }
+                        else if(currentSquare.row - 2 >= 0 && sq.row == currentSquare.row - 2)
+                        {
+                            if(sq.column == currentSquare.column + 1 || sq.column == currentSquare.column - 1)
+                            {
+                                if (sq.GetComponent<Square>().occupied)
+                                {
+                                    if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                                    {
+                                        temp.Add(sq.gameObject.GetComponent<Square>());
+                                    }
+
+                                    continue;
+                                }
+
+                                temp.Add(sq);
+                            }
+                        }
+                        else if(currentSquare.column - 2 >= 0 && sq.column == currentSquare.column - 2)
+                        {
+                            if(sq.row == currentSquare.row + 1 || sq.row == currentSquare.row - 1)
+                            {
+                                if (sq.GetComponent<Square>().occupied)
+                                {
+                                    if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                                    {
+                                        temp.Add(sq.gameObject.GetComponent<Square>());
+                                    }
+
+                                    continue;
+                                }
+
+                                temp.Add(sq);
+                            }
+                        }
+                    }
+                    break;
+                #endregion
                 #region Rook
                 case PieceType.Rook:
                     foreach (Transform sq in board.children)
@@ -458,6 +699,4 @@ public class Piece : MonoBehaviour
         temp.Clear();
         board.ClearLegal();
     }
-
-    //TODO: gotta update currentPiece and currentSquare on move
 }

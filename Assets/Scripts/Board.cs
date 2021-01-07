@@ -27,6 +27,8 @@ public class Board : MonoBehaviour
     {
         foreach (Square sq in legalSquares)
         {
+            sq.legalForSelectedPiece = true;
+
             sq.GetComponent<SpriteRenderer>().color = legalColor;
         }
     }
@@ -35,6 +37,8 @@ public class Board : MonoBehaviour
     {
         foreach (Square sq in squares)
         {
+            sq.legalForSelectedPiece = false;
+
             sq.GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
