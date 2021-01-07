@@ -57,7 +57,6 @@ public class Piece : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("You've clicked some mate, mate");
         ClearLegal();
 
         big = 0.1f;
@@ -437,7 +436,85 @@ public class Piece : MonoBehaviour
                         }
                     }
                     break;
-                #endregion 
+                #endregion
+                #region Knight
+                case PieceType.Knight:
+
+                    foreach(Transform s in board.children)
+                    {
+                        Square sq = s.gameObject.GetComponent<Square>();
+
+                        if(currentSquare.row + 2 < 8 && sq.row == currentSquare.row + 2)
+                        {
+                            if(sq.column == currentSquare.column - 1 || sq.column == currentSquare.column + 1)
+                            {
+                                if (sq.GetComponent<Square>().occupied)
+                                {
+                                    if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                                    {
+                                        temp.Add(sq.gameObject.GetComponent<Square>());
+                                    }
+
+                                    continue;
+                                }
+
+                                temp.Add(sq);
+                            }
+                        }
+                        else if(currentSquare.column + 2 < 8 && sq.column == currentSquare.column + 2)
+                        {
+                            if(sq.row == currentSquare.row + 1 || sq.row == currentSquare.row - 1)
+                            {
+                                if (sq.GetComponent<Square>().occupied)
+                                {
+                                    if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                                    {
+                                        temp.Add(sq.gameObject.GetComponent<Square>());
+                                    }
+
+                                    continue;
+                                }
+
+                                temp.Add(sq);
+                            }
+                        }
+                        else if(currentSquare.row - 2 >= 0 && sq.row == currentSquare.row - 2)
+                        {
+                            if(sq.column == currentSquare.column + 1 || sq.column == currentSquare.column - 1)
+                            {
+                                if (sq.GetComponent<Square>().occupied)
+                                {
+                                    if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                                    {
+                                        temp.Add(sq.gameObject.GetComponent<Square>());
+                                    }
+
+                                    continue;
+                                }
+
+                                temp.Add(sq);
+                            }
+                        }
+                        else if(currentSquare.column - 2 >= 0 && sq.column == currentSquare.column - 2)
+                        {
+                            if(sq.row == currentSquare.row + 1 || sq.row == currentSquare.row - 1)
+                            {
+                                if (sq.GetComponent<Square>().occupied)
+                                {
+                                    if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                                    {
+                                        temp.Add(sq.gameObject.GetComponent<Square>());
+                                    }
+
+                                    continue;
+                                }
+
+                                temp.Add(sq);
+                            }
+                        }
+                    }
+                    break;
+                #endregion
                 #region Rook
                 case PieceType.Rook:
                     foreach (Transform sq in board.children)
@@ -622,6 +699,4 @@ public class Piece : MonoBehaviour
         temp.Clear();
         board.ClearLegal();
     }
-
-    //TODO: gotta update currentPiece and currentSquare on move
 }
