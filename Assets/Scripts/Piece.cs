@@ -107,58 +107,135 @@ public class Piece : MonoBehaviour
                         }
                     }
 
+                    //Fine
+                    //Debug.Log("Current column:");
+                    //Debug.Log(currentSquare.column);
+                    //Debug.Log("Current row:");
+                    //Debug.Log(currentSquare.row);
+
                     foreach(Square sq in legalSquares)
                     {
                         //Four possibilities
-                        
-                        if(sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row + 1)
+                        //indicating squares works properly
+                        if(sq.column == currentSquare.column + 1 && sq.row == currentSquare.row + 1)
                         {
-                            //Case bottom-right
-                            int i = 1;
-                            if (!(sq.column == 7 || sq.row == 7))
+                            //Top right
+                            if (sq.column != 7 && sq.row != 7)
                             {
-                                while(sq.column + i < 8 && sq.row + i < 8)
+                                int i = 1;
+                                while(sq.column + i < 8 && sq.row + i < 8 && !board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].occupied)
                                 {
-                                    temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) + i, currentSquare.column + i]);
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
                                     i++;
                                 }
                             }
                         }
-                        else if(sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row - 1)
+                        else if(sq.column == currentSquare.column + 1 && sq.row == currentSquare.row - 1)
                         {
-                            //Case top-right
-                            int i = 1;
-                            if(!(sq.column == 7 || sq.row == 0))
+                            //Bottom right
+                            if(sq.column != 7 && sq.row != 0)
                             {
-                                while (sq.column + i < 8 && sq.row - i < 8) //TODO: ?? shouldn't it be >= 0
+                                int i = 1;
+                                while(sq.column + i < 8 && sq.row - i >= 0)
                                 {
-                                    temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) - i, currentSquare.column + i]);
-                                    i++;
-                                }
-                            }
-                        }
-                        else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row - 1)
-                        {
-                            //Case top-left
-                            int i = 1;
-                            if (!(sq.column == 0 || sq.row == 0))
-                            {
-                                while (sq.column - i >= 0 && sq.row - i >= 0)
-                                {
-                                    temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) - i, currentSquare.column - i]);
-                                    i++;
-                                }
-                            }
-                        }
-                        else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row + 1)
-                        {
-                            int i = 1;
-                            //Case top-right
-                            if (!(sq.column == 0 || sq.row == 7))
-                            {
+                                    if(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].occupied)
+                                    {
+                                        if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].currentPiece.white != this.white)
+                                        {
+                                            Debug.Log("wziu");
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
+                                        }
 
+                                        break;
+                                    }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
+                                    i++;
+                                }
                             }
                         }
+                        else if(sq.column == currentSquare.column - 1 && sq.row == currentSquare.row - 1)
+                        {
+                            //Bottom left
+                            if(sq.column != 0 && sq.row != 0)
+                            {
+                                int i = 1;
+                                while(sq.column - i >= 0 && sq.row - i >= 0 && !board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].occupied)
+                                {
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
+                                    i++;
+                                }
+                            }
+                        }
+                        else if(sq.column == currentSquare.column - 1 && sq.row == currentSquare.row + 1)
+                        {
+                            //Top left
+                            if (sq.column != 0 && sq.row != 7)
+                            {
+                                int i = 1;
+                                while (sq.column - i >= 0 && sq.row + i < 8 && !board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].occupied)
+                                {
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
+                                    i++;
+                                }
+                            }
+                        }
+
+
+
+                        //if(sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row + 1)
+                        //{
+                        //    //Case top-right
+                        //    //Debug.Log(sq);
+                        //    int i = 1;
+                        //    if (!(sq.column == 7 || sq.row == 7))
+                        //    {
+                        //        while((sq.column + i) < 8 && (Mathf.Abs(sq.row - 7) - (i - 1)) >= 0)
+                        //        {
+                        //            //Debug.Log(board.squares[Mathf.Abs(currentSquare.row - 7) - i, currentSquare.column + i]);
+                        //            temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) - i, currentSquare.column + i]);
+                        //            i++;
+                        //        }
+                        //    }
+                        //}
+                        //else if (sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row - 1)
+                        //{
+                        //    //Case bottom-right
+                        //    int i = 1;
+                        //    if (!(sq.column == 7 || sq.row == 0))
+                        //    {
+                        //        while ((sq.column + i) < 8 && (Mathf.Abs(sq.row - 7) + (i - 1)) < 8)
+                        //        {
+                        //            temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) + i, currentSquare.column + i]);
+                        //            i++;
+                        //        }
+                        //    }
+                        //}
+                        //    else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row - 1)
+                        //    {
+                        //        //Case bottom-left
+                        //        int i = 1;
+                        //        if (!(sq.column == 0 || sq.row == 0))
+                        //        {
+                        //            while ((sq.column - i) >= 0 && (sq.row - i) >= 0)
+                        //            {
+                        //                temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) - i, currentSquare.column - i]);
+                        //                i++;
+                        //            }
+                        //        }
+                        //    }
+                        //    else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row + 1)
+                        //    {
+                        //        int i = 1;
+                        //        //Case top-left
+                        //        if (!(sq.column == 0 || sq.row == 7))
+                        //        {
+                        //            while ((sq.column - i) >= 0 && (sq.row + i) < 8)
+                        //            {
+                        //                temp.Add(board.squares[Mathf.Abs(currentSquare.row - 7) + i, currentSquare.column - i]);
+                        //                i++;
+                        //            }
+                        //        }
+                        //    }
                     }
                     break;
                 #endregion 
