@@ -111,91 +111,88 @@ public class Piece : MonoBehaviour
                     {
                         Debug.Log("psiuu");
                         //If legal move is on the edge, it's the last in this direction anyway, so sort it out here
-                        if (sq.column != 0 && sq.column != 7 && sq.row != 0 && sq.row != 7)
+                        //Four possibilities: this square is top, left, bottom or right relatively to here
+                        if (sq.row == currentSquare.row)
                         {
-                            //Four possibilities: this square is top, left, bottom or right relatively to here
-                            if (sq.row == currentSquare.row)
+                            if (sq.column > currentSquare.column && sq.column != 7)
                             {
-                                if (sq.column > currentSquare.column)
+                                //Case right
+                                int i = 1;
+                                //Math.Abs is translation from chess notation (squares being counted from bottom-left) to normal notation (from top-left)
+                                //Basically while is iterating through legal moves (while condition indicates legal)
+                                //Ifs are checking if the sq is occupied, then if its diffrent color than current piece
+                                // if yes, then we add it to legal then break
+                                // if no, then we just break
+                                while (sq.column + i < 8)
                                 {
-                                    //Case right
-                                    int i = 1;
-                                    //Math.Abs is translation from chess notation (squares being counted from bottom-left) to normal notation (from top-left)
-                                    //Basically while is iterating through legal moves (while condition indicates legal)
-                                    //Ifs are checking if the sq is occupied, then if its diffrent color than current piece
-                                    // if yes, then we add it to legal then break
-                                    // if no, then we just break
-                                    while (sq.column + i < 8)
+                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
                                     {
-                                        if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                        if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white)
                                         {
-                                            if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white)
-                                            {
-                                                temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
-                                            }
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                        }
 
-                                            break;
-                                        }
-                                        temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
-                                        i++;
+                                        break;
                                     }
-                                }
-                                else
-                                {
-                                    //Case left
-                                    int i = -1;
-                                    while (sq.column + i >= 0)
-                                    {
-                                        if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
-                                        {
-                                            if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white)
-                                            {
-                                                temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
-                                            }
-                                            break;
-                                        }
-                                        temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
-                                        i--;
-                                    }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                    i++;
                                 }
                             }
-                            else
+                            else if (sq.column != 0)
                             {
-                                if (sq.row > currentSquare.row)
+                                //Case left
+                                int i = -1;
+                                while (sq.column + i >= 0)
                                 {
-                                    //Case up
-                                    int i = 1;
-                                    while (sq.row - i < 8)
+                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
                                     {
-                                        if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                        if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white)
                                         {
-                                            if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white)
-                                            {
-                                                temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
-                                            }
-                                            break;
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
                                         }
-                                        temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
-                                        i++;
+                                        break;
                                     }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                    i--;
                                 }
-                                else
+                            }
+                        }
+                        else
+                        {
+                            if (sq.row > currentSquare.row && sq.row != 7)
+                            {
+                                //Case up
+                                int i = 1;
+                                while (sq.row + i < 8)
                                 {
-                                    //Case bottom
-                                    int i = -1;
-                                    while (sq.row - i >= 0)
+                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
                                     {
-                                        if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                        if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white)
                                         {
-                                            if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white)
-                                            {
-                                                temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
-                                            }
-                                            break;
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
                                         }
-                                        temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
-                                        i--;
+                                        break;
                                     }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                    i++;
+                                }
+                            }
+                            else if (sq.row != 0)
+                            {
+                                //Case bottom
+                                int i = -1;
+                                while (sq.row + i >= 0)
+                                {
+                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                    {
+                                        if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white)
+                                        {
+                                            temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                        }
+                                        break;
+                                    }
+                                    temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                    i--;
                                 }
                             }
                         }
