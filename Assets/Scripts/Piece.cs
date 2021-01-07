@@ -20,10 +20,12 @@ public class Piece : MonoBehaviour
 
     public PieceType type;
 
-    bool selected = false;
+    //bool selected = false;
     public Square currentSquare;
     List<Square> legalSquares = new List<Square>();
     List<Square> temp = new List<Square>();
+
+    private float big = 0f;
 
     private void Start()
     {
@@ -41,6 +43,15 @@ public class Piece : MonoBehaviour
 
     private void Update()
     {
+        if(big > 0f)
+        {
+            gameObject.transform.localScale = new Vector2(1.1f, 1.1f);
+            big -= Time.deltaTime;
+        } 
+        else
+        {
+            gameObject.transform.localScale = new Vector2(1f, 1f);
+        }
         currentSquare.occupied = true;
     }
 
@@ -48,54 +59,62 @@ public class Piece : MonoBehaviour
     {
         ClearLegal();
 
-        selected = true;
+        big = 0.1f;
 
-        //Actual calculating legal moves
-        switch (type)
+        if (board.selectedPiece == this)
         {
-            case PieceType.King:
-                //For all squares
-                foreach (Transform sq in board.children)
-                {
-                    //This magnitude gives every square around (standard king's move)
-                    if ((sq.position - this.transform.position).sqrMagnitude <= 250f)
+            board.selectedPiece = null;
+        }
+        else
+        {
+            board.selectedPiece = this;
+
+            //Actual calculating legal moves
+            switch (type)
+            {
+                #region King
+                case PieceType.King:
+                    //For all squares
+                    foreach (Transform sq in board.children)
                     {
-                        if (sq.GetComponent<Square>().occupied)
+                        //This magnitude gives every square around (standard king's move)
+                        if ((sq.position - this.transform.position).sqrMagnitude <= 250f)
                         {
-                            if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                            if (sq.GetComponent<Square>().occupied)
                             {
-                                legalSquares.Add(sq.gameObject.GetComponent<Square>());
+                                if (sq.GetComponent<Square>().currentPiece.white != this.white)
+                                {
+                                    legalSquares.Add(sq.gameObject.GetComponent<Square>());
+                                }
+
+                                continue;
                             }
 
-                            continue;
+                            legalSquares.Add(sq.gameObject.GetComponent<Square>());
                         }
-
-                        legalSquares.Add(sq.gameObject.GetComponent<Square>());
                     }
-                }
 
-                break;
-
-            case PieceType.Rook:
-                foreach (Transform sq in board.children)
-                {
-                    //This magnitude gives squares top, bottom, left and right (relative to current)
-                    if ((sq.position - this.transform.position).sqrMagnitude <= 150f && !sq.GetComponent<Square>().occupied)
+                    break;
+                #endregion
+                #region Rook
+                case PieceType.Rook:
+                    foreach (Transform sq in board.children)
                     {
-                        legalSquares.Add(sq.gameObject.GetComponent<Square>());
-                    }
-                }
-
-                foreach(Square sq in legalSquares)
-                {
-                    Debug.Log("psiuu");
-                    //If legal move is on the edge, it's the last in this direction anyway, so sort it out here
-                    if(sq.column != 0 && sq.column != 7 && sq.row != 0 && sq.row != 7)
-                    {
-                        //Four possibilities: this square is top, left, bottom or right relatively to here
-                        if(sq.row == currentSquare.row)
+                        //This magnitude gives squares top, bottom, left and right (relative to current)
+                        if ((sq.position - this.transform.position).sqrMagnitude <= 150f && !sq.GetComponent<Square>().occupied)
                         {
-                            if(sq.column > currentSquare.column)
+                            legalSquares.Add(sq.gameObject.GetComponent<Square>());
+                        }
+                    }
+
+                    foreach (Square sq in legalSquares)
+                    {
+                        Debug.Log("psiuu");
+                        //If legal move is on the edge, it's the last in this direction anyway, so sort it out here
+                        //Four possibilities: this square is top, left, bottom or right relatively to here
+                        if (sq.row == currentSquare.row)
+                        {
+                            if (sq.column > currentSquare.column && sq.column != 7)
                             {
                                 //Case right
                                 int i = 1;
@@ -106,7 +125,7 @@ public class Piece : MonoBehaviour
                                 // if no, then we just break
                                 while (sq.column + i < 8)
                                 {
-                                    if(board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
                                     {
                                         if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white)
                                         {
@@ -119,15 +138,15 @@ public class Piece : MonoBehaviour
                                     i++;
                                 }
                             }
-                            else
+                            else if (sq.column != 0)
                             {
                                 //Case left
                                 int i = -1;
                                 while (sq.column + i >= 0)
                                 {
-                                    if(board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
                                     {
-                                        if(board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white)
+                                        if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white)
                                         {
                                             temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
                                         }
@@ -140,15 +159,15 @@ public class Piece : MonoBehaviour
                         }
                         else
                         {
-                            if (sq.row > currentSquare.row)
+                            if (sq.row > currentSquare.row && sq.row != 7)
                             {
                                 //Case up
                                 int i = 1;
-                                while (sq.row - i < 8)
+                                while (sq.row + i < 8)
                                 {
-                                    if(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
                                     {
-                                        if(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white)
+                                        if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white)
                                         {
                                             temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
                                         }
@@ -158,15 +177,15 @@ public class Piece : MonoBehaviour
                                     i++;
                                 }
                             }
-                            else
+                            else if (sq.row != 0)
                             {
                                 //Case bottom
                                 int i = -1;
-                                while (sq.row - i >= 0)
+                                while (sq.row + i >= 0)
                                 {
-                                    if(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
                                     {
-                                        if(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white)
+                                        if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white)
                                         {
                                             temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
                                         }
@@ -178,60 +197,57 @@ public class Piece : MonoBehaviour
                             }
                         }
                     }
-                }
 
-                break;
-
-            case PieceType.Pawn:
-                int j = 0;
-                foreach (Transform sq in board.children)
-                {
-                    if (this.white)
+                    break;
+                #endregion
+                #region Pawn
+                case PieceType.Pawn:
+                    int j = 0;
+                    foreach (Transform sq in board.children)
                     {
-                        //If first move (you can move 2 squares)
-                        //If pawn is in second row (can double move), second square !occupied, it's actually the square 2 ahead,                                it's in the same column                                         the square 1 ahead is not occupied
-                        //Overall: can move two squares ahead
-                        if(this.currentSquare.row == 1 && !sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().row == this.currentSquare.row + 2 && sq.GetComponent<Square>().column == this.currentSquare.column && !board.children[j + 8].GetComponent<Square>().occupied)
+                        if (this.white)
                         {
-                            legalSquares.Add(sq.GetComponent<Square>());
+                            //If first move (you can move 2 squares)
+                            //If pawn is in second row (can double move), second square !occupied, it's actually the square 2 ahead,                                it's in the same column                                         the square 1 ahead is not occupied
+                            //Overall: can move two squares ahead
+                            if (this.currentSquare.row == 1 && !sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().row == this.currentSquare.row + 2 && sq.GetComponent<Square>().column == this.currentSquare.column && !board.children[j + 8].GetComponent<Square>().occupied)
+                            {
+                                legalSquares.Add(sq.GetComponent<Square>());
+                            }
+                            //Square's one ahead,                                               it's in the same column,                                        is not occupied
+                            if (sq.GetComponent<Square>().row == this.currentSquare.row + 1 && sq.GetComponent<Square>().column == this.currentSquare.column && !sq.GetComponent<Square>().occupied)
+                            {
+                                legalSquares.Add(sq.GetComponent<Square>());
+                            }
                         }
-                        //Square's one ahead,                                               it's in the same column,                                        is not occupied
-                        if(sq.GetComponent<Square>().row == this.currentSquare.row + 1 && sq.GetComponent<Square>().column == this.currentSquare.column && !sq.GetComponent<Square>().occupied)
+                        else
                         {
-                            legalSquares.Add(sq.GetComponent<Square>());
+                            //Look above basically
+                            if (this.currentSquare.row == 6 && !sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().row == this.currentSquare.row - 2 && sq.GetComponent<Square>().column == this.currentSquare.column && !board.children[j - 8].GetComponent<Square>().occupied)
+                            {
+                                legalSquares.Add(sq.GetComponent<Square>());
+                            }
+                            if (sq.GetComponent<Square>().row == this.currentSquare.row - 1 && sq.GetComponent<Square>().column == this.currentSquare.column && !sq.GetComponent<Square>().occupied)
+                            {
+                                legalSquares.Add(sq.GetComponent<Square>());
+                            }
                         }
+
+                        j++;
                     }
-                    else
-                    {
-                        //Look above basically
-                        if(this.currentSquare.row == 6 && !sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().row == this.currentSquare.row - 2 && sq.GetComponent<Square>().column == this.currentSquare.column && !board.children[j - 8].GetComponent<Square>().occupied)
-                        {
-                            legalSquares.Add(sq.GetComponent<Square>());
-                        }
-                        if(sq.GetComponent<Square>().row == this.currentSquare.row - 1 && sq.GetComponent<Square>().column == this.currentSquare.column && !sq.GetComponent<Square>().occupied)
-                        {
-                            legalSquares.Add(sq.GetComponent<Square>());
-                        }
-                    }
 
-                    j++;
-                }
+                    break;
+                    #endregion
+            }
 
-                break;
+            foreach (Square sq in temp)
+            {
+                legalSquares.Add(sq);
+            }
+
+            // pass the legalSquares for board to color instead of doing it yourself
+            board.ColorLegal(legalSquares);
         }
-
-        foreach(Square sq in temp)
-        {
-            legalSquares.Add(sq);
-        }
-
-        // pass the legalSquares for board to color instead of doing it yourself
-        board.ColorLegal(legalSquares);
-
-        //foreach(Square sq in legalSquares)
-        //{
-        //    sq.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
-        //}
     }
 
     public void ClearLegal()
