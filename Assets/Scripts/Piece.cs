@@ -405,6 +405,15 @@ public class Piece : MonoBehaviour
                             {
                                 legalSquares.Add(sq.GetComponent<Square>());
                             }
+
+                            //Taking pieces
+                            if(sq.GetComponent<Square>().row == this.currentSquare.row + 1 && (sq.GetComponent<Square>().column == this.currentSquare.column + 1 || sq.GetComponent<Square>().column == this.currentSquare.column - 1))
+                            {
+                                if(sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().currentPiece.white != this.white)
+                                {
+                                    legalSquares.Add(sq.GetComponent<Square>());
+                                }
+                            }
                         }
                         else
                         {
@@ -416,6 +425,13 @@ public class Piece : MonoBehaviour
                             if (sq.GetComponent<Square>().row == this.currentSquare.row - 1 && sq.GetComponent<Square>().column == this.currentSquare.column && !sq.GetComponent<Square>().occupied)
                             {
                                 legalSquares.Add(sq.GetComponent<Square>());
+                            }
+                            if (sq.GetComponent<Square>().row == this.currentSquare.row - 1 && (sq.GetComponent<Square>().column == this.currentSquare.column + 1 || sq.GetComponent<Square>().column == this.currentSquare.column - 1))
+                            {
+                                if (sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().currentPiece.white != this.white)
+                                {
+                                    legalSquares.Add(sq.GetComponent<Square>());
+                                }
                             }
                         }
 
