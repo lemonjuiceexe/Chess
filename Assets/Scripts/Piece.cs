@@ -46,6 +46,8 @@ public class Piece : MonoBehaviour
 
     private void OnMouseDown()
     {
+        ClearLegal();
+
         selected = true;
 
         //Actual calculating legal moves
@@ -196,10 +198,20 @@ public class Piece : MonoBehaviour
             legalSquares.Add(sq);
         }
 
-        foreach(Square sq in legalSquares)
-        {
-            sq.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
-        }
+        // pass the legalSquares for board to color instead of doing it yourself
+        board.ColorLegal(legalSquares);
+
+        //foreach(Square sq in legalSquares)
+        //{
+        //    sq.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+        //}
+    }
+
+    public void ClearLegal()
+    {
+        legalSquares.Clear();
+        temp.Clear();
+        board.ClearLegal();
     }
 
     //TODO: gotta update currentPiece and currentSquare on move

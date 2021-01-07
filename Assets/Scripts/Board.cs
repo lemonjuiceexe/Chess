@@ -6,9 +6,10 @@ public class Board : MonoBehaviour
 {
     //2D array of squares, actually representing a board (8x8)
     public Square[,] squares = new Square[8, 8];
-
+    
     public Transform[] children;
 
+    public Color legalColor;
     private void Start()
     {
         for(int i = 0; i < 8; i++)
@@ -27,5 +28,21 @@ public class Board : MonoBehaviour
         //    }
         //    Debug.Log("ROW");
         //}
+    }
+
+    public void ColorLegal(List<Square> legalSquares)
+    {
+        foreach (Square sq in legalSquares)
+        {
+            sq.GetComponent<SpriteRenderer>().color = legalColor;
+        }
+    }
+
+    public void ClearLegal()
+    {
+        foreach (Square sq in squares)
+        {
+            sq.GetComponent<SpriteRenderer>().color = Color.white;
+        }
     }
 }
