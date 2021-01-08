@@ -31,7 +31,6 @@ public class Board : MonoBehaviour
         foreach (Square sq in legalSquares)
         {
             sq.legalForSelectedPiece = true;
-
             if (sq.occupied)
             {
                 sq.GetComponent<SpriteRenderer>().color = legalTakeColor;
@@ -40,6 +39,7 @@ public class Board : MonoBehaviour
             {
                 sq.GetComponent<SpriteRenderer>().color = legalColor;
             }
+
         }
     }
 
