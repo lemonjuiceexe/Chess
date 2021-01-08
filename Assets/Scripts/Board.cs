@@ -12,6 +12,8 @@ public class Board : MonoBehaviour
 
     public Color legalColor;
 
+    public float transitionSpeed = 0.1f; //set it in board, so we dont have to change in each and every square individually
+
     private void Start()
     {
         for(int i = 0; i < 8; i++)
