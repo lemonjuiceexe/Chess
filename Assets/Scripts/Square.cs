@@ -111,31 +111,49 @@ public class Square : MonoBehaviour
         }
     }
 
-    public void MovePiece()
+    //Return value indicates if piece was actually moved
+    public bool MovePiece()
     {
-        board.selectedPiece.currentSquare.currentPiece = null;
-        board.selectedPiece.currentSquare.occupied = false;
+        //If selected piece's on move
+        if(board.whiteOnMove == board.selectedPiece.white)
+        {
+            //Debug.Log(board.selectedPiece.white == board.whiteOnMove);
 
-        // old teleporting, without transition
-        //board.selectedPiece.transform.position = this.transform.position;
+            board.selectedPiece.currentSquare.currentPiece = null;
+            board.selectedPiece.currentSquare.occupied = false;
 
-        #region transition
-        //basically assigns every needed variable
-        startPos = board.selectedPiece.transform; //sets start and end positions
-        endPos = this.transform;
-        transPiece = board.selectedPiece.gameObject; // keeps the piece in memory since its erased from selectedPiece now
-        startTime = Time.time; // time when we started moving
-        dist = Vector3.Distance(startPos.position, endPos.position); //calculates transition distance
-                                                                     // sets info that we can now move the piece
-        transitioning = true;
-        #endregion
+            // old teleporting, without transition
+            //board.selectedPiece.transform.position = this.transform.position;
 
-        this.occupied = true;
-        board.selectedPiece.currentSquare = this;
-        this.currentPiece = board.selectedPiece;
+            #region transition
+            //basically assigns every needed variable
+            startPos = board.selectedPiece.transform; //sets start and end positions
+            endPos = this.transform;
+            transPiece = board.selectedPiece.gameObject; // keeps the piece in memory since its erased from selectedPiece now
+            startTime = Time.time; // time when we started moving
+            dist = Vector3.Distance(startPos.position, endPos.position); //calculates transition distance
+                                                                         // sets info that we can now move the piece
+            transitioning = true;
+            #endregion
 
-        board.selectedPiece = null;
+            this.occupied = true;
+            board.selectedPiece.currentSquare = this;
+            this.currentPiece = board.selectedPiece;
 
-        board.ClearLegal();
+            board.selectedPiece = null;
+
+            board.ClearLegal();
+
+            board.whiteOnMove = !board.whiteOnMove;
+
+            return true;
+        }
+        else
+        {
+            board.ClearLegal();
+            board.selectedPiece = null;
+
+            return false;
+        }
     }
 }

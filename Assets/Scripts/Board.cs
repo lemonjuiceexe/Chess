@@ -9,6 +9,7 @@ public class Board : MonoBehaviour
     public Transform[] children;
 
     public Piece selectedPiece;
+    public bool whiteOnMove = true;
 
     public Color legalColor;
     public Color legalTakeColor;
