@@ -8,8 +8,12 @@ public class Board : MonoBehaviour
     public Square[,] squares = new Square[8, 8];
     public Transform[] children;
 
+    public Camera cam;
+
     public Piece selectedPiece;
     public bool whiteOnMove = true;
+    //If it differs, the move happened in the very previous frame
+    public bool lastFrameWhiteOnMove = true;
 
     public Color legalColor;
     public Color legalTakeColor;
@@ -25,6 +29,11 @@ public class Board : MonoBehaviour
                 squares[i, j] = children[((i) * 8) + j].GetComponent<Square>();
             }
         }
+    }
+
+    private void LateUpdate()
+    {
+        lastFrameWhiteOnMove = whiteOnMove;
     }
 
     public void ColorLegal(List<Square> legalSquares)

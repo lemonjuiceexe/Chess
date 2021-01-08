@@ -11818,6 +11818,7 @@ MonoBehaviour:
   - {fileID: 847596728}
   - {fileID: 571951132}
   - {fileID: 1207985173}
+  cam: {fileID: 519420031}
   selectedPiece: {fileID: 0}
   whiteOnMove: 1
   legalColor: {r: 0.092196584, g: 1, b: 0, a: 0.49803922}

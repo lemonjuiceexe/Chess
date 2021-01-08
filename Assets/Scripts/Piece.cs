@@ -53,6 +53,12 @@ public class Piece : MonoBehaviour
             gameObject.transform.localScale = new Vector2(1f, 1f);
         }
         currentSquare.occupied = true;
+
+        //If the move just happened
+        if(board.whiteOnMove != board.lastFrameWhiteOnMove)
+        {
+            this.transform.Rotate(0, 0, 180);
+        }
     }
 
     private void OnMouseDown()

@@ -125,7 +125,7 @@ public class Square : MonoBehaviour
             // old teleporting, without transition
             //board.selectedPiece.transform.position = this.transform.position;
 
-            #region transition
+            #region Transition
             //basically assigns every needed variable
             startPos = board.selectedPiece.transform; //sets start and end positions
             endPos = this.transform;
@@ -134,6 +134,12 @@ public class Square : MonoBehaviour
             dist = Vector3.Distance(startPos.position, endPos.position); //calculates transition distance
                                                                          // sets info that we can now move the piece
             transitioning = true;
+            #endregion
+
+            #region Rotation
+
+            board.cam.transform.Rotate(0, 0, 180);
+
             #endregion
 
             this.occupied = true;
