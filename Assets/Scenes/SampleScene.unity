@@ -11820,7 +11820,7 @@ MonoBehaviour:
   - {fileID: 1207985173}
   selectedPiece: {fileID: 0}
   legalColor: {r: 0.092196584, g: 1, b: 0, a: 0.49803922}
-  legalTakeColor: {r: 0.43867922, g: 0.7881798, b: 1, a: 0}
+  legalTakeColor: {r: 0, g: 0.3630929, b: 1, a: 0.49803922}
   transitionSpeed: 100
 --- !u!114 &2001880201
 MonoBehaviour:
