@@ -11,6 +11,7 @@ public class Board : MonoBehaviour
     public Piece selectedPiece;
 
     public Color legalColor;
+    public Color legalTakeColor;
 
     public float transitionSpeed = 0.1f; //set it in board, so we dont have to change in each and every square individually
 
@@ -30,6 +31,12 @@ public class Board : MonoBehaviour
         foreach (Square sq in legalSquares)
         {
             sq.legalForSelectedPiece = true;
+
+            if(sq.occupied)
+            {
+                sq.GetComponent<SpriteRenderer>().color = legalTakeColor;
+                continue;
+            }
 
             sq.GetComponent<SpriteRenderer>().color = legalColor;
         }

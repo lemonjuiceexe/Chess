@@ -57,6 +57,13 @@ public class Piece : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if(currentSquare.legalForSelectedPiece)
+        {
+            currentSquare.MovePiece();
+            GameObject.Destroy(this.gameObject);
+            return;
+        }
+
         ClearLegal();
 
         big = 0.1f;
