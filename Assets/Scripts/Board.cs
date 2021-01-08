@@ -31,14 +31,15 @@ public class Board : MonoBehaviour
         foreach (Square sq in legalSquares)
         {
             sq.legalForSelectedPiece = true;
-
-            if(sq.occupied)
+            if (sq.occupied)
             {
                 sq.GetComponent<SpriteRenderer>().color = legalTakeColor;
-                continue;
+            }
+            else
+            {
+                sq.GetComponent<SpriteRenderer>().color = legalColor;
             }
 
-            sq.GetComponent<SpriteRenderer>().color = legalColor;
         }
     }
 
