@@ -107,31 +107,35 @@ public class Square : MonoBehaviour
     {
         if (legalForSelectedPiece)
         {
-            board.selectedPiece.currentSquare.currentPiece = null;
-            board.selectedPiece.currentSquare.occupied = false;
-
-            // old teleporting, without transition
-            //board.selectedPiece.transform.position = this.transform.position;
-
-            #region transition
-            //basically assigns every needed variable
-            startPos = board.selectedPiece.transform; //sets start and end positions
-            endPos = this.transform; 
-            transPiece = board.selectedPiece.gameObject; // keeps the piece in memory since its erased from selectedPiece now
-            startTime = Time.time; // time when we started moving
-            dist = Vector3.Distance(startPos.position, endPos.position); //calculates transition distance
-            // sets info that we can now move the piece
-            transitioning = true;
-            #endregion
-
-
-            this.occupied = true;
-            board.selectedPiece.currentSquare = this;
-            this.currentPiece = board.selectedPiece;
-
-            board.selectedPiece = null;
-
-            board.ClearLegal();
+            MovePiece();
         }
+    }
+
+    public void MovePiece()
+    {
+        board.selectedPiece.currentSquare.currentPiece = null;
+        board.selectedPiece.currentSquare.occupied = false;
+
+        // old teleporting, without transition
+        //board.selectedPiece.transform.position = this.transform.position;
+
+        #region transition
+        //basically assigns every needed variable
+        startPos = board.selectedPiece.transform; //sets start and end positions
+        endPos = this.transform;
+        transPiece = board.selectedPiece.gameObject; // keeps the piece in memory since its erased from selectedPiece now
+        startTime = Time.time; // time when we started moving
+        dist = Vector3.Distance(startPos.position, endPos.position); //calculates transition distance
+                                                                     // sets info that we can now move the piece
+        transitioning = true;
+        #endregion
+
+        this.occupied = true;
+        board.selectedPiece.currentSquare = this;
+        this.currentPiece = board.selectedPiece;
+
+        board.selectedPiece = null;
+
+        board.ClearLegal();
     }
 }
