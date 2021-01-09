@@ -88,19 +88,19 @@ public class UIManager : MonoBehaviour
 
     private void ReadSettings()
     {
-        this.disableBoardFlip = PlayerPrefs.GetInt("disableBoardFlip", 0) == 1 ? true : false;
-        this.disableForcedColorMoves = PlayerPrefs.GetInt("disableForcedColorMoves", 0) == 1 ? true : false;
+        this.disableBoardFlip = PlayerPrefs.GetInt("disableBoardFlip", 0) == 1;
+        this.disableForcedColorMoves = PlayerPrefs.GetInt("disableForcedColorMoves", 0) == 1;
     }
 
     private Texture2D MakeTex(Color col)
     {
-        Color[] px = new Color[4];
+        Color32[] px = new Color32[4];
         for(int i = 0; i < 4; i++)
         {
             px[i] = col;
         }
         Texture2D result = new Texture2D(2, 2);
-        result.SetPixels(px);
+        result.SetPixels32(px);
         result.Apply();
         return result;
     }

@@ -41,8 +41,8 @@ public class Board : MonoBehaviour
             }
         }
 
-        disableForcedColorMoves = PlayerPrefs.GetInt("disableForcedColorMoves", 0) == 1 ? true : false;
-        disableTurnBoard = PlayerPrefs.GetInt("disableBoardFlip", 0) == 1 ? true : false;
+        disableForcedColorMoves = PlayerPrefs.GetInt("disableForcedColorMoves", 0) == 1;
+        disableTurnBoard = PlayerPrefs.GetInt("disableBoardFlip", 0) == 1;
     }
 
     private void LateUpdate()
