@@ -8,13 +8,15 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Board board;
     private bool disableForcedColorMoves = false;
-    public float timeToBoardPush = 10f;
+    private bool disableBoardFlip = false; 
+    public float timeToBoardPush = 5f;
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Tilde) || Input.GetKeyDown(KeyCode.BackQuote))
         {
             consoleOpen = !consoleOpen;
+            PushSettingsToBoard();
         }
 
         if(timeToBoardPush > 0f)
@@ -23,7 +25,8 @@ public class UIManager : MonoBehaviour
         } 
         else
         {
-            board.disableForcedColorMoves = this.disableForcedColorMoves;
+            PushSettingsToBoard();
+            timeToBoardPush = 5f;
         }
     }
 
@@ -33,6 +36,13 @@ public class UIManager : MonoBehaviour
         {
             GUI.Box(new Rect(10, 10, 200, 90), "Debug Menu");
             disableForcedColorMoves = GUI.Toggle(new Rect(12, 30, 200, 20), disableForcedColorMoves, "Disable forced color moves");
+            disableBoardFlip = GUI.Toggle(new Rect(12, 60, 200, 20), disableBoardFlip, "Disable board flip");
         }
+    }
+
+    private void PushSettingsToBoard()
+    {
+        board.disableForcedColorMoves = this.disableForcedColorMoves;
+        board.turnBoard = !this.disableBoardFlip;
     }
 }
