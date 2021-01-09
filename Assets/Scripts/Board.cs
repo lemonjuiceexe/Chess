@@ -11,6 +11,7 @@ public class Board : MonoBehaviour
     public Camera cam;
 
     public Piece selectedPiece;
+    public bool turnBoard = true;
     public bool whiteOnMove = true;
     //If it differs, the move happened in the very previous frame
     public bool lastFrameWhiteOnMove = true;

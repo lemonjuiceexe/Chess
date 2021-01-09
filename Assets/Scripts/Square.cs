@@ -136,11 +136,11 @@ public class Square : MonoBehaviour
             transitioning = true;
             #endregion
 
-            #region Rotation
-
-            board.cam.transform.Rotate(0, 0, 180);
-
-            #endregion
+            //Board rotation
+            if (board.turnBoard)
+            {
+                board.cam.transform.Rotate(0, 0, 180);
+            }
 
             this.occupied = true;
             board.selectedPiece.currentSquare = this;
