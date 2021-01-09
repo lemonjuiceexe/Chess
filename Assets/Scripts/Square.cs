@@ -105,6 +105,8 @@ public class Square : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Debug.Log("Climck square");
+
         if (legalForSelectedPiece)
         {
             MovePiece();
@@ -117,8 +119,6 @@ public class Square : MonoBehaviour
         //If selected piece's on move
         if(board.whiteOnMove == board.selectedPiece.white)
         {
-            //Debug.Log(board.selectedPiece.white == board.whiteOnMove);
-
             board.selectedPiece.currentSquare.currentPiece = null;
             board.selectedPiece.currentSquare.occupied = false;
 
