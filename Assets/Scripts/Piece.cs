@@ -33,6 +33,8 @@ public class Piece : MonoBehaviour
         {
             //If a piece is close to a square - if it's on the square
             if((sq.position - this.transform.position).sqrMagnitude < 1f)
+            //This thing you wanted, but not working lmao
+            //if(Mathf.Pow(sq.position.x - this.transform.position.x, 2) < 1f && Mathf.Pow(sq.position.y - this.transform.position.y, 2) < 1f)
             {
                 currentSquare = sq.gameObject.GetComponent<Square>();
                 currentSquare.currentPiece = this;
@@ -63,11 +65,15 @@ public class Piece : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Debug.Log("Climck piece");
+
         //Taking
         if(currentSquare.legalForSelectedPiece)
         {
+            Debug.Log("Take");
             if (currentSquare.MovePiece())
             {
+                Debug.Log("But delete here");
                 Destroy(this.gameObject);
             }
             
