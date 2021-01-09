@@ -4371,7 +4371,7 @@ GameObject:
   - component: {fileID: 605542731}
   - component: {fileID: 605542733}
   - component: {fileID: 605542732}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: board_end_ref_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4411,7 +4411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.18564281, b: 0, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8928,7 +8928,7 @@ GameObject:
   - component: {fileID: 1375120590}
   - component: {fileID: 1375120592}
   - component: {fileID: 1375120591}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: board_end_ref_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8968,7 +8968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.18564281, b: 0, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
