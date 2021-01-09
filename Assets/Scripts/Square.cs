@@ -116,8 +116,8 @@ public class Square : MonoBehaviour
     //Return value indicates if piece was actually moved
     public bool MovePiece()
     {
-        //If selected piece's on move
-        if(board.whiteOnMove == board.selectedPiece.white)
+        //If selected piece's on move (or if testing is disabled)
+        if(board.whiteOnMove == board.selectedPiece.white || board.disableForcedColorMoves)
         {
             board.selectedPiece.currentSquare.currentPiece = null;
             board.selectedPiece.currentSquare.occupied = false;
