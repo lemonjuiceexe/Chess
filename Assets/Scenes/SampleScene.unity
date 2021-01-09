@@ -472,6 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
@@ -899,6 +900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -1026,6 +1028,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
@@ -1382,6 +1385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
@@ -1915,6 +1919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -2042,6 +2047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -2977,6 +2983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -3949,6 +3956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -4911,6 +4919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -5407,6 +5416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
@@ -5534,6 +5544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
@@ -5763,6 +5774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -5915,6 +5927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
@@ -6042,6 +6055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -6296,6 +6310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -6804,6 +6819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 1
   currentSquare: {fileID: 0}
@@ -7861,6 +7877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
@@ -8267,6 +8284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -8369,6 +8387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
@@ -9102,6 +9121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -9229,6 +9249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -9610,6 +9631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
@@ -10037,6 +10059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -10140,6 +10163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 1
   currentSquare: {fileID: 0}
@@ -10318,6 +10342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
@@ -10445,6 +10470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -11182,6 +11208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 0
   currentSquare: {fileID: 0}
@@ -11309,6 +11336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
@@ -11461,6 +11489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -11969,6 +11998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
@@ -12172,15 +12202,48 @@ MonoBehaviour:
   - {fileID: 847596728}
   - {fileID: 571951132}
   - {fileID: 1207985173}
+  pieces:
+  - {fileID: 1780927518}
+  - {fileID: 891201140}
+  - {fileID: 232932210}
+  - {fileID: 11706849}
+  - {fileID: 1598379280}
+  - {fileID: 718336533}
+  - {fileID: 1441894309}
+  - {fileID: 1786523481}
+  - {fileID: 127442341}
+  - {fileID: 1547671698}
+  - {fileID: 673655360}
+  - {fileID: 769267951}
+  - {fileID: 1376335188}
+  - {fileID: 391790887}
+  - {fileID: 300207268}
+  - {fileID: 1614313476}
+  - {fileID: 2072622947}
+  - {fileID: 1579968252}
+  - {fileID: 2011586234}
+  - {fileID: 754782205}
+  - {fileID: 1298946609}
+  - {fileID: 171422080}
+  - {fileID: 1142360435}
+  - {fileID: 706669438}
+  - {fileID: 566534396}
+  - {fileID: 1796728126}
+  - {fileID: 288552449}
+  - {fileID: 1379248779}
+  - {fileID: 739083596}
+  - {fileID: 1292567676}
+  - {fileID: 1948499432}
+  - {fileID: 811979609}
   cam: {fileID: 519420031}
   selectedPiece: {fileID: 0}
-  turnBoard: 1
   whiteOnMove: 1
+  transitionSpeed: 100
   lastFrameWhiteOnMove: 1
   legalColor: {r: 0.092196584, g: 1, b: 0, a: 0.49803922}
   legalTakeColor: {r: 0, g: 0.3630929, b: 1, a: 0.49803922}
-  transitionSpeed: 100
   disableForcedColorMoves: 0
+  turnBoard: 1
 --- !u!114 &2001880201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12293,6 +12356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
@@ -12733,6 +12797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 0
   currentSquare: {fileID: 0}

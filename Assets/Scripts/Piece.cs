@@ -15,6 +15,7 @@ public class Piece : MonoBehaviour
     }
     //0 - black, 1 - white
     public bool white;
+    public bool hasMoved = false;
 
     public Board board;
 
@@ -24,6 +25,8 @@ public class Piece : MonoBehaviour
     public Square currentSquare;
     public List<Square> legalSquares = new List<Square>();
     List<Square> temp = new List<Square>();
+    [SerializeField]
+    List<Square> illegalSquares = new List<Square>();
 
     private float big = 0f;
 
@@ -55,7 +58,7 @@ public class Piece : MonoBehaviour
         currentSquare.occupied = true;
 
         //If the move just happened
-        if(board.whiteOnMove != board.lastFrameWhiteOnMove && board.turnBoard)
+        if(board.whiteOnMove != board.lastFrameWhiteOnMove && !board.disableTurnBoard)
         {
             this.transform.Rotate(0, 0, 180);
         }
@@ -63,15 +66,11 @@ public class Piece : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Climck piece");
-
         //Taking
         if(currentSquare.legalForSelectedPiece)
         {
-            Debug.Log("Take");
             if (currentSquare.MovePiece())
             {
-                Debug.Log("But delete here");
                 Destroy(this.gameObject);
             }
             
@@ -114,6 +113,47 @@ public class Piece : MonoBehaviour
                             legalSquares.Add(sq.gameObject.GetComponent<Square>());
                         }
                     }
+
+                    //Subtracting all attacked squares
+                    //in board.pieces array white pieces are on indexes 0-15 inclusive, and black 16-31 inclusive
+                    if (!this.white)
+                    {
+                        for(int i = 0; i < 16; i++)
+                        {
+                            foreach(Square iS in board.pieces[i].GetComponent<Piece>().legalSquares)
+                            {
+                                Debug.Log("bulbulbul");
+                                if (this.legalSquares.Contains(iS))
+                                {
+                                    legalSquares.Remove(iS);
+                                }
+                                //illegalSquares.Add(iS);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 16; i < 31; i++)
+                        {
+                            foreach (Square iS in board.pieces[i].GetComponent<Piece>().legalSquares)
+                            {
+                                Debug.Log("bulbulbul");
+                                if (this.legalSquares.Contains(iS))
+                                {
+                                    legalSquares.Remove(iS);
+                                }
+                                //illegalSquares.Add(iS);
+                            }
+                        }
+                    }
+
+                    //foreach(Square iS in illegalSquares)
+                    //{
+                    //    if (legalSquares.Contains(iS))
+                    //    {
+                    //        legalSquares.Remove(iS);
+                    //    }
+                    //}
 
                     break;
                 #endregion
