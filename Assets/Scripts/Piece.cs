@@ -55,7 +55,7 @@ public class Piece : MonoBehaviour
         currentSquare.occupied = true;
 
         //If the move just happened
-        if(board.whiteOnMove != board.lastFrameWhiteOnMove)
+        if(board.whiteOnMove != board.lastFrameWhiteOnMove && board.turnBoard)
         {
             this.transform.Rotate(0, 0, 180);
         }
