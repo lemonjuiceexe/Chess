@@ -31,10 +31,8 @@ public class Piece : MonoBehaviour
     {
         foreach(Transform sq in board.children)
         {
-            //If a piece is close to a square - if it's on the square
-            if((sq.position - this.transform.position).sqrMagnitude < 1f)
-            //This thing you wanted, but not working lmao
-            //if(Mathf.Pow(sq.position.x - this.transform.position.x, 2) < 1f && Mathf.Pow(sq.position.y - this.transform.position.y, 2) < 1f)
+            //If a piece is close to a square - if it's on the square (checking only the x and y, since z is diffrent)
+            if((new Vector2(sq.position.x, sq.position.y) - new Vector2(this.transform.position.x, this.transform.position.y)).sqrMagnitude < 0.1f)
             {
                 currentSquare = sq.gameObject.GetComponent<Square>();
                 currentSquare.currentPiece = this;
