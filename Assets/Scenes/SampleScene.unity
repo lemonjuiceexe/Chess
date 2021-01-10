@@ -12232,38 +12232,38 @@ MonoBehaviour:
   - {fileID: 571951132}
   - {fileID: 1207985173}
   pieces:
-  - {fileID: 1780927518}
-  - {fileID: 891201140}
-  - {fileID: 232932210}
-  - {fileID: 11706849}
-  - {fileID: 1598379280}
-  - {fileID: 718336533}
-  - {fileID: 1441894309}
-  - {fileID: 1786523481}
-  - {fileID: 127442341}
-  - {fileID: 1547671698}
-  - {fileID: 673655360}
-  - {fileID: 769267951}
-  - {fileID: 1376335188}
-  - {fileID: 391790887}
-  - {fileID: 300207268}
-  - {fileID: 1614313476}
-  - {fileID: 2072622947}
-  - {fileID: 1579968252}
-  - {fileID: 2011586234}
-  - {fileID: 754782205}
-  - {fileID: 1298946609}
-  - {fileID: 171422080}
-  - {fileID: 1142360435}
-  - {fileID: 706669438}
-  - {fileID: 566534396}
-  - {fileID: 1796728126}
-  - {fileID: 288552449}
-  - {fileID: 1379248779}
-  - {fileID: 739083596}
-  - {fileID: 1292567676}
-  - {fileID: 1948499432}
-  - {fileID: 811979609}
+  - {fileID: 1780927520}
+  - {fileID: 891201142}
+  - {fileID: 232932212}
+  - {fileID: 11706851}
+  - {fileID: 1598379282}
+  - {fileID: 718336535}
+  - {fileID: 1441894311}
+  - {fileID: 1786523483}
+  - {fileID: 127442343}
+  - {fileID: 1547671700}
+  - {fileID: 673655362}
+  - {fileID: 769267953}
+  - {fileID: 1376335190}
+  - {fileID: 391790889}
+  - {fileID: 300207270}
+  - {fileID: 1614313478}
+  - {fileID: 2072622950}
+  - {fileID: 1579968254}
+  - {fileID: 2011586236}
+  - {fileID: 754782207}
+  - {fileID: 1298946611}
+  - {fileID: 171422082}
+  - {fileID: 1142360437}
+  - {fileID: 706669440}
+  - {fileID: 566534398}
+  - {fileID: 1796728128}
+  - {fileID: 288552451}
+  - {fileID: 1379248781}
+  - {fileID: 739083598}
+  - {fileID: 1292567678}
+  - {fileID: 1948499434}
+  - {fileID: 811979611}
   cam: {fileID: 519420031}
   selectedPiece: {fileID: 0}
   whiteOnMove: 1

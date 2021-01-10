@@ -104,7 +104,7 @@ public class Piece : MonoBehaviour
         board.ClearLegal();
     }
 
-    private List<Square> CalculateLegalMoves(Piece piece)
+    public List<Square> CalculateLegalMoves(Piece piece, bool calcFullKing = true)
     {
         switch (piece.type)
         {
@@ -120,31 +120,39 @@ public class Piece : MonoBehaviour
                         {
                             if (sq.GetComponent<Square>().currentPiece.white != piece.white)
                             {
-                                piece.legalSquares.Add(sq.gameObject.GetComponent<Square>());
+                                piece.temp.Add(sq.gameObject.GetComponent<Square>());
                             }
 
                             continue;
                         }
 
-                        piece.legalSquares.Add(sq.gameObject.GetComponent<Square>());
+                        piece.temp.Add(sq.gameObject.GetComponent<Square>());
                     }
                 }
 
+                List<Square> tempT = new List<Square>();
+
                 //TODO: King will be able to take a piece which is defended, as defended piece is not a legal move for the defending one
-                //for (int i = (!piece.white ? 0 : 16); i < (!piece.white ? 16 : 32); i++)
-                //{
-                //    Piece p = board.pieces[i]; //shorthand
-                //    foreach (Square iS in p.legalSquares)
-                //    {
-                //        foreach (Square lS in piece.legalSquares)
-                //        {
-                //            if (iS == lS)
-                //            {
-                //                piece.legalSquares.Remove(lS);
-                //            }
-                //        }
-                //    }
-                //}
+                if (calcFullKing)
+                {
+                    //For all enemy pieces
+                    for (int i = (!piece.white ? 0 : 16); i < (!piece.white ? 16 : 32); i++)
+                    {
+                        Piece p = board.pieces[i]; //shorthand
+                        
+                        tempT = CalculateLegalMoves(p, false);
+                        foreach(Square s in tempT)
+                        {
+                            Debug.Log(s); //s is the new F
+                            if (piece.temp.Contains(s))
+                            {
+                                piece.temp.Remove(s);
+                            }
+                        }
+                    }
+                }
+
+                legalSquares.Clear();
 
                 break;
             #endregion
