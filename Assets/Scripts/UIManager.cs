@@ -21,22 +21,10 @@ public class UIManager : MonoBehaviour
             }
             consoleOpen = !consoleOpen;
         }
-
-        //if(timeToBoardPush > 0f)
-        //{
-        //    timeToBoardPush -= Time.deltaTime;
-        //} 
-        //else
-        //{
-        //    PushSettingsToBoard();
-        //    timeToBoardPush = 5f;
-        //}
     }
 
     private void OnGUI()
     {
-        //ReadSettings();
-
         if(consoleOpen)
         {
             GUI.Box(new Rect(10, 10, 200, 90), "Debug Menu");
@@ -46,27 +34,29 @@ public class UIManager : MonoBehaviour
             green.normal.background = MakeTex(/*2, 2,*/ Color.green);
             red.normal.background = MakeTex(/*2, 2,*/ Color.red);
             #endregion
-            //disableForcedColorMoves = GUI.Toggle(new Rect(12, 30, 200, 20), disableForcedColorMoves, "Disable forced color moves");
-            //disableBoardFlip = GUI.Toggle(new Rect(12, 60, 200, 20), disableBoardFlip, "Disable board flip");
+            //Button for forced moves
             if (GUI.Button(new Rect(12, 30, 160, 20), "Forced color moves"))
             {
                 disableForcedColorMoves = !disableForcedColorMoves;
                 PushSettingsToBoard();
             }
+            //Colorful boxes for forced moves
             if (!board.disableForcedColorMoves)
             {
                 GUI.Box(new Rect(185, 30, 20, 20), " ", green);
             }
-            else
+    
             {
                 GUI.Box(new Rect(185, 30, 20, 20), " ", red);
             }
 
+            //Button for board flip
             if (GUI.Button(new Rect(12, 55, 160, 20), "Board flip"))
             {
                 disableBoardFlip = !disableBoardFlip;
                 PushSettingsToBoard();
             }
+            //Colorful boxes for board flip
             if (!board.disableTurnBoard)
             {
                 GUI.Box(new Rect(185, 55, 20, 20), " ", green);

@@ -114,46 +114,7 @@ public class Piece : MonoBehaviour
                         }
                     }
 
-                    //Subtracting all attacked squares
-                    //in board.pieces array white pieces are on indexes 0-15 inclusive, and black 16-31 inclusive
-                    if (!this.white)
-                    {
-                        for(int i = 0; i < 16; i++)
-                        {
-                            foreach(Square iS in board.pieces[i].GetComponent<Piece>().legalSquares)
-                            {
-                                Debug.Log("bulbulbul");
-                                if (this.legalSquares.Contains(iS))
-                                {
-                                    legalSquares.Remove(iS);
-                                }
-                                //illegalSquares.Add(iS);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 16; i < 31; i++)
-                        {
-                            foreach (Square iS in board.pieces[i].GetComponent<Piece>().legalSquares)
-                            {
-                                Debug.Log("bulbulbul");
-                                if (this.legalSquares.Contains(iS))
-                                {
-                                    legalSquares.Remove(iS);
-                                }
-                                //illegalSquares.Add(iS);
-                            }
-                        }
-                    }
-
-                    //foreach(Square iS in illegalSquares)
-                    //{
-                    //    if (legalSquares.Contains(iS))
-                    //    {
-                    //        legalSquares.Remove(iS);
-                    //    }
-                    //}
+                    //TODO: King will be able to take a piece which is defended, as defended piece is not a legal move for the defending one
 
                     break;
                 #endregion
