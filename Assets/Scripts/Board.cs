@@ -4,25 +4,31 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    
     //2D array of squares, actually representing a board (8x8)
     public Square[,] squares = new Square[8, 8];
+    [Header("Pieces and squares arrays")]
     public Transform[] children;
+    public Transform[] pieces;
 
+    [Header("Gameobjects references")]
     public Camera cam;
 
+    [Header("Game management")]
     public Piece selectedPiece;
-    public bool turnBoard = true;
     public bool whiteOnMove = true;
+    public float transitionSpeed = 0.1f;
     //If it differs, the move happened in the very previous frame
     public bool lastFrameWhiteOnMove = true;
 
+    [Header("Colours")]
     public Color legalColor;
     public Color legalTakeColor;
 
-    public float transitionSpeed = 0.1f; //set it in board, so we dont have to change in each and every square individually
-
     //debug stuff
-    public bool disableForcedColorMoves = false;
+    [Header("Debug variables")]
+    public bool disableForcedColorMoves;
+    public bool disableTurnBoard;
 
 
     private void Start()
@@ -34,6 +40,9 @@ public class Board : MonoBehaviour
                 squares[i, j] = children[((i) * 8) + j].GetComponent<Square>();
             }
         }
+
+        disableForcedColorMoves = PlayerPrefs.GetInt("disableForcedColorMoves", 0) == 1;
+        disableTurnBoard = PlayerPrefs.GetInt("disableBoardFlip", 0) == 1;
     }
 
     private void LateUpdate()

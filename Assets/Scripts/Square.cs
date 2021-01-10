@@ -105,8 +105,6 @@ public class Square : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Climck square");
-
         if (legalForSelectedPiece)
         {
             MovePiece();
@@ -119,6 +117,11 @@ public class Square : MonoBehaviour
         //If selected piece's on move (or if testing is disabled)
         if(board.whiteOnMove == board.selectedPiece.white || board.disableForcedColorMoves)
         {
+            if (!board.selectedPiece.hasMoved)
+            {
+                board.selectedPiece.hasMoved = true;
+            }
+
             board.selectedPiece.currentSquare.currentPiece = null;
             board.selectedPiece.currentSquare.occupied = false;
 
@@ -137,7 +140,7 @@ public class Square : MonoBehaviour
             #endregion
 
             //Board rotation
-            if (board.turnBoard)
+            if (!board.disableTurnBoard)
             {
                 board.cam.transform.Rotate(0, 0, 180);
             }

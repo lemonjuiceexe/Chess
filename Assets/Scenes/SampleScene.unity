@@ -472,10 +472,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &11706852
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -899,10 +901,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &127442344
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1026,10 +1030,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &171422083
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1382,10 +1388,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!212 &232932213
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1915,10 +1923,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &288552452
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2042,10 +2052,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &300207271
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2977,10 +2989,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &391790890
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3949,10 +3963,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &566534399
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4911,10 +4927,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &673655363
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5055,7 +5073,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   board: {fileID: 2001880200}
-  timeToBoardPush: 1
 --- !u!1 &696369215
 GameObject:
   m_ObjectHideFlags: 0
@@ -5407,10 +5424,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &706669441
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5534,10 +5553,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &718336536
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5763,10 +5784,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!212 &739083599
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5915,10 +5938,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &754782208
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6042,10 +6067,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &769267954
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6296,10 +6323,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &811979612
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6804,10 +6833,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 1
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &891201143
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7861,10 +7892,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!212 &1142360438
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8267,10 +8300,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &1292567679
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8369,10 +8404,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!212 &1298946612
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9102,10 +9139,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &1376335191
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9229,10 +9268,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &1379248782
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9610,10 +9651,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &1441894312
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10037,10 +10080,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &1547671701
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10140,10 +10185,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 1
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &1579968255
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10318,10 +10365,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &1598379283
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10445,10 +10494,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &1614313479
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11182,10 +11233,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 0
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!212 &1780927521
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11309,10 +11362,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 1
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!212 &1786523484
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11461,10 +11516,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &1796728129
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11969,10 +12026,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &1948499435
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12172,15 +12231,48 @@ MonoBehaviour:
   - {fileID: 847596728}
   - {fileID: 571951132}
   - {fileID: 1207985173}
+  pieces:
+  - {fileID: 1780927518}
+  - {fileID: 891201140}
+  - {fileID: 232932210}
+  - {fileID: 11706849}
+  - {fileID: 1598379280}
+  - {fileID: 718336533}
+  - {fileID: 1441894309}
+  - {fileID: 1786523481}
+  - {fileID: 127442341}
+  - {fileID: 1547671698}
+  - {fileID: 673655360}
+  - {fileID: 769267951}
+  - {fileID: 1376335188}
+  - {fileID: 391790887}
+  - {fileID: 300207268}
+  - {fileID: 1614313476}
+  - {fileID: 2072622947}
+  - {fileID: 1579968252}
+  - {fileID: 2011586234}
+  - {fileID: 754782205}
+  - {fileID: 1298946609}
+  - {fileID: 171422080}
+  - {fileID: 1142360435}
+  - {fileID: 706669438}
+  - {fileID: 566534396}
+  - {fileID: 1796728126}
+  - {fileID: 288552449}
+  - {fileID: 1379248779}
+  - {fileID: 739083596}
+  - {fileID: 1292567676}
+  - {fileID: 1948499432}
+  - {fileID: 811979609}
   cam: {fileID: 519420031}
   selectedPiece: {fileID: 0}
-  turnBoard: 1
   whiteOnMove: 1
+  transitionSpeed: 100
   lastFrameWhiteOnMove: 1
   legalColor: {r: 0.092196584, g: 1, b: 0, a: 0.49803922}
   legalTakeColor: {r: 0, g: 0.3630929, b: 1, a: 0.49803922}
-  transitionSpeed: 100
   disableForcedColorMoves: 0
+  disableTurnBoard: 0
 --- !u!114 &2001880201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12293,10 +12385,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &2011586237
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12637,7 +12731,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072622946}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 35, z: 0}
+  m_LocalPosition: {x: -5, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 389683639}
@@ -12733,10 +12827,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   white: 0
+  hasMoved: 0
   board: {fileID: 2001880200}
   type: 0
   currentSquare: {fileID: 0}
   legalSquares: []
+  illegalSquares: []
 --- !u!61 &2072622951
 BoxCollider2D:
   m_ObjectHideFlags: 0
