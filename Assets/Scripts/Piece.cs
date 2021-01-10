@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -106,7 +106,9 @@ public class Piece : MonoBehaviour
 
     public List<Square> CalculateLegalMoves(Piece piece, bool calcFullKing = true)
     {
-        switch (piece.type)
+        legalSquares.Clear();
+        
+        switch (this.type)
         {
             #region King
             case PieceType.King:
@@ -150,6 +152,7 @@ public class Piece : MonoBehaviour
                             }
                         }
                     }
+                    tempT.Clear();
                 }
 
                 legalSquares.Clear();
@@ -747,6 +750,8 @@ public class Piece : MonoBehaviour
         {
             legalSquares.Add(sq);
         }
+
+        temp.Clear();
 
         return legalSquares;
     }
