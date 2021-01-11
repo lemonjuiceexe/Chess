@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
             {
                 GUI.Box(new Rect(185, 30, 20, 20), " ", green);
             }
-    
+            else
             {
                 GUI.Box(new Rect(185, 30, 20, 20), " ", red);
             }

@@ -9,7 +9,7 @@ public class Board : MonoBehaviour
     public Square[,] squares = new Square[8, 8];
     [Header("Pieces and squares arrays")]
     public Transform[] children;
-    public Transform[] pieces;
+    public Piece[] pieces;
 
     [Header("Gameobjects references")]
     public Camera cam;
