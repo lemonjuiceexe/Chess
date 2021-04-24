@@ -24,6 +24,7 @@ public class Board : MonoBehaviour
     [Header("Colours")]
     public Color legalColor;
     public Color legalTakeColor;
+    public Color illegalKingMoveColor;
 
     //debug stuff
     [Header("Debug variables")]
@@ -43,6 +44,43 @@ public class Board : MonoBehaviour
 
         disableForcedColorMoves = PlayerPrefs.GetInt("disableForcedColorMoves", 0) == 1;
         disableTurnBoard = PlayerPrefs.GetInt("disableBoardFlip", 0) == 1;
+    }
+
+    private void Update()
+    {
+        //Check after a move detection
+        //Just moved
+        if(whiteOnMove != lastFrameWhiteOnMove)
+        {
+            //Debug.Log(lastFrameWhiteOnMove);
+            List<Square> ls = new List<Square>();
+            //For all pieces of the same color as the piece just moved
+            for (int i = (lastFrameWhiteOnMove ? 0 : 16); i < (lastFrameWhiteOnMove ? 16 : 32); i++)
+            {
+                //Debug.Log(i);
+                //TODO: Also not perfect, because of pawns
+                ls.AddRange(pieces[i].CalculateLegalMoves());
+            }
+
+            foreach (Square sq in ls)
+            {
+                try
+                {
+                    if (sq.row == (lastFrameWhiteOnMove ? pieces[16].currentSquare.row : pieces[0].currentSquare.row) && sq.column == (lastFrameWhiteOnMove ? pieces[16].currentSquare.column : pieces[0].currentSquare.column))
+                    {
+                        sq.gameObject.GetComponent<SpriteRenderer>().color = Color.magenta;
+                        Debug.Log("check");
+                    }
+                }
+                catch
+                {
+                    Debug.Log("nope");
+                }
+                
+            }
+
+            ls.Clear();
+        }
     }
 
     private void LateUpdate()

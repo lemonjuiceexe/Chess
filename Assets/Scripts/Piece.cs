@@ -134,7 +134,6 @@ public class Piece : MonoBehaviour
 
                 List<Square> tempT = new List<Square>();
 
-                //TODO: King will be able to take a piece which is defended, as defended piece is not a legal move for the defending one
                 if (calcFullKing)
                 {
                     //For all enemy pieces
@@ -149,6 +148,10 @@ public class Piece : MonoBehaviour
                         {
                             if (this.temp.Contains(s))
                             {
+                                if(board.selectedPiece == this)
+                                {
+                                    s.gameObject.GetComponent<SpriteRenderer>().color = board.illegalKingMoveColor;
+                                }
                                 this.temp.Remove(s);
                             }
                         }
