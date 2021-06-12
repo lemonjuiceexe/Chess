@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 11706851}
   - component: {fileID: 11706852}
   m_Layer: 8
-  m_Name: w_Bishop_q
+  m_Name: w_Bishop_k
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -946,7 +946,7 @@ GameObject:
   - component: {fileID: 171422082}
   - component: {fileID: 171422083}
   m_Layer: 8
-  m_Name: b_Knight_k
+  m_Name: b_Knight_q
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1329,7 +1329,7 @@ GameObject:
   - component: {fileID: 232932212}
   - component: {fileID: 232932211}
   m_Layer: 8
-  m_Name: w_Bishop_k
+  m_Name: w_Bishop_q
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5340,7 +5340,7 @@ GameObject:
   - component: {fileID: 706669440}
   - component: {fileID: 706669441}
   m_Layer: 8
-  m_Name: b_Rook_k
+  m_Name: b_Rook_q
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5469,7 +5469,7 @@ GameObject:
   - component: {fileID: 718336535}
   - component: {fileID: 718336536}
   m_Layer: 8
-  m_Name: w_Knight_q
+  m_Name: w_Knight_k
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5854,7 +5854,7 @@ GameObject:
   - component: {fileID: 754782207}
   - component: {fileID: 754782208}
   m_Layer: 8
-  m_Name: b_Bishop_k
+  m_Name: b_Bishop_q
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6763,7 +6763,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891201139}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: -35, z: 0}
+  m_LocalPosition: {x: -5, y: -35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 112323394}
@@ -7833,7 +7833,7 @@ GameObject:
   - component: {fileID: 1142360437}
   - component: {fileID: 1142360436}
   m_Layer: 8
-  m_Name: b_Rook_q
+  m_Name: b_Rook_k
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8345,7 +8345,7 @@ GameObject:
   - component: {fileID: 1298946611}
   - component: {fileID: 1298946610}
   m_Layer: 8
-  m_Name: b_Knight_q
+  m_Name: b_Knight_k
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9567,7 +9567,7 @@ GameObject:
   - component: {fileID: 1441894311}
   - component: {fileID: 1441894312}
   m_Layer: 8
-  m_Name: w_Rook_k
+  m_Name: w_Rook_q
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10140,7 +10140,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579968251}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 35, z: 0}
+  m_LocalPosition: {x: -5, y: 35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 389683639}
@@ -10281,7 +10281,7 @@ GameObject:
   - component: {fileID: 1598379282}
   - component: {fileID: 1598379283}
   m_Layer: 8
-  m_Name: w_Knight_k
+  m_Name: w_Knight_q
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11188,7 +11188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780927517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: -35, z: 0}
+  m_LocalPosition: {x: 5, y: -35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 112323394}
@@ -11303,7 +11303,7 @@ GameObject:
   - component: {fileID: 1786523483}
   - component: {fileID: 1786523482}
   m_Layer: 8
-  m_Name: w_Rook_q
+  m_Name: w_Rook_k
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12302,7 +12302,7 @@ GameObject:
   - component: {fileID: 2011586236}
   - component: {fileID: 2011586237}
   m_Layer: 8
-  m_Name: b_Bishop_q
+  m_Name: b_Bishop_k
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12732,7 +12732,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072622946}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 35, z: 0}
+  m_LocalPosition: {x: 5, y: 35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 389683639}

@@ -167,8 +167,12 @@ public class Piece : MonoBehaviour
             case PieceType.Queen:
                 foreach (Transform sq in board.children)
                 {
+                    Square s = sq.GetComponent<Square>();
                     //This magnitude gives squares top-left, top-right, bottom-left and bottom-right (relative to current)
-                    if ((sq.position - this.transform.position).sqrMagnitude > 150f && (sq.position - this.transform.position).sqrMagnitude <= 250f)
+                    if ((s.row == currentSquare.row + 1 && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column + 1) ||
+                        (s.row == currentSquare.row + 1 && s.column == currentSquare.column + 1))
                     {
                         if (sq.GetComponent<Square>().occupied)
                         {
@@ -282,8 +286,11 @@ public class Piece : MonoBehaviour
 
                 foreach (Transform sq in board.children)
                 {
-                    //This magnitude gives squares top, bottom, left and right (relative to current)
-                    if ((sq.position - this.transform.position).sqrMagnitude <= 150f)
+                    Square s = sq.GetComponent<Square>();
+                    if ((s.row == currentSquare.row && s.column == currentSquare.column - 1)
+                        || (s.row == currentSquare.row - 1 && s.column == currentSquare.column)
+                        || (s.row == currentSquare.row && s.column == currentSquare.column + 1)
+                        || (s.row == currentSquare.row + 1 && s.column == currentSquare.column))
                     {
                         if (sq.GetComponent<Square>().occupied)
                         {
@@ -393,8 +400,11 @@ public class Piece : MonoBehaviour
             case PieceType.Bishop:
                 foreach (Transform sq in board.children)
                 {
-                    //This magnitude gives squares top-left, top-right, bottom-left and bottom-right (relative to current)
-                    if ((sq.position - this.transform.position).sqrMagnitude > 150f && (sq.position - this.transform.position).sqrMagnitude <= 250f)
+                    Square s = sq.GetComponent<Square>();
+                    if ((s.row == currentSquare.row + 1 && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column - 1) || 
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column + 1) || 
+                        (s.row == currentSquare.row + 1 && s.column == currentSquare.column + 1))
                     {
                         if (sq.GetComponent<Square>().occupied)
                         {
@@ -515,11 +525,11 @@ public class Piece : MonoBehaviour
                     {
                         if (sq.column == this.currentSquare.column - 1 || sq.column == this.currentSquare.column + 1)
                         {
-                            if (sq.GetComponent<Square>().occupied)
+                            if (sq/*.GetComponent<Square>()*/.occupied)
                             {
-                                if (sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
+                                if (sq/*.GetComponent<Square>()*/.currentPiece.white != this.white || !calcFullKing)
                                 {
-                                    this.temp.Add(sq.gameObject.GetComponent<Square>());
+                                    this.temp.Add(sq/*.gameObject.GetComponent<Square>()*/);
                                 }
 
                                 continue;
@@ -586,8 +596,11 @@ public class Piece : MonoBehaviour
             case PieceType.Rook:
                 foreach (Transform sq in board.children)
                 {
-                    //This magnitude gives squares top, bottom, left and right (relative to current)
-                    if ((sq.position - this.transform.position).sqrMagnitude <= 150f)
+                    Square s = sq.GetComponent<Square>();
+                    if ((s.row == currentSquare.row && s.column == currentSquare.column - 1) 
+                        || (s.row == currentSquare.row - 1 && s.column == currentSquare.column) 
+                        || (s.row == currentSquare.row && s.column == currentSquare.column + 1) 
+                        || (s.row == currentSquare.row + 1 && s.column == currentSquare.column))
                     {
                         if (sq.GetComponent<Square>().occupied)
                         {

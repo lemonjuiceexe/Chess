@@ -52,31 +52,24 @@ public class Board : MonoBehaviour
         //Just moved
         if(whiteOnMove != lastFrameWhiteOnMove)
         {
-            //Debug.Log(lastFrameWhiteOnMove);
             List<Square> ls = new List<Square>();
             //For all pieces of the same color as the piece just moved
             for (int i = (lastFrameWhiteOnMove ? 0 : 16); i < (lastFrameWhiteOnMove ? 16 : 32); i++)
             {
-                //Debug.Log(i);
                 //TODO: Also not perfect, because of pawns
-                ls.AddRange(pieces[i].CalculateLegalMoves());
-            }
-
-            foreach (Square sq in ls)
-            {
-                try
+                List<Square> tp = pieces[i].CalculateLegalMoves();
+                
+                foreach(Square s in tp)
                 {
-                    if (sq.row == (lastFrameWhiteOnMove ? pieces[16].currentSquare.row : pieces[0].currentSquare.row) && sq.column == (lastFrameWhiteOnMove ? pieces[16].currentSquare.column : pieces[0].currentSquare.column))
+                    if (!ls.Contains(s))
                     {
-                        sq.gameObject.GetComponent<SpriteRenderer>().color = Color.magenta;
-                        Debug.Log("check");
+                        ls.Add(s);
                     }
                 }
-                catch
-                {
-                    Debug.Log("nope");
-                }
-                
+            }
+            if(ls.Contains(pieces[lastFrameWhiteOnMove ? 16 : 0].currentSquare))
+            {
+                Debug.Log("Check!");
             }
 
             ls.Clear();
@@ -104,7 +97,13 @@ public class Board : MonoBehaviour
 
         }
     }
-
+    public void ColorSquares(List<Square> squares, Color c)
+    {
+        foreach(Square sq in squares)
+        {
+            sq.GetComponent<SpriteRenderer>().color = c;
+        }
+    }
     public void ClearLegal()
     {
         foreach (Square sq in squares)
