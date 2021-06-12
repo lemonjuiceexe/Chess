@@ -115,20 +115,28 @@ public class Piece : MonoBehaviour
                 //For all squares
                 foreach (Transform sq in board.children)
                 {
+                    Square s = sq.GetComponent<Square>();
                     //This magnitude gives every square around (standard king's move)
-                    if ((sq.position - this.transform.position).sqrMagnitude <= 250f)
+                    if ((s.row == currentSquare.row + 1 && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column + 1) ||
+                        (s.row == currentSquare.row + 1 && s.column == currentSquare.column + 1) ||
+                        (s.row == currentSquare.row     && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column)     ||
+                        (s.row == currentSquare.row     && s.column == currentSquare.column + 1) ||
+                        (s.row == currentSquare.row + 1 && s.column == currentSquare.column))
                     {
-                        if (sq.GetComponent<Square>().occupied)
+                        if (s.occupied)
                         {
-                            if (sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
+                            if (s.currentPiece.white != this.white || !calcFullKing)
                             {
-                                this.temp.Add(sq.gameObject.GetComponent<Square>());
+                                this.temp.Add(s);
                             }
 
                             continue;
                         }
 
-                        this.temp.Add(sq.gameObject.GetComponent<Square>());
+                        this.temp.Add(s);
                     }
                 }
 
