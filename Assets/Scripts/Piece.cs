@@ -207,16 +207,18 @@ public class Piece : MonoBehaviour
                             int i = 1;
                             while (sq.column + i < 8 && sq.row + i < 8)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].occupied)
+                                Square sqr = board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i];
+
+                                if (sqr.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].currentPiece.white != this.white || !calcFullKing)
+                                    if (sqr.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
+                                        this.temp.Add(sqr);
                                     }
 
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
+                                this.temp.Add(sqr);
                                 i++;
                             }
                         }
@@ -229,16 +231,17 @@ public class Piece : MonoBehaviour
                             int i = 1;
                             while (sq.column + i < 8 && sq.row - i >= 0)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].occupied)
+                                Square sqr = board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i];
+                                if (sqr.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].currentPiece.white != this.white || !calcFullKing)
+                                    if (sqr.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
+                                        this.temp.Add(sqr);
                                     }
 
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
+                                this.temp.Add(sqr);
                                 i++;
                             }
                         }
@@ -251,16 +254,17 @@ public class Piece : MonoBehaviour
                             int i = 1;
                             while (sq.column - i >= 0 && sq.row - i >= 0)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].occupied)
+                                Square sqr = board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i];
+                                if (sqr.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].currentPiece.white != this.white || !calcFullKing)
+                                    if (sqr.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
+                                        this.temp.Add(sqr);
                                     }
 
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
+                                this.temp.Add(sqr);
                                 i++;
                             }
                         }
@@ -273,16 +277,17 @@ public class Piece : MonoBehaviour
                             int i = 1;
                             while (sq.column - i >= 0 && sq.row + i < 8)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].occupied)
+                                Square sqr = board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i];
+                                if (sqr.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].currentPiece.white != this.white || !calcFullKing)
+                                    if (sqr.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
+                                        this.temp.Add(sqr);
                                     }
 
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
+                                this.temp.Add(sqr);
                                 i++;
                             }
                         }
@@ -295,21 +300,21 @@ public class Piece : MonoBehaviour
                 foreach (Transform sq in board.children)
                 {
                     Square s = sq.GetComponent<Square>();
-                    if ((s.row == currentSquare.row && s.column == currentSquare.column - 1)
-                        || (s.row == currentSquare.row - 1 && s.column == currentSquare.column)
-                        || (s.row == currentSquare.row && s.column == currentSquare.column + 1)
-                        || (s.row == currentSquare.row + 1 && s.column == currentSquare.column))
+                    if ((s.row == currentSquare.row     && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column    ) ||
+                        (s.row == currentSquare.row     && s.column == currentSquare.column + 1) ||
+                        (s.row == currentSquare.row + 1 && s.column == currentSquare.column))
                     {
-                        if (sq.GetComponent<Square>().occupied)
+                        if (s.occupied)
                         {
-                            if (sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
+                            if (s.currentPiece.white != this.white || !calcFullKing)
                             {
-                                this.temp.Add(sq.GetComponent<Square>());
+                                this.temp.Add(s);
                             }
 
                             continue;
                         }
-                        this.legalSquares.Add(sq.gameObject.GetComponent<Square>());
+                        this.legalSquares.Add(s);
                     }
                 }
 
@@ -553,7 +558,7 @@ public class Piece : MonoBehaviour
                             {
                                 if (s.currentPiece.white != this.white || !calcFullKing)
                                 {
-                                    this.temp.Add(s.gameObject.GetComponent<Square>());
+                                    this.temp.Add(s);
                                 }
 
                                 continue;
