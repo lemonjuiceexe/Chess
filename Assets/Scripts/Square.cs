@@ -126,9 +126,6 @@ public class Square : MonoBehaviour
             board.selectedPiece.currentSquare.currentPiece = null;
             board.selectedPiece.currentSquare.occupied = false;
 
-            // old teleporting, without transition
-            //board.selectedPiece.transform.position = this.transform.position;
-
             #region Transition
             //basically assigns every needed variable
             startPos = board.selectedPiece.transform; //sets start and end positions

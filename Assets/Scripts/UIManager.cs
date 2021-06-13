@@ -31,8 +31,8 @@ public class UIManager : MonoBehaviour
             #region Color
             GUIStyle green = new GUIStyle();
             GUIStyle red = new GUIStyle();
-            green.normal.background = MakeTex(/*2, 2,*/ Color.green);
-            red.normal.background = MakeTex(/*2, 2,*/ Color.red);
+            green.normal.background = MakeTex( Color.green);
+            red.normal.background = MakeTex(Color.red);
             #endregion
             //Button for forced moves
             if (GUI.Button(new Rect(12, 30, 160, 20), "Forced color moves"))

@@ -166,7 +166,6 @@ public class Piece : MonoBehaviour
                             {
                                 if(board.selectedPiece == this)
                                 {
-                                    //TODO: Uncomment this
                                     //s.gameObject.GetComponent<SpriteRenderer>().color = board.illegalKingMoveColor;
                                 }
                                 this.temp.Remove(s);
@@ -810,10 +809,10 @@ public class Piece : MonoBehaviour
         }
 
         temp.Clear();
-        List<Square> t = new List<Square>();
+
+        //Simulating moves to check if they break the check (therefore, if they're legal when the king is checked)
         if (board.check && calcFullKing)
         {
-            //board.ColorSquares(legalSquares, Color.cyan);
             foreach (Square newSquare in legalSquares)
             {
                 //temporary variables to not lose any data
@@ -831,11 +830,9 @@ public class Piece : MonoBehaviour
                 newSquare.occupied = true;
                 this.currentSquare = newSquare;
 
-                Debug.Log("Check if check");
                 if(!board.IsChecking(!board.whiteOnMove))
                 {
-                    t.Add(newSquare);
-                    Debug.Log("Not checked anymore!");
+                    temp.Add(newSquare);
                 }
 
                 if (originalPieceOnNewSquare != null)
@@ -852,15 +849,12 @@ public class Piece : MonoBehaviour
             }
             legalSquares.Clear();
         }
-        //foreach(Square p in temp) { Debug.Log(p); }
-        board.ColorSquares(t, Color.magenta);
 
-        foreach (Square sq in t)
+        foreach (Square sq in temp)
         {
             legalSquares.Add(sq);
         }
         temp.Clear();
-        t.Clear();
 
         return legalSquares;
     }

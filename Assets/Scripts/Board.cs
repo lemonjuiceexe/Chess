@@ -32,7 +32,6 @@ public class Board : MonoBehaviour
     public bool disableForcedColorMoves;
     public bool disableTurnBoard;
 
-
     private void Start()
     {
         for(int i = 0; i < 8; i++)
@@ -68,6 +67,7 @@ public class Board : MonoBehaviour
         //For all pieces of the same color as color
         for (int i = (color ? 0 : 16); i < (color ? 16 : 32); i++)
         {
+            if(pieces[i] == null) { continue; }
             List<Square> tp = pieces[i].CalculateLegalMoves(false);
 
             foreach (Square s in tp)
@@ -78,15 +78,12 @@ public class Board : MonoBehaviour
                 }
             }
         }
-        //ColorSquares(ls, Color.yellow);
+
         if (ls.Contains(pieces[color ? 16 : 0].currentSquare))
         {
-            Debug.Log("Check!");
             return true;
         }
 
-        //ls.Clear();
-        Debug.Log("No chemck");
         return false;
     }
 
