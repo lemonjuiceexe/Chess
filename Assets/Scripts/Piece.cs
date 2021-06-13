@@ -161,6 +161,7 @@ public class Piece : MonoBehaviour
                                     s.gameObject.GetComponent<SpriteRenderer>().color = board.illegalKingMoveColor;
                                 }
                                 this.temp.Remove(s);
+                                illegalSquares.Add(s);
                             }
                         }
                     }
@@ -335,16 +336,17 @@ public class Piece : MonoBehaviour
                             // if no, then we just break
                             while (sq.column + i < 8)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                Square s = board.squares[Mathf.Abs(sq.row - 7), sq.column + i];
+                                if (s.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white || !calcFullKing)
+                                    if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                        this.temp.Add(s);
                                     }
 
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -354,15 +356,16 @@ public class Piece : MonoBehaviour
                             int i = -1;
                             while (sq.column + i >= 0)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                Square s = board.squares[Mathf.Abs(sq.row - 7), sq.column + i];
+                                if (s.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white || !calcFullKing)
+                                    if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                        this.temp.Add(s);
                                     }
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                this.temp.Add(s);
                                 i--;
                             }
                         }
@@ -375,15 +378,16 @@ public class Piece : MonoBehaviour
                             int i = 1;
                             while (sq.row + i < 8)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                Square s = board.squares[Mathf.Abs(sq.row - 7) - i, sq.column];
+                                if (s.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white || !calcFullKing)
+                                    if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                        this.temp.Add(s);
                                     }
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -393,15 +397,16 @@ public class Piece : MonoBehaviour
                             int i = -1;
                             while (sq.row + i >= 0)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                Square s = board.squares[Mathf.Abs(sq.row - 7) - i, sq.column];
+                                if (s.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white || !calcFullKing)
+                                    if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                        this.temp.Add(s);
                                     }
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                this.temp.Add(s);
                                 i--;
                             }
                         }
@@ -444,16 +449,17 @@ public class Piece : MonoBehaviour
                             int i = 1;
                             while (sq.column + i < 8 && sq.row + i < 8)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].occupied)
+                                Square s = board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i];
+                                if (s.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].currentPiece.white != this.white || !calcFullKing)
+                                    if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
+                                        this.temp.Add(s);
                                     }
 
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -466,16 +472,17 @@ public class Piece : MonoBehaviour
                             int i = 1;
                             while (sq.column + i < 8 && sq.row - i >= 0)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].occupied)
+                                Square s = board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i];
+                                if (s.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].currentPiece.white != this.white || !calcFullKing)
+                                    if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
+                                        this.temp.Add(s);
                                     }
 
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -488,16 +495,17 @@ public class Piece : MonoBehaviour
                             int i = 1;
                             while (sq.column - i >= 0 && sq.row - i >= 0)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].occupied)
+                                Square s = board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i];
+                                if (s.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].currentPiece.white != this.white || !calcFullKing)
+                                    if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
+                                        this.temp.Add(s);
                                     }
 
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -510,16 +518,17 @@ public class Piece : MonoBehaviour
                             int i = 1;
                             while (sq.column - i >= 0 && sq.row + i < 8)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].occupied)
+                                Square s = board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i];
+                                if (s.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].currentPiece.white != this.white || !calcFullKing)
+                                    if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
+                                        this.temp.Add(s);
                                     }
 
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -644,16 +653,17 @@ public class Piece : MonoBehaviour
                             // if no, then we just break
                             while (sq.column + i < 8)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                Square s = board.squares[Mathf.Abs(sq.row - 7), sq.column + i];
+                                if (s.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white || !calcFullKing)
+                                    if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                        this.temp.Add(s);
                                     }
 
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -663,15 +673,16 @@ public class Piece : MonoBehaviour
                             int i = -1;
                             while (sq.column + i >= 0)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
+                                Square s = board.squares[Mathf.Abs(sq.row - 7), sq.column + i];
+                                if (s.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white || !calcFullKing)
+                                    if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                        this.temp.Add(s);
                                     }
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
+                                this.temp.Add(s);
                                 i--;
                             }
                         }
@@ -684,15 +695,16 @@ public class Piece : MonoBehaviour
                             int i = 1;
                             while (sq.row + i < 8)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                Square s = board.squares[Mathf.Abs(sq.row - 7) - i, sq.column];
+                                if (s.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white || !calcFullKing)
+                                    if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                        this.temp.Add(s);
                                     }
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -702,15 +714,16 @@ public class Piece : MonoBehaviour
                             int i = -1;
                             while (sq.row + i >= 0)
                             {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
+                                Square s = board.squares[Mathf.Abs(sq.row - 7) - i, sq.column];
+                                if (s.occupied)
                                 {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white || !calcFullKing)
+                                    if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                        this.temp.Add(s);
                                     }
                                     break;
                                 }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
+                                this.temp.Add(s);
                                 i--;
                             }
                         }

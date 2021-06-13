@@ -99,6 +99,7 @@ public class Square : MonoBehaviour
             if (Vector3.Distance(transPiece.transform.position, this.transform.position) < 0.01f)
             {
                 transitioning = false;
+                transPiece.transform.position = new Vector3(Mathf.Round(transPiece.transform.position.x), Mathf.Round(transPiece.transform.position.y), 0f);
             }
         }
     }
