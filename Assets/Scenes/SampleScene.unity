@@ -5053,7 +5053,7 @@ RectTransform:
   - {fileID: 605542731}
   - {fileID: 1375120590}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7310,7 +7310,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1044344849
 GameObject:
@@ -9937,52 +9937,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &1513069137
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1513069139}
-  - component: {fileID: 1513069138}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1513069138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513069137}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3c0c032fada41e4eb5452de5f59dc51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  board: {fileID: 2001880198}
-  bTile: {fileID: 8011939680749605223, guid: 61f6911cfda49954ba19bcb3cf85cecc, type: 3}
-  wTile: {fileID: 2208331622126091336, guid: f840656870bc4a94bbcbfe459cfc80b9, type: 3}
---- !u!4 &1513069139
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513069137}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1547671697
 GameObject:
   m_ObjectHideFlags: 0
@@ -12068,7 +12022,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2001880199}
   - component: {fileID: 2001880200}
-  - component: {fileID: 2001880201}
   m_Layer: 8
   m_Name: Board
   m_TagString: Untagged
@@ -12152,7 +12105,7 @@ Transform:
   - {fileID: 571951132}
   - {fileID: 1207985173}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2001880200
 MonoBehaviour:
@@ -12274,21 +12227,6 @@ MonoBehaviour:
   illegalKingMoveColor: {r: 1, g: 0.3669502, b: 0, a: 0.49803922}
   disableForcedColorMoves: 0
   disableTurnBoard: 0
---- !u!114 &2001880201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001880198}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3c0c032fada41e4eb5452de5f59dc51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  board: {fileID: 2001880198}
-  bTile: {fileID: 609444401909757953, guid: dbae4d654fda9e04094ffa5208e5342f, type: 3}
-  wTile: {fileID: 6260443326413802525, guid: 95afc3e9ea24e4342a249c66bac018e5, type: 3}
 --- !u!1 &2011586233
 GameObject:
   m_ObjectHideFlags: 0
@@ -12702,7 +12640,7 @@ Transform:
   - {fileID: 112323394}
   - {fileID: 389683639}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2072622946
 GameObject:
