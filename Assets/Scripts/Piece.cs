@@ -55,7 +55,10 @@ public class Piece : MonoBehaviour
         {
             gameObject.transform.localScale = new Vector2(1f, 1f);
         }
-        currentSquare.occupied = true;
+        if (!currentSquare.occupied)
+        {
+            currentSquare.occupied = true;
+        }
 
         //If the move just happened
         if(board.whiteOnMove != board.lastFrameWhiteOnMove && !board.disableTurnBoard)
@@ -107,6 +110,11 @@ public class Piece : MonoBehaviour
     public List<Square> CalculateLegalMoves(bool calcFullKing = true)
     {
         legalSquares.Clear();
+
+        if(currentSquare == null)
+        {
+            return legalSquares;
+        }
         
         switch (this.type)
         {
@@ -158,7 +166,7 @@ public class Piece : MonoBehaviour
                             {
                                 if(board.selectedPiece == this)
                                 {
-                                    s.gameObject.GetComponent<SpriteRenderer>().color = board.illegalKingMoveColor;
+                                    //s.gameObject.GetComponent<SpriteRenderer>().color = board.illegalKingMoveColor;
                                 }
                                 this.temp.Remove(s);
                                 illegalSquares.Add(s);
@@ -800,6 +808,52 @@ public class Piece : MonoBehaviour
             legalSquares.Add(sq);
         }
 
+        temp.Clear();
+
+        //Simulating moves to check if they break the check (therefore, if they're legal when the king is checked)
+        if (board.check && calcFullKing)
+        {
+            foreach (Square newSquare in legalSquares)
+            {
+                //temporary variables to not lose any data
+                Square originalSquare = this.currentSquare;
+                bool newSquareOriginallyOccupied = newSquare.occupied;
+                Piece originalPieceOnNewSquare = newSquare.currentPiece;
+
+                originalSquare.occupied = false;
+                originalSquare.currentPiece = null;
+                if(originalPieceOnNewSquare != null) 
+                {
+                    originalPieceOnNewSquare.currentSquare = null; 
+                }
+                newSquare.currentPiece = this;
+                newSquare.occupied = true;
+                this.currentSquare = newSquare;
+
+                if(!board.IsChecking(!board.whiteOnMove))
+                {
+                    temp.Add(newSquare);
+                }
+
+                if (originalPieceOnNewSquare != null)
+                {
+                    originalPieceOnNewSquare.currentSquare = newSquare;
+                }
+                originalSquare.occupied = true;
+                originalSquare.currentPiece = this;
+
+                newSquare.currentPiece = originalPieceOnNewSquare;
+                newSquare.occupied = newSquareOriginallyOccupied;
+                this.currentSquare = originalSquare;
+
+            }
+            legalSquares.Clear();
+        }
+
+        foreach (Square sq in temp)
+        {
+            legalSquares.Add(sq);
+        }
         temp.Clear();
 
         return legalSquares;

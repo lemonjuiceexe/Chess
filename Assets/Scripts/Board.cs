@@ -20,6 +20,7 @@ public class Board : MonoBehaviour
     public float transitionSpeed = 0.1f;
     //If it differs, the move happened in the very previous frame
     public bool lastFrameWhiteOnMove = true;
+    public bool check = false;
 
     [Header("Colours")]
     public Color legalColor;
@@ -30,7 +31,6 @@ public class Board : MonoBehaviour
     [Header("Debug variables")]
     public bool disableForcedColorMoves;
     public bool disableTurnBoard;
-
 
     private void Start()
     {
@@ -52,7 +52,7 @@ public class Board : MonoBehaviour
         //Just moved
         if(whiteOnMove != lastFrameWhiteOnMove)
         {
-            IsChecked(!whiteOnMove);
+            check = IsChecking(!whiteOnMove);
         }
     }
 
@@ -61,12 +61,13 @@ public class Board : MonoBehaviour
         lastFrameWhiteOnMove = whiteOnMove;
     }
 
-    public bool IsChecked(bool color)
+    public bool IsChecking(bool color)
     {
         List<Square> ls = new List<Square>();
-        //For all pieces of the same color as the piece just moved
+        //For all pieces of the same color as color
         for (int i = (color ? 0 : 16); i < (color ? 16 : 32); i++)
         {
+            if(pieces[i] == null) { continue; }
             List<Square> tp = pieces[i].CalculateLegalMoves(false);
 
             foreach (Square s in tp)
@@ -77,14 +78,12 @@ public class Board : MonoBehaviour
                 }
             }
         }
-        ColorSquares(ls, Color.yellow);
-        if (ls.Contains(pieces[lastFrameWhiteOnMove ? 16 : 0].currentSquare))
+
+        if (ls.Contains(pieces[color ? 16 : 0].currentSquare))
         {
-            Debug.Log("Check!");
             return true;
         }
 
-        //ls.Clear();
         return false;
     }
 
