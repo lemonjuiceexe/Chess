@@ -20,6 +20,7 @@ public class Board : MonoBehaviour
     public float transitionSpeed = 0.1f;
     //If it differs, the move happened in the very previous frame
     public bool lastFrameWhiteOnMove = true;
+    public bool check = false;
 
     [Header("Colours")]
     public Color legalColor;
@@ -52,7 +53,7 @@ public class Board : MonoBehaviour
         //Just moved
         if(whiteOnMove != lastFrameWhiteOnMove)
         {
-            IsChecked(!whiteOnMove);
+            check = IsChecked(!whiteOnMove);
         }
     }
 
@@ -77,7 +78,7 @@ public class Board : MonoBehaviour
                 }
             }
         }
-        ColorSquares(ls, Color.yellow);
+        //ColorSquares(ls, Color.yellow);
         if (ls.Contains(pieces[lastFrameWhiteOnMove ? 16 : 0].currentSquare))
         {
             Debug.Log("Check!");

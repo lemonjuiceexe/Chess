@@ -158,7 +158,8 @@ public class Piece : MonoBehaviour
                             {
                                 if(board.selectedPiece == this)
                                 {
-                                    s.gameObject.GetComponent<SpriteRenderer>().color = board.illegalKingMoveColor;
+                                    //TODO: Uncomment this
+                                    //s.gameObject.GetComponent<SpriteRenderer>().color = board.illegalKingMoveColor;
                                 }
                                 this.temp.Remove(s);
                                 illegalSquares.Add(s);
@@ -800,6 +801,43 @@ public class Piece : MonoBehaviour
             legalSquares.Add(sq);
         }
 
+        temp.Clear();
+
+        if (board.check && calcFullKing)
+        {
+            foreach (Square newSquare in legalSquares)
+            {
+                //temporary variables to not lose any data
+                Square originalSquare = this.currentSquare;
+                originalSquare.occupied = false;
+                originalSquare.currentPiece = null;
+                Piece originalPieceOnNewSquare = newSquare.currentPiece;
+                bool newSquareOriginallyOccupied = newSquare.occupied;
+                newSquare.currentPiece = this;
+                newSquare.occupied = true;
+                this.currentSquare = newSquare;
+
+                if(board.IsChecked(!board.whiteOnMove))
+                {
+                    temp.Add(newSquare);
+                    Debug.Log("Not checked anymore!");
+                }
+
+                this.currentSquare = originalSquare;
+                newSquare.currentPiece = originalPieceOnNewSquare;
+                newSquare.occupied = newSquareOriginallyOccupied;
+                originalSquare.currentPiece = this;
+                originalSquare.occupied = true;
+
+            }
+            legalSquares.Clear();
+        }
+
+        
+        foreach (Square sq in temp)
+        {
+            legalSquares.Add(sq);
+        }
         temp.Clear();
 
         return legalSquares;

@@ -12222,6 +12222,7 @@ MonoBehaviour:
   whiteOnMove: 1
   transitionSpeed: 100
   lastFrameWhiteOnMove: 1
+  check: 0
   legalColor: {r: 0.092196584, g: 1, b: 0, a: 0.49803922}
   legalTakeColor: {r: 0, g: 0.3630929, b: 1, a: 0.49803922}
   illegalKingMoveColor: {r: 1, g: 0.3669502, b: 0, a: 0.49803922}
