@@ -52,33 +52,40 @@ public class Board : MonoBehaviour
         //Just moved
         if(whiteOnMove != lastFrameWhiteOnMove)
         {
-            List<Square> ls = new List<Square>();
-            //For all pieces of the same color as the piece just moved
-            for (int i = (lastFrameWhiteOnMove ? 0 : 16); i < (lastFrameWhiteOnMove ? 16 : 32); i++)
-            {
-                //TODO: Also not perfect, because of pawns
-                List<Square> tp = pieces[i].CalculateLegalMoves();
-                
-                foreach(Square s in tp)
-                {
-                    if (!ls.Contains(s))
-                    {
-                        ls.Add(s);
-                    }
-                }
-            }
-            if(ls.Contains(pieces[lastFrameWhiteOnMove ? 16 : 0].currentSquare))
-            {
-                Debug.Log("Check!");
-            }
-
-            ls.Clear();
+            IsChecked(!whiteOnMove);
         }
     }
 
     private void LateUpdate()
     {
         lastFrameWhiteOnMove = whiteOnMove;
+    }
+
+    public bool IsChecked(bool color)
+    {
+        List<Square> ls = new List<Square>();
+        //For all pieces of the same color as the piece just moved
+        for (int i = (color ? 0 : 16); i < (color ? 16 : 32); i++)
+        {
+            List<Square> tp = pieces[i].CalculateLegalMoves(false);
+
+            foreach (Square s in tp)
+            {
+                if (!ls.Contains(s))
+                {
+                    ls.Add(s);
+                }
+            }
+        }
+        ColorSquares(ls, Color.yellow);
+        if (ls.Contains(pieces[lastFrameWhiteOnMove ? 16 : 0].currentSquare))
+        {
+            Debug.Log("Check!");
+            return true;
+        }
+
+        //ls.Clear();
+        return false;
     }
 
     public void ColorLegal(List<Square> legalSquares)
