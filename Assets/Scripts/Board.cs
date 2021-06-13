@@ -53,7 +53,7 @@ public class Board : MonoBehaviour
         //Just moved
         if(whiteOnMove != lastFrameWhiteOnMove)
         {
-            check = IsChecked(!whiteOnMove);
+            check = IsChecking(!whiteOnMove);
         }
     }
 
@@ -62,10 +62,10 @@ public class Board : MonoBehaviour
         lastFrameWhiteOnMove = whiteOnMove;
     }
 
-    public bool IsChecked(bool color)
+    public bool IsChecking(bool color)
     {
         List<Square> ls = new List<Square>();
-        //For all pieces of the same color as the piece just moved
+        //For all pieces of the same color as color
         for (int i = (color ? 0 : 16); i < (color ? 16 : 32); i++)
         {
             List<Square> tp = pieces[i].CalculateLegalMoves(false);
@@ -79,13 +79,14 @@ public class Board : MonoBehaviour
             }
         }
         //ColorSquares(ls, Color.yellow);
-        if (ls.Contains(pieces[lastFrameWhiteOnMove ? 16 : 0].currentSquare))
+        if (ls.Contains(pieces[color ? 16 : 0].currentSquare))
         {
             Debug.Log("Check!");
             return true;
         }
 
         //ls.Clear();
+        Debug.Log("No chemck");
         return false;
     }
 
