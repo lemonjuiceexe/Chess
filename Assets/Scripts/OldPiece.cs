@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿#if true
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Piece : MonoBehaviour
+public class OldPiece : MonoBehaviour
 {
     public enum PieceType
     {
@@ -18,21 +20,24 @@ public class Piece : MonoBehaviour
     public bool hasMoved = false;
 
     public Board board;
-    
+
     public PieceType type;
 
     //bool selected = false;
     public Square currentSquare;
-    [SerializeField] List<Square> illegalSquares = new List<Square>();
+    public List<Square> legalSquares = new List<Square>();
+    List<Square> temp = new List<Square>();
+    [SerializeField]
+    List<Square> illegalSquares = new List<Square>();
 
     private float big = 0f;
 
     private void Start()
     {
-        foreach(Transform sq in board.children)
+        foreach (Transform sq in board.children)
         {
             //If a piece is close to a square - if it's on the square (checking only the x and y, since z is diffrent)
-            if((new Vector2(sq.position.x, sq.position.y) - new Vector2(this.transform.position.x, this.transform.position.y)).sqrMagnitude < 0.1f)
+            if ((new Vector2(sq.position.x, sq.position.y) - new Vector2(this.transform.position.x, this.transform.position.y)).sqrMagnitude < 0.1f)
             {
                 currentSquare = sq.gameObject.GetComponent<Square>();
                 currentSquare.currentPiece = this;
@@ -43,24 +48,22 @@ public class Piece : MonoBehaviour
 
     private void Update()
     {
-        if(big > 0f)
+        if (big > 0f)
         {
             gameObject.transform.localScale = new Vector2(1.1f, 1.1f);
             big -= Time.deltaTime;
-        } 
+        }
         else
         {
             gameObject.transform.localScale = new Vector2(1f, 1f);
         }
-
-        // TODO: Move this, this just seems like a janky way to try to fix some problems
         if (!currentSquare.occupied)
         {
             currentSquare.occupied = true;
         }
 
-        // TODO: Move this too, also seems like a bad way
-        if(board.whiteOnMove != board.lastFrameWhiteOnMove && !board.disableTurnBoard)
+        //If the move just happened
+        if (board.whiteOnMove != board.lastFrameWhiteOnMove && !board.disableTurnBoard)
         {
             this.transform.Rotate(0, 0, 180);
         }
@@ -69,12 +72,13 @@ public class Piece : MonoBehaviour
     private void OnMouseDown()
     {
         //Taking
-        if(currentSquare.legalForSelectedPiece)
+        if (currentSquare.legalForSelectedPiece)
         {
             if (currentSquare.MovePiece())
             {
-                DestroyPiece();
+                Destroy(this.gameObject);
             }
+
             return;
         }
 
@@ -82,18 +86,16 @@ public class Piece : MonoBehaviour
 
         big = 0.1f;
 
-        // if the piece is already selected, deselect it
         if (board.selectedPiece == this)
         {
             board.selectedPiece = null;
         }
-        // if it isn't, select it and calculate legal moves
         else
         {
             board.selectedPiece = this;
 
             //Actual calculating legal moves
-            List<Square> legalSquares = CalculateLegalMoves();
+            legalSquares = CalculateLegalMoves();
 
             // pass the legalSquares for board to color instead of doing it yourself
             board.ColorLegal(legalSquares);
@@ -102,55 +104,49 @@ public class Piece : MonoBehaviour
 
     public void ClearLegal()
     {
+        legalSquares.Clear();
+        temp.Clear();
         board.ClearLegal();
-    }
-
-    public void DestroyPiece()
-    {
-        //TODO: Add some safeguards, maybe some checks before doing the Destroy
-        Destroy(this.gameObject);
     }
 
     public List<Square> CalculateLegalMoves(bool calcFullKing = true)
     {
-        List<Square> temp = new List<Square>();
-        List<Square> legalSquares = new List<Square>();
+        legalSquares.Clear();
 
-        if(currentSquare == null)
+        if (currentSquare == null)
         {
             return legalSquares;
         }
-        
+
         switch (this.type)
         {
-            #region King
+#region King
             case PieceType.King:
                 //For all squares
-                foreach (Square sq in board.squares)
+                foreach (Transform sq in board.children)
                 {
-                    // An ugly way, but gets every square around the piece
-                    if ((sq.row == currentSquare.row + 1 && sq.column == currentSquare.column - 1) ||
-                        (sq.row == currentSquare.row - 1 && sq.column == currentSquare.column - 1) ||
-                        (sq.row == currentSquare.row - 1 && sq.column == currentSquare.column + 1) ||
-                        (sq.row == currentSquare.row + 1 && sq.column == currentSquare.column + 1) ||
-                        (sq.row == currentSquare.row     && sq.column == currentSquare.column - 1) ||
-                        (sq.row == currentSquare.row - 1 && sq.column == currentSquare.column)     ||
-                        (sq.row == currentSquare.row     && sq.column == currentSquare.column + 1) ||
-                        (sq.row == currentSquare.row + 1 && sq.column == currentSquare.column))
+                    Square s = sq.GetComponent<Square>();
+                    //This magnitude gives every square around (standard king's move)
+                    if ((s.row == currentSquare.row + 1 && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column + 1) ||
+                        (s.row == currentSquare.row + 1 && s.column == currentSquare.column + 1) ||
+                        (s.row == currentSquare.row && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column) ||
+                        (s.row == currentSquare.row && s.column == currentSquare.column + 1) ||
+                        (s.row == currentSquare.row + 1 && s.column == currentSquare.column))
                     {
-                        if (sq.occupied)
+                        if (s.occupied)
                         {
-                            if (sq.currentPiece.white != this.white || !calcFullKing)
+                            if (s.currentPiece.white != this.white || !calcFullKing)
                             {
-                                temp.Add(sq);
+                                this.temp.Add(s);
                             }
-                            else
-                            {
-                                continue;
-                            }
+
+                            continue;
                         }
 
-                        temp.Add(sq);
+                        this.temp.Add(s);
                     }
                 }
 
@@ -166,15 +162,15 @@ public class Piece : MonoBehaviour
                         if (p == null) continue;
 
                         tempT = p.CalculateLegalMoves(false);
-                        foreach(Square s in tempT)
+                        foreach (Square s in tempT)
                         {
-                            if (temp.Contains(s))
+                            if (this.temp.Contains(s))
                             {
-                                if(board.selectedPiece == this)
+                                if (board.selectedPiece == this)
                                 {
                                     //s.gameObject.GetComponent<SpriteRenderer>().color = board.illegalKingMoveColor;
                                 }
-                                temp.Remove(s);
+                                this.temp.Remove(s);
                                 illegalSquares.Add(s);
                             }
                         }
@@ -185,27 +181,28 @@ public class Piece : MonoBehaviour
                 legalSquares.Clear();
 
                 break;
-            #endregion
-            #region Queen
+#endregion
+#region Queen
             case PieceType.Queen:
-                foreach (Square sq in board.squares)
+                foreach (Transform sq in board.children)
                 {
+                    Square s = sq.GetComponent<Square>();
                     //This magnitude gives squares top-left, top-right, bottom-left and bottom-right (relative to current)
-                    if ((sq.row == currentSquare.row + 1 && sq.column == currentSquare.column - 1) ||
-                        (sq.row == currentSquare.row - 1 && sq.column == currentSquare.column - 1) ||
-                        (sq.row == currentSquare.row - 1 && sq.column == currentSquare.column + 1) ||
-                        (sq.row == currentSquare.row + 1 && sq.column == currentSquare.column + 1))
+                    if ((s.row == currentSquare.row + 1 && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column + 1) ||
+                        (s.row == currentSquare.row + 1 && s.column == currentSquare.column + 1))
                     {
-                        if (sq.occupied)
+                        if (s.occupied)
                         {
-                            if (sq.currentPiece.white != this.white || !calcFullKing)
+                            if (s.currentPiece.white != this.white || !calcFullKing)
                             {
-                                temp.Add(sq);
+                                this.temp.Add(s);
                             }
 
                             continue;
                         }
-                        legalSquares.Add(sq);
+                        this.legalSquares.Add(s);
                     }
                 }
 
@@ -227,12 +224,12 @@ public class Piece : MonoBehaviour
                                 {
                                     if (sqr.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(sqr);
+                                        this.temp.Add(sqr);
                                     }
 
                                     break;
                                 }
-                                temp.Add(sqr);
+                                this.temp.Add(sqr);
                                 i++;
                             }
                         }
@@ -250,12 +247,12 @@ public class Piece : MonoBehaviour
                                 {
                                     if (sqr.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(sqr);
+                                        this.temp.Add(sqr);
                                     }
 
                                     break;
                                 }
-                                temp.Add(sqr);
+                                this.temp.Add(sqr);
                                 i++;
                             }
                         }
@@ -273,12 +270,12 @@ public class Piece : MonoBehaviour
                                 {
                                     if (sqr.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(sqr);
+                                        this.temp.Add(sqr);
                                     }
 
                                     break;
                                 }
-                                temp.Add(sqr);
+                                this.temp.Add(sqr);
                                 i++;
                             }
                         }
@@ -296,39 +293,39 @@ public class Piece : MonoBehaviour
                                 {
                                     if (sqr.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(sqr);
+                                        this.temp.Add(sqr);
                                     }
 
                                     break;
                                 }
-                                temp.Add(sqr);
+                                this.temp.Add(sqr);
                                 i++;
                             }
                         }
                     }
                 }
 
-                temp.AddRange(legalSquares);
-                legalSquares.Clear();
+                this.temp.AddRange(legalSquares);
+                this.legalSquares.Clear();
 
                 foreach (Transform sq in board.children)
                 {
                     Square s = sq.GetComponent<Square>();
-                    if ((s.row == currentSquare.row     && s.column == currentSquare.column - 1) ||
-                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column    ) ||
-                        (s.row == currentSquare.row     && s.column == currentSquare.column + 1) ||
+                    if ((s.row == currentSquare.row && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column) ||
+                        (s.row == currentSquare.row && s.column == currentSquare.column + 1) ||
                         (s.row == currentSquare.row + 1 && s.column == currentSquare.column))
                     {
                         if (s.occupied)
                         {
                             if (s.currentPiece.white != this.white || !calcFullKing)
                             {
-                                temp.Add(s);
+                                this.temp.Add(s);
                             }
 
                             continue;
                         }
-                        legalSquares.Add(s);
+                        this.legalSquares.Add(s);
                     }
                 }
 
@@ -354,12 +351,12 @@ public class Piece : MonoBehaviour
                                 {
                                     if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(s);
+                                        this.temp.Add(s);
                                     }
 
                                     break;
                                 }
-                                temp.Add(s);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -374,11 +371,11 @@ public class Piece : MonoBehaviour
                                 {
                                     if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(s);
+                                        this.temp.Add(s);
                                     }
                                     break;
                                 }
-                                temp.Add(s);
+                                this.temp.Add(s);
                                 i--;
                             }
                         }
@@ -396,11 +393,11 @@ public class Piece : MonoBehaviour
                                 {
                                     if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(s);
+                                        this.temp.Add(s);
                                     }
                                     break;
                                 }
-                                temp.Add(s);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -415,38 +412,38 @@ public class Piece : MonoBehaviour
                                 {
                                     if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(s);
+                                        this.temp.Add(s);
                                     }
                                     break;
                                 }
-                                temp.Add(s);
+                                this.temp.Add(s);
                                 i--;
                             }
                         }
                     }
                 }
                 break;
-            #endregion
-            #region Bishop
+#endregion
+#region Bishop
             case PieceType.Bishop:
                 foreach (Transform sq in board.children)
                 {
                     Square s = sq.GetComponent<Square>();
                     if ((s.row == currentSquare.row + 1 && s.column == currentSquare.column - 1) ||
-                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column - 1) || 
-                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column + 1) || 
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column + 1) ||
                         (s.row == currentSquare.row + 1 && s.column == currentSquare.column + 1))
                     {
                         if (s.occupied)
                         {
                             if (s.currentPiece.white != this.white || !calcFullKing)
                             {
-                                temp.Add(s);
+                                this.temp.Add(s);
                             }
 
                             continue;
                         }
-                        legalSquares.Add(s);
+                        this.legalSquares.Add(s);
                     }
                 }
 
@@ -467,12 +464,12 @@ public class Piece : MonoBehaviour
                                 {
                                     if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(s);
+                                        this.temp.Add(s);
                                     }
 
                                     break;
                                 }
-                                temp.Add(s);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -490,12 +487,12 @@ public class Piece : MonoBehaviour
                                 {
                                     if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(s);
+                                        this.temp.Add(s);
                                     }
 
                                     break;
                                 }
-                                temp.Add(s);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -513,12 +510,12 @@ public class Piece : MonoBehaviour
                                 {
                                     if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(s);
+                                        this.temp.Add(s);
                                     }
 
                                     break;
                                 }
-                                temp.Add(s);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -536,20 +533,20 @@ public class Piece : MonoBehaviour
                                 {
                                     if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(s);
+                                        this.temp.Add(s);
                                     }
 
                                     break;
                                 }
-                                temp.Add(s);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
                     }
                 }
                 break;
-            #endregion
-            #region Knight
+#endregion
+#region Knight
             case PieceType.Knight:
                 foreach (Transform sq in board.children)
                 {
@@ -563,13 +560,13 @@ public class Piece : MonoBehaviour
                             {
                                 if (s.currentPiece.white != this.white || !calcFullKing)
                                 {
-                                    temp.Add(s);
+                                    this.temp.Add(s);
                                 }
 
                                 continue;
                             }
 
-                            temp.Add(s);
+                            this.temp.Add(s);
                         }
                     }
                     else if (this.currentSquare.column + 2 < 8 && s.column == this.currentSquare.column + 2)
@@ -580,13 +577,13 @@ public class Piece : MonoBehaviour
                             {
                                 if (s.currentPiece.white != this.white || !calcFullKing)
                                 {
-                                    temp.Add(s);
+                                    this.temp.Add(s);
                                 }
 
                                 continue;
                             }
 
-                            temp.Add(s);
+                            this.temp.Add(s);
                         }
                     }
                     else if (this.currentSquare.row - 2 >= 0 && s.row == this.currentSquare.row - 2)
@@ -597,13 +594,13 @@ public class Piece : MonoBehaviour
                             {
                                 if (s.currentPiece.white != this.white || !calcFullKing)
                                 {
-                                    temp.Add(s);
+                                    this.temp.Add(s);
                                 }
 
                                 continue;
                             }
 
-                            temp.Add(s);
+                            this.temp.Add(s);
                         }
                     }
                     else if (this.currentSquare.column - 2 >= 0 && s.column == this.currentSquare.column - 2)
@@ -614,38 +611,38 @@ public class Piece : MonoBehaviour
                             {
                                 if (s.currentPiece.white != this.white || !calcFullKing)
                                 {
-                                    temp.Add(s);
+                                    this.temp.Add(s);
                                 }
 
                                 continue;
                             }
 
-                            temp.Add(s);
+                            this.temp.Add(s);
                         }
                     }
                 }
                 break;
-            #endregion
-            #region Rook
+#endregion
+#region Rook
             case PieceType.Rook:
                 foreach (Transform sq in board.children)
                 {
                     Square s = sq.GetComponent<Square>();
-                    if ((s.row == currentSquare.row     && s.column == currentSquare.column - 1) ||
-                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column    ) ||
-                        (s.row == currentSquare.row     && s.column == currentSquare.column + 1) ||
+                    if ((s.row == currentSquare.row && s.column == currentSquare.column - 1) ||
+                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column) ||
+                        (s.row == currentSquare.row && s.column == currentSquare.column + 1) ||
                         (s.row == currentSquare.row + 1 && s.column == currentSquare.column))
                     {
                         if (s.occupied)
                         {
                             if (s.currentPiece.white != this.white || !calcFullKing)
                             {
-                                temp.Add(s);
+                                this.temp.Add(s);
                             }
 
                             continue;
                         }
-                        legalSquares.Add(s);
+                        this.legalSquares.Add(s);
                     }
                 }
 
@@ -671,12 +668,12 @@ public class Piece : MonoBehaviour
                                 {
                                     if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(s);
+                                        this.temp.Add(s);
                                     }
 
                                     break;
                                 }
-                                temp.Add(s);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -691,11 +688,11 @@ public class Piece : MonoBehaviour
                                 {
                                     if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(s);
+                                        this.temp.Add(s);
                                     }
                                     break;
                                 }
-                                temp.Add(s);
+                                this.temp.Add(s);
                                 i--;
                             }
                         }
@@ -713,11 +710,11 @@ public class Piece : MonoBehaviour
                                 {
                                     if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(s);
+                                        this.temp.Add(s);
                                     }
                                     break;
                                 }
-                                temp.Add(s);
+                                this.temp.Add(s);
                                 i++;
                             }
                         }
@@ -732,11 +729,11 @@ public class Piece : MonoBehaviour
                                 {
                                     if (s.currentPiece.white != this.white || !calcFullKing)
                                     {
-                                        temp.Add(s);
+                                        this.temp.Add(s);
                                     }
                                     break;
                                 }
-                                temp.Add(s);
+                                this.temp.Add(s);
                                 i--;
                             }
                         }
@@ -744,8 +741,8 @@ public class Piece : MonoBehaviour
                 }
 
                 break;
-            #endregion
-            #region Pawn
+#endregion
+#region Pawn
             case PieceType.Pawn:
                 int j = 0;
                 foreach (Transform sq in board.children)
@@ -760,12 +757,12 @@ public class Piece : MonoBehaviour
                         {
                             if (this.currentSquare.row == 1 && !s.occupied && s.row == this.currentSquare.row + 2 && s.column == this.currentSquare.column && !board.children[j + 8].GetComponent<Square>().occupied)
                             {
-                                legalSquares.Add(s);
+                                this.legalSquares.Add(s);
                             }
                             //Square's one ahead,                                               it's in the same column,                                        is not occupied
                             if (s.row == this.currentSquare.row + 1 && s.column == this.currentSquare.column && !s.occupied)
                             {
-                                legalSquares.Add(s);
+                                this.legalSquares.Add(s);
                             }
                         }
 
@@ -774,7 +771,7 @@ public class Piece : MonoBehaviour
                         {
                             if (s.occupied && s.currentPiece.white != this.white || !calcFullKing)
                             {
-                                legalSquares.Add(s);
+                                this.legalSquares.Add(s);
                             }
                         }
                     }
@@ -785,18 +782,18 @@ public class Piece : MonoBehaviour
                             //Look above basically
                             if (this.currentSquare.row == 6 && !s.occupied && s.row == this.currentSquare.row - 2 && s.column == this.currentSquare.column && !board.children[j - 8].GetComponent<Square>().occupied)
                             {
-                                legalSquares.Add(s);
+                                this.legalSquares.Add(s);
                             }
                             if (s.row == this.currentSquare.row - 1 && s.column == this.currentSquare.column && !s.occupied)
                             {
-                                legalSquares.Add(s);
+                                this.legalSquares.Add(s);
                             }
                         }
                         if (s.row == this.currentSquare.row - 1 && (s.column == this.currentSquare.column + 1 || s.column == this.currentSquare.column - 1))
                         {
                             if (s.occupied && s.currentPiece.white != this.white || !calcFullKing)
                             {
-                                legalSquares.Add(s);
+                                this.legalSquares.Add(s);
                             }
                         }
                     }
@@ -805,7 +802,7 @@ public class Piece : MonoBehaviour
                 }
 
                 break;
-                #endregion
+#endregion
         }
 
         foreach (Square sq in temp)
@@ -827,15 +824,15 @@ public class Piece : MonoBehaviour
 
                 originalSquare.occupied = false;
                 originalSquare.currentPiece = null;
-                if(originalPieceOnNewSquare != null) 
+                if (originalPieceOnNewSquare != null)
                 {
-                    originalPieceOnNewSquare.currentSquare = null; 
+                    originalPieceOnNewSquare.currentSquare = null;
                 }
                 newSquare.currentPiece = this;
                 newSquare.occupied = true;
                 this.currentSquare = newSquare;
 
-                if(!board.IsChecking(!board.whiteOnMove))
+                if (!board.IsChecking(!board.whiteOnMove))
                 {
                     temp.Add(newSquare);
                 }
@@ -864,3 +861,5 @@ public class Piece : MonoBehaviour
         return legalSquares;
     }
 }
+
+#endif
