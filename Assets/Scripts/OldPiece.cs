@@ -40,7 +40,7 @@ public class OldPiece : MonoBehaviour
             if ((new Vector2(sq.position.x, sq.position.y) - new Vector2(this.transform.position.x, this.transform.position.y)).sqrMagnitude < 0.1f)
             {
                 currentSquare = sq.gameObject.GetComponent<Square>();
-                currentSquare.currentPiece = this;
+                //remove this comment currentSquare.currentPiece = this;
                 continue;
             }
         }
@@ -92,7 +92,7 @@ public class OldPiece : MonoBehaviour
         }
         else
         {
-            board.selectedPiece = this;
+            //remove this comment board.selectedPiece = this;
 
             //Actual calculating legal moves
             legalSquares = CalculateLegalMoves();
@@ -828,7 +828,7 @@ public class OldPiece : MonoBehaviour
                 {
                     originalPieceOnNewSquare.currentSquare = null;
                 }
-                newSquare.currentPiece = this;
+                //remove this comment newSquare.currentPiece = this;
                 newSquare.occupied = true;
                 this.currentSquare = newSquare;
 
@@ -842,7 +842,7 @@ public class OldPiece : MonoBehaviour
                     originalPieceOnNewSquare.currentSquare = newSquare;
                 }
                 originalSquare.occupied = true;
-                originalSquare.currentPiece = this;
+                //remove this comment originalSquare.currentPiece = this;
 
                 newSquare.currentPiece = originalPieceOnNewSquare;
                 newSquare.occupied = newSquareOriginallyOccupied;

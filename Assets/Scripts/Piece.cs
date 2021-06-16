@@ -111,6 +111,36 @@ public class Piece : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    private Square isThisSquareCool(int newRow, int newCol, out bool stuck, bool calcFullKing)
+    {
+        stuck = true;
+        if (newRow > 7 || newCol > 7 || newRow < 0 || newCol < 0)
+        {
+            // TODO: Can't find an elegant way to incorporate this into the while loop!
+            return null;
+        }
+
+        Square s = board.squares[Mathf.Abs(newRow - 7), newCol];
+
+        if (s.occupied)
+        {
+            if (s.currentPiece.white != this.white || !calcFullKing)
+            {
+                return s;
+            }
+            else
+            {
+                // we hit a piece we can't take, so we end the loop (can't take any pieces after it either)
+                return null;
+            }
+        }
+        else
+        {
+            stuck = false;
+            return s;
+        }
+    }
+
     public List<Square> CalculateLegalMoves(bool calcFullKing = true)
     {
         List<Square> temp = new List<Square>();
@@ -188,130 +218,78 @@ public class Piece : MonoBehaviour
             #endregion
             #region Queen
             case PieceType.Queen:
-                foreach (Square sq in board.squares)
-                {
-                    //This magnitude gives squares top-left, top-right, bottom-left and bottom-right (relative to current)
-                    if ((sq.row == currentSquare.row + 1 && sq.column == currentSquare.column - 1) ||
-                        (sq.row == currentSquare.row - 1 && sq.column == currentSquare.column - 1) ||
-                        (sq.row == currentSquare.row - 1 && sq.column == currentSquare.column + 1) ||
-                        (sq.row == currentSquare.row + 1 && sq.column == currentSquare.column + 1))
-                    {
-                        if (sq.occupied)
-                        {
-                            if (sq.currentPiece.white != this.white || !calcFullKing)
-                            {
-                                temp.Add(sq);
-                            }
 
-                            continue;
-                        }
-                        legalSquares.Add(sq);
-                    }
+                // The bishop 
+                int newRow = currentSquare.row;
+                int newCol = currentSquare.column;
+                while (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8)
+                {
+                    newRow++;
+                    newCol++;
+
+                    bool stuck;
+                    Square s = isThisSquareCool(newRow, newCol, out stuck, calcFullKing);
+                    if (s) 
+                        legalSquares.Add(s);
+                    else
+                        break;
+                    if (stuck)
+                        break;
                 }
 
-                foreach (Square sq in legalSquares)
+                newRow = currentSquare.row;
+                newCol = currentSquare.column;
+                while (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8)
                 {
-                    //Four possibilities
-                    //indicating squares works properly
-                    if (sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row + 1)
-                    {
-                        //Top right
-                        if (sq.column != 7 && sq.row != 7)
-                        {
-                            int i = 1;
-                            while (sq.column + i < 8 && sq.row + i < 8)
-                            {
-                                Square sqr = board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i];
+                    newRow--;
+                    newCol++;
 
-                                if (sqr.occupied)
-                                {
-                                    if (sqr.currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        temp.Add(sqr);
-                                    }
-
-                                    break;
-                                }
-                                temp.Add(sqr);
-                                i++;
-                            }
-                        }
-                    }
-                    else if (sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row - 1)
-                    {
-                        //Bottom right
-                        if (sq.column != 7 && sq.row != 0)
-                        {
-                            int i = 1;
-                            while (sq.column + i < 8 && sq.row - i >= 0)
-                            {
-                                Square sqr = board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i];
-                                if (sqr.occupied)
-                                {
-                                    if (sqr.currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        temp.Add(sqr);
-                                    }
-
-                                    break;
-                                }
-                                temp.Add(sqr);
-                                i++;
-                            }
-                        }
-                    }
-                    else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row - 1)
-                    {
-                        //Bottom left
-                        if (sq.column != 0 && sq.row != 0)
-                        {
-                            int i = 1;
-                            while (sq.column - i >= 0 && sq.row - i >= 0)
-                            {
-                                Square sqr = board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i];
-                                if (sqr.occupied)
-                                {
-                                    if (sqr.currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        temp.Add(sqr);
-                                    }
-
-                                    break;
-                                }
-                                temp.Add(sqr);
-                                i++;
-                            }
-                        }
-                    }
-                    else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row + 1)
-                    {
-                        //Top left
-                        if (sq.column != 0 && sq.row != 7)
-                        {
-                            int i = 1;
-                            while (sq.column - i >= 0 && sq.row + i < 8)
-                            {
-                                Square sqr = board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i];
-                                if (sqr.occupied)
-                                {
-                                    if (sqr.currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        temp.Add(sqr);
-                                    }
-
-                                    break;
-                                }
-                                temp.Add(sqr);
-                                i++;
-                            }
-                        }
-                    }
+                    bool stuck;
+                    Square s = isThisSquareCool(newRow, newCol, out stuck, calcFullKing);
+                    if (s)
+                        legalSquares.Add(s);
+                    else
+                        break;
+                    if (stuck)
+                        break;
                 }
 
-                temp.AddRange(legalSquares);
-                legalSquares.Clear();
+                newRow = currentSquare.row;
+                newCol = currentSquare.column;
+                while (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8)
+                {
+                    newRow++;
+                    newCol--;
 
-                foreach (Transform sq in board.children)
+                    bool stuck;
+                    Square s = isThisSquareCool(newRow, newCol, out stuck, calcFullKing);
+                    if (s)
+                        legalSquares.Add(s);
+                    else
+                        break;
+                    if (stuck)
+                        break;
+                }
+
+                newRow = currentSquare.row;
+                newCol = currentSquare.column;
+                while (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8)
+                {
+                    newRow--;
+                    newCol--;
+
+                    bool stuck;
+                    Square s = isThisSquareCool(newRow, newCol, out stuck, calcFullKing);
+                    if (s)
+                        legalSquares.Add(s);
+                    else
+                        break;
+                    if (stuck)
+                        break;
+                }
+
+                // The rook
+                /*foreach (Transform sq in board.children)
                 {
                     Square s = sq.GetComponent<Square>();
                     if ((s.row == currentSquare.row     && s.column == currentSquare.column - 1) ||
@@ -425,6 +403,7 @@ public class Piece : MonoBehaviour
                         }
                     }
                 }
+                */
                 break;
             #endregion
             #region Bishop
@@ -860,6 +839,8 @@ public class Piece : MonoBehaviour
             legalSquares.Add(sq);
         }
         temp.Clear();
+
+        Debug.Log(legalSquares.Count);
 
         return legalSquares;
     }
