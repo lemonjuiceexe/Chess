@@ -116,7 +116,6 @@ public class Piece : MonoBehaviour
         stuck = true;
         if (newRow > 7 || newCol > 7 || newRow < 0 || newCol < 0)
         {
-            // TODO: Can't find an elegant way to incorporate this into the while loop!
             return null;
         }
 
@@ -227,63 +226,9 @@ public class Piece : MonoBehaviour
                     newRow++;
                     newCol++;
 
-                    bool stuck;
-                    Square s = isThisSquareCool(newRow, newCol, out stuck, calcFullKing);
+                    Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
                     if (s) 
                         legalSquares.Add(s);
-                    else
-                        break;
-                    if (stuck)
-                        break;
-                }
-
-                newRow = currentSquare.row;
-                newCol = currentSquare.column;
-                while (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8)
-                {
-                    newRow--;
-                    newCol++;
-
-                    bool stuck;
-                    Square s = isThisSquareCool(newRow, newCol, out stuck, calcFullKing);
-                    if (s)
-                        legalSquares.Add(s);
-                    else
-                        break;
-                    if (stuck)
-                        break;
-                }
-
-                newRow = currentSquare.row;
-                newCol = currentSquare.column;
-                while (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8)
-                {
-                    newRow++;
-                    newCol--;
-
-                    bool stuck;
-                    Square s = isThisSquareCool(newRow, newCol, out stuck, calcFullKing);
-                    if (s)
-                        legalSquares.Add(s);
-                    else
-                        break;
-                    if (stuck)
-                        break;
-                }
-
-                newRow = currentSquare.row;
-                newCol = currentSquare.column;
-                while (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8)
-                {
-                    newRow--;
-                    newCol--;
-
-                    bool stuck;
-                    Square s = isThisSquareCool(newRow, newCol, out stuck, calcFullKing);
-                    if (s)
-                        legalSquares.Add(s);
-                    else
-                        break;
                     if (stuck)
                         break;
                 }
