@@ -154,65 +154,46 @@ public class Piece : MonoBehaviour
         {
             #region King
             case PieceType.King:
-                //For all squares
-                foreach (Square sq in board.squares)
                 {
-                    // An ugly way, but gets every square around the piece
-                    if ((sq.row == currentSquare.row + 1 && sq.column == currentSquare.column - 1) ||
-                        (sq.row == currentSquare.row - 1 && sq.column == currentSquare.column - 1) ||
-                        (sq.row == currentSquare.row - 1 && sq.column == currentSquare.column + 1) ||
-                        (sq.row == currentSquare.row + 1 && sq.column == currentSquare.column + 1) ||
-                        (sq.row == currentSquare.row     && sq.column == currentSquare.column - 1) ||
-                        (sq.row == currentSquare.row - 1 && sq.column == currentSquare.column)     ||
-                        (sq.row == currentSquare.row     && sq.column == currentSquare.column + 1) ||
-                        (sq.row == currentSquare.row + 1 && sq.column == currentSquare.column))
+                    for (int x = -1; x < 2; x++)
                     {
-                        if (sq.occupied)
+                        for (int y = -1; y < 2; y++)
                         {
-                            if (sq.currentPiece.white != this.white || !calcFullKing)
-                            {
-                                temp.Add(sq);
-                            }
-                            else
-                            {
-                                continue;
-                            }
+                            Square s = isThisSquareCool(currentSquare.row + x, currentSquare.column + y, out bool _, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
                         }
-
-                        temp.Add(sq);
                     }
-                }
 
-                List<Square> tempT = new List<Square>();
 
-                if (calcFullKing)
-                {
-                    //For all enemy pieces
-                    for (int i = (!this.white ? 0 : 16); i < (!this.white ? 16 : 32); i++)
+                    List<Square> tempT = new List<Square>();
+
+                    if (calcFullKing)
                     {
-                        Piece p = board.pieces[i]; //shorthand
-
-                        if (p == null) continue;
-
-                        tempT = p.CalculateLegalMoves(false);
-                        foreach(Square s in tempT)
+                        //For all enemy pieces
+                        for (int i = (!this.white ? 0 : 16); i < (!this.white ? 16 : 32); i++)
                         {
-                            if (temp.Contains(s))
+                            Piece p = board.pieces[i]; //shorthand
+
+                            if (p == null) continue;
+
+                            tempT = p.CalculateLegalMoves(false);
+                            foreach (Square s in tempT)
                             {
-                                if(board.selectedPiece == this)
+                                if (legalSquares.Contains(s))
                                 {
-                                    //s.gameObject.GetComponent<SpriteRenderer>().color = board.illegalKingMoveColor;
+                                    if (board.selectedPiece == this)
+                                    {
+                                        //s.gameObject.GetComponent<SpriteRenderer>().color = board.illegalKingMoveColor;
+                                    }
+                                    legalSquares.Remove(s);
+                                    illegalSquares.Add(s);
                                 }
-                                temp.Remove(s);
-                                illegalSquares.Add(s);
                             }
                         }
+                        tempT.Clear();
                     }
-                    tempT.Clear();
                 }
-
-                legalSquares.Clear();
-
                 break;
             #endregion
             #region Queen
