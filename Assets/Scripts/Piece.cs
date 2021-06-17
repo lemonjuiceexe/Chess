@@ -198,219 +198,154 @@ public class Piece : MonoBehaviour
             #endregion
             #region Queen
             case PieceType.Queen:
-                bool[] directions = new bool[8];
-                // the 8 cardinal directions - first four for up, down, left, right, then for the other ones
-                // we set them to true if we find something - edge of the board, another figure, so that we don't iterate through them anymore
-                for(int i = 1; i < 8; i++)
                 {
-                    if (!directions[0])
+                    bool[] directions = new bool[8];
+                    // the 8 cardinal directions - first four for up, down, left, right, then for the other ones
+                    // we set them to true if we find something - edge of the board, another figure, so that we don't iterate through them anymore
+                    for (int i = 1; i < 8; i++)
                     {
-                        int newRow = currentSquare.row + i;
-                        int newCol = currentSquare.column;
+                        if (!directions[0])
+                        {
+                            int newRow = currentSquare.row + i;
+                            int newCol = currentSquare.column;
 
-                        Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
-                        if (s)
-                            legalSquares.Add(s);
-                        if (stuck)
-                            directions[0] = true;
-                    }
-                    if (!directions[1])
-                    {
-                        int newRow = currentSquare.row;
-                        int newCol = currentSquare.column + i;
+                            Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
+                            if (stuck)
+                                directions[0] = true;
+                        }
+                        if (!directions[1])
+                        {
+                            int newRow = currentSquare.row;
+                            int newCol = currentSquare.column + i;
 
-                        Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
-                        if (s)
-                            legalSquares.Add(s);
-                        if (stuck)
-                            directions[1] = true;
-                    }
-                    if (!directions[2])
-                    {
-                        int newRow = currentSquare.row - i;
-                        int newCol = currentSquare.column;
+                            Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
+                            if (stuck)
+                                directions[1] = true;
+                        }
+                        if (!directions[2])
+                        {
+                            int newRow = currentSquare.row - i;
+                            int newCol = currentSquare.column;
 
-                        Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
-                        if (s)
-                            legalSquares.Add(s);
-                        if (stuck)
-                            directions[2] = true;
-                    }
-                    if (!directions[3])
-                    {
-                        int newRow = currentSquare.row;
-                        int newCol = currentSquare.column - i;
+                            Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
+                            if (stuck)
+                                directions[2] = true;
+                        }
+                        if (!directions[3])
+                        {
+                            int newRow = currentSquare.row;
+                            int newCol = currentSquare.column - i;
 
-                        Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
-                        if (s)
-                            legalSquares.Add(s);
-                        if (stuck)
-                            directions[3] = true;
-                    }
-                    if (!directions[4])
-                    {
-                        int newRow = currentSquare.row + i;
-                        int newCol = currentSquare.column + i;
+                            Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
+                            if (stuck)
+                                directions[3] = true;
+                        }
+                        if (!directions[4])
+                        {
+                            int newRow = currentSquare.row + i;
+                            int newCol = currentSquare.column + i;
 
-                        Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
-                        if (s)
-                            legalSquares.Add(s);
-                        if (stuck)
-                            directions[4] = true;
-                    }
-                    if (!directions[5])
-                    {
-                        int newRow = currentSquare.row + i;
-                        int newCol = currentSquare.column - i;
+                            Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
+                            if (stuck)
+                                directions[4] = true;
+                        }
+                        if (!directions[5])
+                        {
+                            int newRow = currentSquare.row + i;
+                            int newCol = currentSquare.column - i;
 
-                        Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
-                        if (s)
-                            legalSquares.Add(s);
-                        if (stuck)
-                            directions[5] = true;
-                    }
-                    if (!directions[6])
-                    {
-                        int newRow = currentSquare.row - i;
-                        int newCol = currentSquare.column + i;
+                            Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
+                            if (stuck)
+                                directions[5] = true;
+                        }
+                        if (!directions[6])
+                        {
+                            int newRow = currentSquare.row - i;
+                            int newCol = currentSquare.column + i;
 
-                        Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
-                        if (s)
-                            legalSquares.Add(s);
-                        if (stuck)
-                            directions[6] = true;
-                    }
-                    if (!directions[7])
-                    {
-                        int newRow = currentSquare.row - i;
-                        int newCol = currentSquare.column - i;
+                            Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
+                            if (stuck)
+                                directions[6] = true;
+                        }
+                        if (!directions[7])
+                        {
+                            int newRow = currentSquare.row - i;
+                            int newCol = currentSquare.column - i;
 
-                        Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
-                        if (s)
-                            legalSquares.Add(s);
-                        if (stuck)
-                            directions[7] = true;
+                            Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
+                            if (stuck)
+                                directions[7] = true;
+                        }
                     }
                 }
                 break;
             #endregion
             #region Bishop
             case PieceType.Bishop:
-                foreach (Transform sq in board.children)
                 {
-                    Square s = sq.GetComponent<Square>();
-                    if ((s.row == currentSquare.row + 1 && s.column == currentSquare.column - 1) ||
-                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column - 1) || 
-                        (s.row == currentSquare.row - 1 && s.column == currentSquare.column + 1) || 
-                        (s.row == currentSquare.row + 1 && s.column == currentSquare.column + 1))
+                    bool[] directions = new bool[4];
+                    // here we just use the second half of the queen code
+                    for (int i = 1; i < 8; i++)
                     {
-                        if (s.occupied)
+                        if (!directions[0])
                         {
-                            if (s.currentPiece.white != this.white || !calcFullKing)
-                            {
-                                temp.Add(s);
-                            }
+                            int newRow = currentSquare.row + i;
+                            int newCol = currentSquare.column + i;
 
-                            continue;
+                            Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
+                            if (stuck)
+                                directions[0] = true;
                         }
-                        legalSquares.Add(s);
-                    }
-                }
-
-                foreach (Square sq in legalSquares)
-                {
-                    //Four possibilities
-                    //indicating squares works properly
-                    if (sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row + 1)
-                    {
-                        //Top right
-                        if (sq.column != 7 && sq.row != 7)
+                        if (!directions[1])
                         {
-                            int i = 1;
-                            while (sq.column + i < 8 && sq.row + i < 8)
-                            {
-                                Square s = board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i];
-                                if (s.occupied)
-                                {
-                                    if (s.currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        temp.Add(s);
-                                    }
+                            int newRow = currentSquare.row + i;
+                            int newCol = currentSquare.column - i;
 
-                                    break;
-                                }
-                                temp.Add(s);
-                                i++;
-                            }
+                            Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
+                            if (stuck)
+                                directions[1] = true;
                         }
-                    }
-                    else if (sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row - 1)
-                    {
-                        //Bottom right
-                        if (sq.column != 7 && sq.row != 0)
+                        if (!directions[2])
                         {
-                            int i = 1;
-                            while (sq.column + i < 8 && sq.row - i >= 0)
-                            {
-                                Square s = board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i];
-                                if (s.occupied)
-                                {
-                                    if (s.currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        temp.Add(s);
-                                    }
+                            int newRow = currentSquare.row - i;
+                            int newCol = currentSquare.column + i;
 
-                                    break;
-                                }
-                                temp.Add(s);
-                                i++;
-                            }
+                            Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
+                            if (stuck)
+                                directions[2] = true;
                         }
-                    }
-                    else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row - 1)
-                    {
-                        //Bottom left
-                        if (sq.column != 0 && sq.row != 0)
+                        if (!directions[3])
                         {
-                            int i = 1;
-                            while (sq.column - i >= 0 && sq.row - i >= 0)
-                            {
-                                Square s = board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i];
-                                if (s.occupied)
-                                {
-                                    if (s.currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        temp.Add(s);
-                                    }
+                            int newRow = currentSquare.row - i;
+                            int newCol = currentSquare.column - i;
 
-                                    break;
-                                }
-                                temp.Add(s);
-                                i++;
-                            }
-                        }
-                    }
-                    else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row + 1)
-                    {
-                        //Top left
-                        if (sq.column != 0 && sq.row != 7)
-                        {
-                            int i = 1;
-                            while (sq.column - i >= 0 && sq.row + i < 8)
-                            {
-                                Square s = board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i];
-                                if (s.occupied)
-                                {
-                                    if (s.currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        temp.Add(s);
-                                    }
-
-                                    break;
-                                }
-                                temp.Add(s);
-                                i++;
-                            }
+                            Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+                            if (s)
+                                legalSquares.Add(s);
+                            if (stuck)
+                                directions[3] = true;
                         }
                     }
                 }
