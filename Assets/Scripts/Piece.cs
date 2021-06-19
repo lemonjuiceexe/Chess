@@ -353,76 +353,15 @@ public class Piece : MonoBehaviour
 			#endregion
 			#region Knight
 			case PieceType.Knight:
-				foreach (Transform sq in board.children)
 				{
-					Square s = sq.gameObject.GetComponent<Square>();
-
-					if (this.currentSquare.row + 2 < 8 && s.row == this.currentSquare.row + 2)
+					for (int x = -2; x <= 2; x++)
 					{
-						if (s.column == this.currentSquare.column - 1 || s.column == this.currentSquare.column + 1)
+						for (int y = -2; y <= 2; y++)
 						{
-							if (s.occupied)
-							{
-								if (s.currentPiece.white != this.white || !calcFullKing)
-								{
-									temp.Add(s);
-								}
-
-								continue;
-							}
-
-							temp.Add(s);
-						}
-					}
-					else if (this.currentSquare.column + 2 < 8 && s.column == this.currentSquare.column + 2)
-					{
-						if (s.row == this.currentSquare.row + 1 || s.row == this.currentSquare.row - 1)
-						{
-							if (s.occupied)
-							{
-								if (s.currentPiece.white != this.white || !calcFullKing)
-								{
-									temp.Add(s);
-								}
-
-								continue;
-							}
-
-							temp.Add(s);
-						}
-					}
-					else if (this.currentSquare.row - 2 >= 0 && s.row == this.currentSquare.row - 2)
-					{
-						if (s.column == this.currentSquare.column + 1 || s.column == this.currentSquare.column - 1)
-						{
-							if (s.occupied)
-							{
-								if (s.currentPiece.white != this.white || !calcFullKing)
-								{
-									temp.Add(s);
-								}
-
-								continue;
-							}
-
-							temp.Add(s);
-						}
-					}
-					else if (this.currentSquare.column - 2 >= 0 && s.column == this.currentSquare.column - 2)
-					{
-						if (s.row == this.currentSquare.row + 1 || s.row == this.currentSquare.row - 1)
-						{
-							if (s.occupied)
-							{
-								if (s.currentPiece.white != this.white || !calcFullKing)
-								{
-									temp.Add(s);
-								}
-
-								continue;
-							}
-
-							temp.Add(s);
+							if (Mathf.Abs(x) + Mathf.Abs(y) != 3) continue;
+							Square s = isThisSquareCool(currentSquare.row + x, currentSquare.column + y, out bool _, calcFullKing);
+							if (s)
+								legalSquares.Add(s);
 						}
 					}
 				}
