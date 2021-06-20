@@ -23,7 +23,6 @@ public class Square : MonoBehaviour
 
 	private void Start()
 	{
-
 		//Applying column and row number 
 		switch (transform.position.x)
 		{
@@ -137,11 +136,8 @@ public class Square : MonoBehaviour
 			transitioning = true;
 			#endregion
 
-			//Board rotation
-			if (!board.disableTurnBoard)
-			{
-				board.cam.transform.Rotate(0, 0, 180);
-			}
+			//Check detection, board and pieces rotation
+			board.AfterMove();
 
 			this.occupied = true;
 			board.selectedPiece.currentSquare = this;

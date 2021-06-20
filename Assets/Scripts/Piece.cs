@@ -45,24 +45,18 @@ public class Piece : MonoBehaviour
 	{
 		if (big > 0f)
 		{
-			gameObject.transform.localScale = new Vector2(1.1f, 1.1f);
+			transform.localScale = new Vector2(1.1f, 1.1f);
 			big -= Time.deltaTime;
 		}
 		else
 		{
-			gameObject.transform.localScale = new Vector2(1f, 1f);
+			transform.localScale = new Vector2(1f, 1f);
 		}
 
 		// TODO: Move this, this just seems like a janky way to try to fix some problems
 		if (!currentSquare.occupied)
 		{
 			currentSquare.occupied = true;
-		}
-
-		// TODO: Move this too, also seems like a bad way
-		if (board.whiteOnMove != board.lastFrameWhiteOnMove && !board.disableTurnBoard)
-		{
-			this.transform.Rotate(0, 0, 180);
 		}
 	}
 
@@ -111,7 +105,7 @@ public class Piece : MonoBehaviour
 		Destroy(this.gameObject);
 	}
 
-	private Square isThisSquareCool(int newRow, int newCol, out bool stuck, bool calcFullKing)
+	private Square IsThisSquareCool(int newRow, int newCol, out bool stuck, bool calcFullKing)
 	{
 		stuck = true;
 		if (newRow > 7 || newCol > 7 || newRow < 0 || newCol < 0)
@@ -159,9 +153,11 @@ public class Piece : MonoBehaviour
 					{
 						for (int y = -1; y < 2; y++)
 						{
-							Square s = isThisSquareCool(currentSquare.row + x, currentSquare.column + y, out bool _, calcFullKing);
+							Square s = IsThisSquareCool(currentSquare.row + x, currentSquare.column + y, out bool _, calcFullKing);
 							if (s)
+							{
 								legalSquares.Add(s);
+							}
 						}
 					}
 
@@ -209,88 +205,120 @@ public class Piece : MonoBehaviour
 							int newRow = currentSquare.row + i;
 							int newCol = currentSquare.column;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
+                            {
 								legalSquares.Add(s);
+							}
 							if (stuck)
+                            {
 								directions[0] = true;
+							}
 						}
 						if (!directions[1])
 						{
 							int newRow = currentSquare.row;
 							int newCol = currentSquare.column + i;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
+                            {
 								legalSquares.Add(s);
+							}
 							if (stuck)
+                            {
 								directions[1] = true;
+							}
 						}
 						if (!directions[2])
 						{
 							int newRow = currentSquare.row - i;
 							int newCol = currentSquare.column;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
+                            {
 								legalSquares.Add(s);
+							}
 							if (stuck)
+                            {
 								directions[2] = true;
+							}
 						}
 						if (!directions[3])
 						{
 							int newRow = currentSquare.row;
 							int newCol = currentSquare.column - i;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
-							if (s)
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s) 
+							{
 								legalSquares.Add(s);
+							}
 							if (stuck)
+                            {
 								directions[3] = true;
+							}		
 						}
 						if (!directions[4])
 						{
 							int newRow = currentSquare.row + i;
 							int newCol = currentSquare.column + i;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
+                            {
 								legalSquares.Add(s);
+							}	
 							if (stuck)
+                            {
 								directions[4] = true;
+							}
 						}
 						if (!directions[5])
 						{
 							int newRow = currentSquare.row + i;
 							int newCol = currentSquare.column - i;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
+                            {
 								legalSquares.Add(s);
+							}
 							if (stuck)
+                            {
 								directions[5] = true;
+							}
 						}
 						if (!directions[6])
 						{
 							int newRow = currentSquare.row - i;
 							int newCol = currentSquare.column + i;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
+                            {
 								legalSquares.Add(s);
+							}
 							if (stuck)
+                            {
 								directions[6] = true;
+							}
 						}
 						if (!directions[7])
 						{
 							int newRow = currentSquare.row - i;
 							int newCol = currentSquare.column - i;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-								legalSquares.Add(s);
-							if (stuck)
-								directions[7] = true;
+                            {
+                                legalSquares.Add(s);
+                            }
+                            if (stuck)
+                            {
+                                directions[7] = true;
+                            }
 						}
 					}
 				}
@@ -308,44 +336,60 @@ public class Piece : MonoBehaviour
 							int newRow = currentSquare.row + i;
 							int newCol = currentSquare.column + i;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-								legalSquares.Add(s);
-							if (stuck)
-								directions[0] = true;
+                            {
+                                legalSquares.Add(s);
+                            }
+                            if (stuck)
+                            {
+                                directions[0] = true;
+                            }
 						}
 						if (!directions[1])
 						{
 							int newRow = currentSquare.row + i;
 							int newCol = currentSquare.column - i;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-								legalSquares.Add(s);
-							if (stuck)
-								directions[1] = true;
+                            {
+                                legalSquares.Add(s);
+                            }
+                            if (stuck)
+                            {
+                                directions[1] = true;
+                            }
 						}
 						if (!directions[2])
 						{
 							int newRow = currentSquare.row - i;
 							int newCol = currentSquare.column + i;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-								legalSquares.Add(s);
-							if (stuck)
-								directions[2] = true;
+                            {
+                                legalSquares.Add(s);
+                            }
+                            if (stuck)
+                            {
+                                directions[2] = true;
+                            }
 						}
 						if (!directions[3])
 						{
 							int newRow = currentSquare.row - i;
 							int newCol = currentSquare.column - i;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-								legalSquares.Add(s);
-							if (stuck)
-								directions[3] = true;
+                            {
+                                legalSquares.Add(s);
+                            }
+                            if (stuck)
+                            {
+                                directions[3] = true;
+                            }
 						}
 					}
 				}
@@ -359,10 +403,12 @@ public class Piece : MonoBehaviour
 						for (int y = -2; y <= 2; y++)
 						{
 							if (Mathf.Abs(x) + Mathf.Abs(y) != 3) continue;
-							Square s = isThisSquareCool(currentSquare.row + x, currentSquare.column + y, out bool _, calcFullKing);
+							Square s = IsThisSquareCool(currentSquare.row + x, currentSquare.column + y, out bool _, calcFullKing);
 							if (s)
-								legalSquares.Add(s);
-						}
+                            {
+                                legalSquares.Add(s);
+                            }
+                        }
 					}
 				}
 				break;
@@ -378,44 +424,60 @@ public class Piece : MonoBehaviour
 							int newRow = currentSquare.row + i;
 							int newCol = currentSquare.column;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-								legalSquares.Add(s);
-							if (stuck)
-								directions[0] = true;
+                            {
+                                legalSquares.Add(s);
+                            }
+                            if (stuck)
+                            {
+                                directions[0] = true;
+                            }
 						}
 						if (!directions[1])
 						{
 							int newRow = currentSquare.row;
 							int newCol = currentSquare.column + i;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-								legalSquares.Add(s);
-							if (stuck)
-								directions[1] = true;
+                            {
+                                legalSquares.Add(s);
+                            }
+                            if (stuck)
+                            {
+                                directions[1] = true;
+                            }
 						}
 						if (!directions[2])
 						{
 							int newRow = currentSquare.row - i;
 							int newCol = currentSquare.column;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-								legalSquares.Add(s);
-							if (stuck)
-								directions[2] = true;
+                            {
+                                legalSquares.Add(s);
+                            }
+                            if (stuck)
+                            {
+                                directions[2] = true;
+                            }
 						}
 						if (!directions[3])
 						{
 							int newRow = currentSquare.row;
 							int newCol = currentSquare.column - i;
 
-							Square s = isThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-								legalSquares.Add(s);
-							if (stuck)
-								directions[3] = true;
+                            {
+                                legalSquares.Add(s);
+                            }
+                            if (stuck)
+                            {
+                                directions[3] = true;
+                            }
 						}
 					}
 				}

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-
 	//2D array of squares, actually representing a board (8x8)
 	public Square[,] squares = new Square[8, 8];
 	[Header("Pieces and squares arrays")]
@@ -46,19 +45,26 @@ public class Board : MonoBehaviour
 		disableTurnBoard = PlayerPrefs.GetInt("disableBoardFlip", 0) == 1;
 	}
 
-	private void Update()
-	{
-		//Check after a move detection
-		//Just moved
-		if (whiteOnMove != lastFrameWhiteOnMove)
-		{
-			check = IsChecking(!whiteOnMove);
-		}
-	}
-
 	private void LateUpdate()
 	{
 		lastFrameWhiteOnMove = whiteOnMove;
+	}
+
+	public void AfterMove()
+    {
+		check = IsChecking(!whiteOnMove);
+        if (!disableTurnBoard)
+        {
+			cam.transform.Rotate(0, 0, 180);
+			foreach(Piece p in pieces)
+            {
+                try
+                {
+					p.transform.Rotate(0, 0, 180);
+				}
+                catch { continue; }
+			}
+		}
 	}
 
 	public bool IsChecking(bool color)
