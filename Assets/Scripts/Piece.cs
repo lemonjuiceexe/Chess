@@ -183,10 +183,6 @@ public class Piece : MonoBehaviour
 							{
 								if (legalSquares.Contains(s))
 								{
-									if (board.selectedPiece == this)
-									{
-										//s.gameObject.GetComponent<SpriteRenderer>().color = board.illegalKingMoveColor;
-									}
 									legalSquares.Remove(s);
 									illegalSquares.Add(s);
 								}
@@ -537,7 +533,7 @@ public class Piece : MonoBehaviour
 		temp.Clear();
 
 		//Simulating moves to check if they break the check (therefore, if they're legal when the king is checked)
-		if (board.check && calcFullKing)
+		if (calcFullKing)
 		{
 			foreach (Square newSquare in legalSquares)
 			{
