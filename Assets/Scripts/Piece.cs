@@ -133,6 +133,11 @@ public class Piece : MonoBehaviour
 			return s;
 		}
 	}
+	private Square SquareExists(int r, int l)
+	{
+		try { Square res = board.squares[Mathf.Abs(r - 7), l]; return res; }
+		catch { return null; }
+	}
 
 	public List<Square> CalculateLegalMoves(bool calcFullKing = true)
 	{
@@ -153,7 +158,7 @@ public class Piece : MonoBehaviour
 					{
 						for (int y = -1; y < 2; y++)
 						{
-							Square s = IsThisSquareCool(currentSquare.row + x, currentSquare.column + y, out bool _, calcFullKing);
+							Square s = IsThisSquareCool(currentSquare.row + x, currentSquare.column + y, out _, calcFullKing);
 							if (s)
 							{
 								legalSquares.Add(s);
@@ -207,11 +212,11 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
+							{
 								legalSquares.Add(s);
 							}
 							if (stuck)
-                            {
+							{
 								directions[0] = true;
 							}
 						}
@@ -222,11 +227,11 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
+							{
 								legalSquares.Add(s);
 							}
 							if (stuck)
-                            {
+							{
 								directions[1] = true;
 							}
 						}
@@ -237,11 +242,11 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
+							{
 								legalSquares.Add(s);
 							}
 							if (stuck)
-                            {
+							{
 								directions[2] = true;
 							}
 						}
@@ -251,14 +256,14 @@ public class Piece : MonoBehaviour
 							int newCol = currentSquare.column - i;
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
-							if (s) 
+							if (s)
 							{
 								legalSquares.Add(s);
 							}
 							if (stuck)
-                            {
+							{
 								directions[3] = true;
-							}		
+							}
 						}
 						if (!directions[4])
 						{
@@ -267,11 +272,11 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
+							{
 								legalSquares.Add(s);
-							}	
+							}
 							if (stuck)
-                            {
+							{
 								directions[4] = true;
 							}
 						}
@@ -282,11 +287,11 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
+							{
 								legalSquares.Add(s);
 							}
 							if (stuck)
-                            {
+							{
 								directions[5] = true;
 							}
 						}
@@ -297,11 +302,11 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
+							{
 								legalSquares.Add(s);
 							}
 							if (stuck)
-                            {
+							{
 								directions[6] = true;
 							}
 						}
@@ -312,13 +317,13 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
-                                legalSquares.Add(s);
-                            }
-                            if (stuck)
-                            {
-                                directions[7] = true;
-                            }
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[7] = true;
+							}
 						}
 					}
 				}
@@ -338,13 +343,13 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
-                                legalSquares.Add(s);
-                            }
-                            if (stuck)
-                            {
-                                directions[0] = true;
-                            }
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[0] = true;
+							}
 						}
 						if (!directions[1])
 						{
@@ -353,13 +358,13 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
-                                legalSquares.Add(s);
-                            }
-                            if (stuck)
-                            {
-                                directions[1] = true;
-                            }
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[1] = true;
+							}
 						}
 						if (!directions[2])
 						{
@@ -368,13 +373,13 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
-                                legalSquares.Add(s);
-                            }
-                            if (stuck)
-                            {
-                                directions[2] = true;
-                            }
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[2] = true;
+							}
 						}
 						if (!directions[3])
 						{
@@ -383,13 +388,13 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
-                                legalSquares.Add(s);
-                            }
-                            if (stuck)
-                            {
-                                directions[3] = true;
-                            }
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[3] = true;
+							}
 						}
 					}
 				}
@@ -403,12 +408,12 @@ public class Piece : MonoBehaviour
 						for (int y = -2; y <= 2; y++)
 						{
 							if (Mathf.Abs(x) + Mathf.Abs(y) != 3) continue;
-							Square s = IsThisSquareCool(currentSquare.row + x, currentSquare.column + y, out bool _, calcFullKing);
+							Square s = IsThisSquareCool(currentSquare.row + x, currentSquare.column + y, out _, calcFullKing);
 							if (s)
-                            {
-                                legalSquares.Add(s);
-                            }
-                        }
+							{
+								legalSquares.Add(s);
+							}
+						}
 					}
 				}
 				break;
@@ -426,13 +431,13 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
-                                legalSquares.Add(s);
-                            }
-                            if (stuck)
-                            {
-                                directions[0] = true;
-                            }
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[0] = true;
+							}
 						}
 						if (!directions[1])
 						{
@@ -441,13 +446,13 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
-                                legalSquares.Add(s);
-                            }
-                            if (stuck)
-                            {
-                                directions[1] = true;
-                            }
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[1] = true;
+							}
 						}
 						if (!directions[2])
 						{
@@ -456,13 +461,13 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
-                                legalSquares.Add(s);
-                            }
-                            if (stuck)
-                            {
-                                directions[2] = true;
-                            }
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[2] = true;
+							}
 						}
 						if (!directions[3])
 						{
@@ -471,13 +476,13 @@ public class Piece : MonoBehaviour
 
 							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
 							if (s)
-                            {
-                                legalSquares.Add(s);
-                            }
-                            if (stuck)
-                            {
-                                directions[3] = true;
-                            }
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[3] = true;
+							}
 						}
 					}
 				}
@@ -485,63 +490,132 @@ public class Piece : MonoBehaviour
 			#endregion
 			#region Pawn
 			case PieceType.Pawn:
-				int j = 0;
-				foreach (Transform sq in board.children)
 				{
-					Square s = sq.GetComponent<Square>();
-					if (this.white)
+					int offset = white ? 1 : -1;
+					int nR = currentSquare.row + (1 * offset);
+					int nC = currentSquare.column;
+					//Move forward
+					Square s = SquareExists(nR, nC);
+					if (s && !s.occupied && calcFullKing)
 					{
-						//If first move (you can move 2 squares)
-						//If pawn is in second row (can double move), second square !occupied, it's actually the square 2 ahead,                                it's in the same column                                         the square 1 ahead is not occupied
-						//Overall: can move two squares ahead
-						if (calcFullKing) // also check if we arent calling it from enemy king, in which case dont calc moves directly ahead
+						legalSquares.Add(s);
+						//Double first move
+						nR += 1 * offset;
+						if (!hasMoved && !SquareExists(nR, nC).occupied)
 						{
-							if (this.currentSquare.row == 1 && !s.occupied && s.row == this.currentSquare.row + 2 && s.column == this.currentSquare.column && !board.children[j + 8].GetComponent<Square>().occupied)
-							{
-								legalSquares.Add(s);
-							}
-							//Square's one ahead,                                               it's in the same column,                                        is not occupied
-							if (s.row == this.currentSquare.row + 1 && s.column == this.currentSquare.column && !s.occupied)
-							{
-								legalSquares.Add(s);
-							}
-						}
-
-						//Taking pieces
-						if (s.row == this.currentSquare.row + 1 && (s.column == this.currentSquare.column + 1 || s.column == this.currentSquare.column - 1))
-						{
-							if (s.occupied && s.currentPiece.white != this.white || !calcFullKing)
-							{
-								legalSquares.Add(s);
-							}
+							legalSquares.Add(SquareExists(nR, nC));
 						}
 					}
 					else
 					{
-						if (calcFullKing) // also check if we arent calling it from enemy king, in which case dont calc moves directly ahead
-						{
-							//Look above basically
-							if (this.currentSquare.row == 6 && !s.occupied && s.row == this.currentSquare.row - 2 && s.column == this.currentSquare.column && !board.children[j - 8].GetComponent<Square>().occupied)
-							{
-								legalSquares.Add(s);
-							}
-							if (s.row == this.currentSquare.row - 1 && s.column == this.currentSquare.column && !s.occupied)
-							{
-								legalSquares.Add(s);
-							}
-						}
-						if (s.row == this.currentSquare.row - 1 && (s.column == this.currentSquare.column + 1 || s.column == this.currentSquare.column - 1))
-						{
-							if (s.occupied && s.currentPiece.white != this.white || !calcFullKing)
-							{
-								legalSquares.Add(s);
-							}
-						}
+						nR += 1 * offset;
+					}
+					//Take
+					nR -= 1 * offset;
+					nC -= 1 * offset;
+					s = SquareExists(nR, nC);
+					if (s && ((s.occupied && s.currentPiece.white != white) || !calcFullKing))
+					{
+						legalSquares.Add(s);
+					}
+					nC += 2 * offset;
+					s = SquareExists(nR, nC);
+					if (s && ((s.occupied && s.currentPiece.white != white) || !calcFullKing))
+					{
+						legalSquares.Add(s);
 					}
 
-					j++;
-				}
+					//            Square sq = IsThisSquareCool(nR, nC, out bool st, calcFullKing);
+					////sq.GetComponent<SpriteRenderer>().color = Color.magenta;
+					//            if (sq)
+					//            {
+					//	legalSquares.Add(sq);
+					//            }
+					////Double first move
+					//nR += (1 * offset);
+					//if (!hasMoved && !st)
+					//            {
+					//	Square d = IsThisSquareCool(nR, nC, out _, calcFullKing);
+					//                if (d)
+					//                {
+					//		legalSquares.Add(d);
+					//                }
+					//            }
+					////Taking
+					//nR -= (1 * offset);
+					//nC -= (1 * offset);
+					//Square t = IsThisSquareCool(nR, nC, out _, calcFullKing);
+					//            if (t && ((t.occupied && t.currentPiece.white != white) || !calcFullKing))
+					//            {
+					//	legalSquares.Add(t);
+					//            }
+					//nC += (2 * offset);
+					//Square l = IsThisSquareCool(nR, nC, out _, calcFullKing);
+					//if (l && ((l.occupied && l.currentPiece.white != white) || !calcFullKing))
+					//{
+					//	legalSquares.Add(l);
+					//}
 
+
+					/*
+					int j = 0;
+					foreach (Transform sq in board.children)
+					{
+						Square s = sq.GetComponent<Square>();
+						if (this.white)
+						{
+							//If first move (you can move 2 squares)
+							//If pawn is in second row (can double move), second square !occupied, it's actually the square 2 ahead,                                it's in the same column                                         the square 1 ahead is not occupied
+							//Overall: can move two squares ahead
+							if (calcFullKing) // also check if we arent calling it from enemy king, in which case dont calc moves directly ahead
+							{
+								if (this.currentSquare.row == 1 && !s.occupied && s.row == this.currentSquare.row + 2 && s.column == this.currentSquare.column && !board.children[j + 8].GetComponent<Square>().occupied)
+								{
+									legalSquares.Add(s);
+								}
+								//Square's one ahead,                                               it's in the same column,                                        is not occupied
+								if (s.row == this.currentSquare.row + 1 && s.column == this.currentSquare.column && !s.occupied)
+								{
+									legalSquares.Add(s);
+								}
+							}
+
+							//Taking pieces
+							if (s.row == this.currentSquare.row + 1 && (s.column == this.currentSquare.column + 1 || s.column == this.currentSquare.column - 1))
+							{
+								if (s.occupied && s.currentPiece.white != this.white || !calcFullKing)
+								{
+									legalSquares.Add(s);
+								}
+							}
+						}
+						else
+						{
+							if (calcFullKing) // also check if we arent calling it from enemy king, in which case dont calc moves directly ahead
+							{
+								//Look above basically
+								if (this.currentSquare.row == 6 && !s.occupied && s.row == this.currentSquare.row - 2 && s.column == this.currentSquare.column && !board.children[j - 8].GetComponent<Square>().occupied)
+								{
+									legalSquares.Add(s);
+								}
+								if (s.row == this.currentSquare.row - 1 && s.column == this.currentSquare.column && !s.occupied)
+								{
+									legalSquares.Add(s);
+								}
+							}
+							if (s.row == this.currentSquare.row - 1 && (s.column == this.currentSquare.column + 1 || s.column == this.currentSquare.column - 1))
+							{
+								if (s.occupied && s.currentPiece.white != this.white || !calcFullKing)
+								{
+									legalSquares.Add(s);
+								}
+							}
+						}
+
+						j++;
+					}
+					*/
+				}
 				break;
 				#endregion
 		}
