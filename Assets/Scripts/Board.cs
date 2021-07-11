@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,24 +45,31 @@ public class Board : MonoBehaviour
 		disableTurnBoard = PlayerPrefs.GetInt("disableBoardFlip", 0) == 1;
 	}
 
+	private void Update()
+	{
+		if (lastFrameWhiteOnMove != whiteOnMove)
+		{
+			check = IsChecking(!whiteOnMove);
+		}
+	}
+
 	private void LateUpdate()
 	{
 		lastFrameWhiteOnMove = whiteOnMove;
 	}
 
 	public void AfterMove()
-    {
-		check = IsChecking(!whiteOnMove);
-        if (!disableTurnBoard)
-        {
+	{
+		if (!disableTurnBoard)
+		{
 			cam.transform.Rotate(0, 0, 180);
-			foreach(Piece p in pieces)
-            {
-                try
-                {
+			foreach (Piece p in pieces)
+			{
+				try
+				{
 					p.transform.Rotate(0, 0, 180);
 				}
-                catch { continue; }
+				catch { continue; }
 			}
 		}
 	}
