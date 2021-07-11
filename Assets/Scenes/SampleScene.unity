@@ -476,7 +476,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &11706852
 BoxCollider2D:
@@ -905,7 +904,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &127442344
 BoxCollider2D:
@@ -1034,7 +1032,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &171422083
 BoxCollider2D:
@@ -1392,7 +1389,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!212 &232932213
 SpriteRenderer:
@@ -1927,7 +1923,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &288552452
 BoxCollider2D:
@@ -2056,7 +2051,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &300207271
 BoxCollider2D:
@@ -2993,7 +2987,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &391790890
 BoxCollider2D:
@@ -3967,7 +3960,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &566534399
 BoxCollider2D:
@@ -4931,7 +4923,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &673655363
 BoxCollider2D:
@@ -5428,7 +5419,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &706669441
 BoxCollider2D:
@@ -5557,7 +5547,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &718336536
 BoxCollider2D:
@@ -5788,7 +5777,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!212 &739083599
 SpriteRenderer:
@@ -5942,7 +5930,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &754782208
 BoxCollider2D:
@@ -6071,7 +6058,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &769267954
 BoxCollider2D:
@@ -6327,7 +6313,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &811979612
 BoxCollider2D:
@@ -6837,7 +6822,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 1
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &891201143
 BoxCollider2D:
@@ -7896,7 +7880,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!212 &1142360438
 SpriteRenderer:
@@ -8304,7 +8287,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1292567679
 BoxCollider2D:
@@ -8408,7 +8390,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!212 &1298946612
 SpriteRenderer:
@@ -9143,7 +9124,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1376335191
 BoxCollider2D:
@@ -9272,7 +9252,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1379248782
 BoxCollider2D:
@@ -9655,7 +9634,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1441894312
 BoxCollider2D:
@@ -10038,7 +10016,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1547671701
 BoxCollider2D:
@@ -10143,7 +10120,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 1
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1579968255
 BoxCollider2D:
@@ -10323,7 +10299,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1598379283
 BoxCollider2D:
@@ -10452,7 +10427,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1614313479
 BoxCollider2D:
@@ -11191,7 +11165,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 0
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!212 &1780927521
 SpriteRenderer:
@@ -11320,7 +11293,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!212 &1786523484
 SpriteRenderer:
@@ -11474,7 +11446,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1796728129
 BoxCollider2D:
@@ -11984,7 +11955,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1948499435
 BoxCollider2D:
@@ -12329,7 +12299,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &2011586237
 BoxCollider2D:
@@ -12771,7 +12740,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 0
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &2072622951
 BoxCollider2D:
