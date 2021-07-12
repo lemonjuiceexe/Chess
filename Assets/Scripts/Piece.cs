@@ -4,762 +4,580 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-    public enum PieceType
-    {
-        King,
-        Queen,
-        Bishop,
-        Knight,
-        Rook,
-        Pawn
-    }
-    //0 - black, 1 - white
-    public bool white;
-    public bool hasMoved = false;
+	public enum PieceType
+	{
+		King,
+		Queen,
+		Bishop,
+		Knight,
+		Rook,
+		Pawn
+	}
+	//0 - black, 1 - white
+	public bool white;
+	public bool hasMoved = false;
 
-    public Board board;
+	public Board board;
 
-    public PieceType type;
+	public PieceType type;
 
-    //bool selected = false;
-    public Square currentSquare;
-    public List<Square> legalSquares = new List<Square>();
-    List<Square> temp = new List<Square>();
-    [SerializeField]
-    List<Square> illegalSquares = new List<Square>();
+	//bool selected = false;
+	public Square currentSquare;
+	[SerializeField] List<Square> illegalSquares = new List<Square>();
 
-    private float big = 0f;
+	private float big = 0f;
 
-    private void Start()
-    {
-        foreach(Transform sq in board.children)
-        {
-            //If a piece is close to a square - if it's on the square (checking only the x and y, since z is diffrent)
-            if((new Vector2(sq.position.x, sq.position.y) - new Vector2(this.transform.position.x, this.transform.position.y)).sqrMagnitude < 0.1f)
-            {
-                currentSquare = sq.gameObject.GetComponent<Square>();
-                currentSquare.currentPiece = this;
-                continue;
-            }
-        }
-    }
+	private void Start()
+	{
+		foreach (Transform sq in board.children)
+		{
+			//If a piece is close to a square - if it's on the square (checking only the x and y, since z is diffrent)
+			if ((new Vector2(sq.position.x, sq.position.y) - new Vector2(this.transform.position.x, this.transform.position.y)).sqrMagnitude < 0.1f)
+			{
+				currentSquare = sq.gameObject.GetComponent<Square>();
+				currentSquare.currentPiece = this;
+				continue;
+			}
+		}
+	}
 
-    private void Update()
-    {
-        if(big > 0f)
-        {
-            gameObject.transform.localScale = new Vector2(1.1f, 1.1f);
-            big -= Time.deltaTime;
-        } 
-        else
-        {
-            gameObject.transform.localScale = new Vector2(1f, 1f);
-        }
-        currentSquare.occupied = true;
+	private void Update()
+	{
+		if (big > 0f)
+		{
+			transform.localScale = new Vector2(1.1f, 1.1f);
+			big -= Time.deltaTime;
+		}
+		else
+		{
+			transform.localScale = new Vector2(1f, 1f);
+		}
 
-        //If the move just happened
-        if(board.whiteOnMove != board.lastFrameWhiteOnMove && !board.disableTurnBoard)
-        {
-            this.transform.Rotate(0, 0, 180);
-        }
-    }
+		// TODO: Move this, this just seems like a janky way to try to fix some problems
+		if (!currentSquare.occupied)
+		{
+			currentSquare.occupied = true;
+		}
+	}
 
-    private void OnMouseDown()
-    {
-        //Taking
-        if(currentSquare.legalForSelectedPiece)
-        {
-            if (currentSquare.MovePiece())
-            {
-                Destroy(this.gameObject);
-            }
-            
-            return;
-        }
+	private void OnMouseDown()
+	{
+		//Taking
+		if (currentSquare.legalForSelectedPiece)
+		{
+			if (currentSquare.MovePiece())
+			{
+				DestroyPiece();
+			}
+			return;
+		}
 
-        ClearLegal();
+		ClearLegal();
 
-        big = 0.1f;
+		big = 0.1f;
 
-        if (board.selectedPiece == this)
-        {
-            board.selectedPiece = null;
-        }
-        else
-        {
-            board.selectedPiece = this;
+		// if the piece is already selected, deselect it
+		if (board.selectedPiece == this)
+		{
+			board.selectedPiece = null;
+		}
+		// if it isn't, select it and calculate legal moves
+		else
+		{
+			board.selectedPiece = this;
 
-            //Actual calculating legal moves
-            legalSquares = CalculateLegalMoves();
+			//Actual calculating legal moves
+			List<Square> legalSquares = CalculateLegalMoves();
 
-            // pass the legalSquares for board to color instead of doing it yourself
-            board.ColorLegal(legalSquares);
-        }
-    }
+			// pass the legalSquares for board to color instead of doing it yourself
+			board.ColorLegal(legalSquares);
+		}
+	}
 
-    public void ClearLegal()
-    {
-        legalSquares.Clear();
-        temp.Clear();
-        board.ClearLegal();
-    }
+	public void ClearLegal()
+	{
+		board.ClearLegal();
+	}
 
-    public List<Square> CalculateLegalMoves(bool calcFullKing = true)
-    {
-        legalSquares.Clear();
-        
-        switch (this.type)
-        {
-            #region King
-            case PieceType.King:
-                //For all squares
-                foreach (Transform sq in board.children)
-                {
-                    //This magnitude gives every square around (standard king's move)
-                    if ((sq.position - this.transform.position).sqrMagnitude <= 250f)
-                    {
-                        if (sq.GetComponent<Square>().occupied)
-                        {
-                            if (sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
-                            {
-                                this.temp.Add(sq.gameObject.GetComponent<Square>());
-                            }
+	public void DestroyPiece()
+	{
+		//TODO: Add some safeguards, maybe some checks before doing the Destroy
+		Destroy(this.gameObject);
+	}
 
-                            continue;
-                        }
+	private Square IsThisSquareCool(int newRow, int newCol, out bool stuck, bool calcFullKing)
+	{
+		stuck = true;
+		if (newRow > 7 || newCol > 7 || newRow < 0 || newCol < 0)
+		{
+			return null;
+		}
 
-                        this.temp.Add(sq.gameObject.GetComponent<Square>());
-                    }
-                }
+		Square s = board.squares[Mathf.Abs(newRow - 7), newCol];
 
-                List<Square> tempT = new List<Square>();
+		if (s.occupied)
+		{
+			if (s.currentPiece.white != this.white || !calcFullKing)
+			{
+				return s;
+			}
+			else
+			{
+				// we hit a piece we can't take, so we end the loop (can't take any pieces after it either)
+				return null;
+			}
+		}
+		else
+		{
+			stuck = false;
+			return s;
+		}
+	}
+	private Square SquareExists(int r, int l)
+	{
+		try { Square res = board.squares[Mathf.Abs(r - 7), l]; return res; }
+		catch { return null; }
+	}
 
-                //TODO: King will be able to take a piece which is defended, as defended piece is not a legal move for the defending one
-                if (calcFullKing)
-                {
-                    //For all enemy pieces
-                    for (int i = (!this.white ? 0 : 16); i < (!this.white ? 16 : 32); i++)
-                    {
-                        Piece p = board.pieces[i]; //shorthand
+	public List<Square> CalculateLegalMoves(bool calcFullKing = true)
+	{
+		List<Square> temp = new List<Square>();
+		List<Square> legalSquares = new List<Square>();
 
-                        if (p == null) continue;
+		if (currentSquare == null)
+		{
+			return legalSquares;
+		}
 
-                        tempT = p.CalculateLegalMoves(false);
-                        foreach(Square s in tempT)
-                        {
-                            if (this.temp.Contains(s))
-                            {
-                                this.temp.Remove(s);
-                            }
-                        }
-                    }
-                    tempT.Clear();
-                }
+		switch (this.type)
+		{
+			#region King
+			case PieceType.King:
+				{
+					for (int x = -1; x < 2; x++)
+					{
+						for (int y = -1; y < 2; y++)
+						{
+							Square s = IsThisSquareCool(currentSquare.row + x, currentSquare.column + y, out _, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+						}
+					}
 
-                legalSquares.Clear();
 
-                break;
-            #endregion
-            #region Queen
-            case PieceType.Queen:
-                foreach (Transform sq in board.children)
-                {
-                    //This magnitude gives squares top-left, top-right, bottom-left and bottom-right (relative to current)
-                    if ((sq.position - this.transform.position).sqrMagnitude > 150f && (sq.position - this.transform.position).sqrMagnitude <= 250f)
-                    {
-                        if (sq.GetComponent<Square>().occupied)
-                        {
-                            if (sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
-                            {
-                                this.temp.Add(sq.GetComponent<Square>());
-                            }
+					List<Square> tempT = new List<Square>();
 
-                            continue;
-                        }
-                        this.legalSquares.Add(sq.gameObject.GetComponent<Square>());
-                    }
-                }
+					if (calcFullKing)
+					{
+						//For all enemy pieces
+						for (int i = (!this.white ? 0 : 16); i < (!this.white ? 16 : 32); i++)
+						{
+							Piece p = board.pieces[i]; //shorthand
 
-                foreach (Square sq in legalSquares)
-                {
-                    //Four possibilities
-                    //indicating squares works properly
-                    if (sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row + 1)
-                    {
-                        //Top right
-                        if (sq.column != 7 && sq.row != 7)
-                        {
-                            int i = 1;
-                            while (sq.column + i < 8 && sq.row + i < 8)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
-                                    }
+							if (p == null) continue;
 
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
-                                i++;
-                            }
-                        }
-                    }
-                    else if (sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row - 1)
-                    {
-                        //Bottom right
-                        if (sq.column != 7 && sq.row != 0)
-                        {
-                            int i = 1;
-                            while (sq.column + i < 8 && sq.row - i >= 0)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
-                                    }
+							tempT = p.CalculateLegalMoves(false);
+							foreach (Square s in tempT)
+							{
+								if (legalSquares.Contains(s))
+								{
+									legalSquares.Remove(s);
+									illegalSquares.Add(s);
+								}
+							}
+						}
+						tempT.Clear();
+					}
+				}
+				break;
+			#endregion
+			#region Queen
+			case PieceType.Queen:
+				{
+					bool[] directions = new bool[8];
+					// the 8 cardinal directions - first four for up, down, left, right, then for the other ones
+					// we set them to true if we find something - edge of the board, another figure, so that we don't iterate through them anymore
+					for (int i = 1; i < 8; i++)
+					{
+						if (!directions[0])
+						{
+							int newRow = currentSquare.row + i;
+							int newCol = currentSquare.column;
 
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
-                                i++;
-                            }
-                        }
-                    }
-                    else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row - 1)
-                    {
-                        //Bottom left
-                        if (sq.column != 0 && sq.row != 0)
-                        {
-                            int i = 1;
-                            while (sq.column - i >= 0 && sq.row - i >= 0)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
-                                    }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[0] = true;
+							}
+						}
+						if (!directions[1])
+						{
+							int newRow = currentSquare.row;
+							int newCol = currentSquare.column + i;
 
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
-                                i++;
-                            }
-                        }
-                    }
-                    else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row + 1)
-                    {
-                        //Top left
-                        if (sq.column != 0 && sq.row != 7)
-                        {
-                            int i = 1;
-                            while (sq.column - i >= 0 && sq.row + i < 8)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
-                                    }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[1] = true;
+							}
+						}
+						if (!directions[2])
+						{
+							int newRow = currentSquare.row - i;
+							int newCol = currentSquare.column;
 
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
-                                i++;
-                            }
-                        }
-                    }
-                }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[2] = true;
+							}
+						}
+						if (!directions[3])
+						{
+							int newRow = currentSquare.row;
+							int newCol = currentSquare.column - i;
 
-                this.temp.AddRange(legalSquares);
-                this.legalSquares.Clear();
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[3] = true;
+							}
+						}
+						if (!directions[4])
+						{
+							int newRow = currentSquare.row + i;
+							int newCol = currentSquare.column + i;
 
-                foreach (Transform sq in board.children)
-                {
-                    //This magnitude gives squares top, bottom, left and right (relative to current)
-                    if ((sq.position - this.transform.position).sqrMagnitude <= 150f)
-                    {
-                        if (sq.GetComponent<Square>().occupied)
-                        {
-                            if (sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
-                            {
-                                this.temp.Add(sq.GetComponent<Square>());
-                            }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[4] = true;
+							}
+						}
+						if (!directions[5])
+						{
+							int newRow = currentSquare.row + i;
+							int newCol = currentSquare.column - i;
 
-                            continue;
-                        }
-                        this.legalSquares.Add(sq.gameObject.GetComponent<Square>());
-                    }
-                }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[5] = true;
+							}
+						}
+						if (!directions[6])
+						{
+							int newRow = currentSquare.row - i;
+							int newCol = currentSquare.column + i;
 
-                foreach (Square sq in legalSquares)
-                {
-                    //If legal move is on the edge, it's the last in piece direction anyway, so sort it out here
-                    //Four possibilities: piece square is top, left, bottom or right relatively to here
-                    if (sq.row == this.currentSquare.row)
-                    {
-                        if (sq.column > this.currentSquare.column && sq.column != 7)
-                        {
-                            //Case right
-                            int i = 1;
-                            //Math.Abs is translation from chess notation (squares being counted from bottom-left) to normal notation (from top-left)
-                            //Basically while is iterating through legal moves (while condition indicates legal)
-                            //Ifs are checking if the sq is occupied, then if its diffrent color than current piece
-                            // if yes, then we add it to legal then break
-                            // if no, then we just break
-                            while (sq.column + i < 8)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
-                                    }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[6] = true;
+							}
+						}
+						if (!directions[7])
+						{
+							int newRow = currentSquare.row - i;
+							int newCol = currentSquare.column - i;
 
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
-                                i++;
-                            }
-                        }
-                        else if (sq.column != 0)
-                        {
-                            //Case left
-                            int i = -1;
-                            while (sq.column + i >= 0)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
-                                    }
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
-                                i--;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (sq.row > this.currentSquare.row && sq.row != 7)
-                        {
-                            //Case up
-                            int i = 1;
-                            while (sq.row + i < 8)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
-                                    }
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
-                                i++;
-                            }
-                        }
-                        else if (sq.row != 0)
-                        {
-                            //Case bottom
-                            int i = -1;
-                            while (sq.row + i >= 0)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
-                                    }
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
-                                i--;
-                            }
-                        }
-                    }
-                }
-                break;
-            #endregion
-            #region Bishop
-            case PieceType.Bishop:
-                foreach (Transform sq in board.children)
-                {
-                    //This magnitude gives squares top-left, top-right, bottom-left and bottom-right (relative to current)
-                    if ((sq.position - this.transform.position).sqrMagnitude > 150f && (sq.position - this.transform.position).sqrMagnitude <= 250f)
-                    {
-                        if (sq.GetComponent<Square>().occupied)
-                        {
-                            if (sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
-                            {
-                                this.temp.Add(sq.GetComponent<Square>());
-                            }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[7] = true;
+							}
+						}
+					}
+				}
+				break;
+			#endregion
+			#region Bishop
+			case PieceType.Bishop:
+				{
+					bool[] directions = new bool[4];
+					// here we just use the second half of the queen code
+					for (int i = 1; i < 8; i++)
+					{
+						if (!directions[0])
+						{
+							int newRow = currentSquare.row + i;
+							int newCol = currentSquare.column + i;
 
-                            continue;
-                        }
-                        this.legalSquares.Add(sq.gameObject.GetComponent<Square>());
-                    }
-                }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[0] = true;
+							}
+						}
+						if (!directions[1])
+						{
+							int newRow = currentSquare.row + i;
+							int newCol = currentSquare.column - i;
 
-                foreach (Square sq in legalSquares)
-                {
-                    //Four possibilities
-                    //indicating squares works properly
-                    if (sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row + 1)
-                    {
-                        //Top right
-                        if (sq.column != 7 && sq.row != 7)
-                        {
-                            int i = 1;
-                            while (sq.column + i < 8 && sq.row + i < 8)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
-                                    }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[1] = true;
+							}
+						}
+						if (!directions[2])
+						{
+							int newRow = currentSquare.row - i;
+							int newCol = currentSquare.column + i;
 
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column + i]);
-                                i++;
-                            }
-                        }
-                    }
-                    else if (sq.column == this.currentSquare.column + 1 && sq.row == this.currentSquare.row - 1)
-                    {
-                        //Bottom right
-                        if (sq.column != 7 && sq.row != 0)
-                        {
-                            int i = 1;
-                            while (sq.column + i < 8 && sq.row - i >= 0)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
-                                    }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[2] = true;
+							}
+						}
+						if (!directions[3])
+						{
+							int newRow = currentSquare.row - i;
+							int newCol = currentSquare.column - i;
 
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column + i]);
-                                i++;
-                            }
-                        }
-                    }
-                    else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row - 1)
-                    {
-                        //Bottom left
-                        if (sq.column != 0 && sq.row != 0)
-                        {
-                            int i = 1;
-                            while (sq.column - i >= 0 && sq.row - i >= 0)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
-                                    }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[3] = true;
+							}
+						}
+					}
+				}
+				break;
+			#endregion
+			#region Knight
+			case PieceType.Knight:
+				{
+					for (int x = -2; x <= 2; x++)
+					{
+						for (int y = -2; y <= 2; y++)
+						{
+							if (Mathf.Abs(x) + Mathf.Abs(y) != 3) continue;
+							Square s = IsThisSquareCool(currentSquare.row + x, currentSquare.column + y, out _, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+						}
+					}
+				}
+				break;
+			#endregion
+			#region Rook
+			case PieceType.Rook:
+				{
+					bool[] directions = new bool[4];
+					for (int i = 1; i < 8; i++)
+					{
+						if (!directions[0])
+						{
+							int newRow = currentSquare.row + i;
+							int newCol = currentSquare.column;
 
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) + i, sq.column - i]);
-                                i++;
-                            }
-                        }
-                    }
-                    else if (sq.column == this.currentSquare.column - 1 && sq.row == this.currentSquare.row + 1)
-                    {
-                        //Top left
-                        if (sq.column != 0 && sq.row != 7)
-                        {
-                            int i = 1;
-                            while (sq.column - i >= 0 && sq.row + i < 8)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
-                                    }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[0] = true;
+							}
+						}
+						if (!directions[1])
+						{
+							int newRow = currentSquare.row;
+							int newCol = currentSquare.column + i;
 
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column - i]);
-                                i++;
-                            }
-                        }
-                    }
-                }
-                break;
-            #endregion
-            #region Knight
-            case PieceType.Knight:
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[1] = true;
+							}
+						}
+						if (!directions[2])
+						{
+							int newRow = currentSquare.row - i;
+							int newCol = currentSquare.column;
 
-                foreach (Transform s in board.children)
-                {
-                    Square sq = s.gameObject.GetComponent<Square>();
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[2] = true;
+							}
+						}
+						if (!directions[3])
+						{
+							int newRow = currentSquare.row;
+							int newCol = currentSquare.column - i;
 
-                    if (this.currentSquare.row + 2 < 8 && sq.row == this.currentSquare.row + 2)
-                    {
-                        if (sq.column == this.currentSquare.column - 1 || sq.column == this.currentSquare.column + 1)
-                        {
-                            if (sq.GetComponent<Square>().occupied)
-                            {
-                                if (sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
-                                {
-                                    this.temp.Add(sq.gameObject.GetComponent<Square>());
-                                }
+							Square s = IsThisSquareCool(newRow, newCol, out bool stuck, calcFullKing);
+							if (s)
+							{
+								legalSquares.Add(s);
+							}
+							if (stuck)
+							{
+								directions[3] = true;
+							}
+						}
+					}
+				}
+				break;
+			#endregion
+			#region Pawn
+			case PieceType.Pawn:
+				{
+					int offset = white ? 1 : -1;
+					int nR = currentSquare.row + (1 * offset);
+					int nC = currentSquare.column;
+					//Move forward
+					Square s = SquareExists(nR, nC);
+					if (s && !s.occupied && calcFullKing)
+					{
+						legalSquares.Add(s);
+						//Double first move
+						nR += 1 * offset;
+						if (!hasMoved && !SquareExists(nR, nC).occupied)
+						{
+							legalSquares.Add(SquareExists(nR, nC));
+						}
+					}
+					else
+					{
+						nR += 1 * offset;
+					}
+					//Take
+					nR -= 1 * offset;
+					nC -= 1 * offset;
+					s = SquareExists(nR, nC);
+					if (s && ((s.occupied && s.currentPiece.white != white) || !calcFullKing))
+					{
+						legalSquares.Add(s);
+					}
+					nC += 2 * offset;
+					s = SquareExists(nR, nC);
+					if (s && ((s.occupied && s.currentPiece.white != white) || !calcFullKing))
+					{
+						legalSquares.Add(s);
+					}
+				}
+				break;
+				#endregion
+		}
 
-                                continue;
-                            }
+		foreach (Square sq in temp)
+		{
+			legalSquares.Add(sq);
+		}
 
-                            this.temp.Add(sq);
-                        }
-                    }
-                    else if (this.currentSquare.column + 2 < 8 && sq.column == this.currentSquare.column + 2)
-                    {
-                        if (sq.row == this.currentSquare.row + 1 || sq.row == this.currentSquare.row - 1)
-                        {
-                            if (sq.GetComponent<Square>().occupied)
-                            {
-                                if (sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
-                                {
-                                    this.temp.Add(sq.gameObject.GetComponent<Square>());
-                                }
+		temp.Clear();
 
-                                continue;
-                            }
+		//Simulating moves to check if they break the check (therefore, if they're legal when the king is checked)
+		if (calcFullKing)
+		{
+			foreach (Square newSquare in legalSquares)
+			{
+				//temporary variables to not lose any data
+				Square originalSquare = this.currentSquare;
+				bool newSquareOriginallyOccupied = newSquare.occupied;
+				Piece originalPieceOnNewSquare = newSquare.currentPiece;
 
-                            this.temp.Add(sq);
-                        }
-                    }
-                    else if (this.currentSquare.row - 2 >= 0 && sq.row == this.currentSquare.row - 2)
-                    {
-                        if (sq.column == this.currentSquare.column + 1 || sq.column == this.currentSquare.column - 1)
-                        {
-                            if (sq.GetComponent<Square>().occupied)
-                            {
-                                if (sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
-                                {
-                                    this.temp.Add(sq.gameObject.GetComponent<Square>());
-                                }
+				originalSquare.occupied = false;
+				originalSquare.currentPiece = null;
+				if (originalPieceOnNewSquare != null)
+				{
+					originalPieceOnNewSquare.currentSquare = null;
+				}
+				newSquare.currentPiece = this;
+				newSquare.occupied = true;
+				this.currentSquare = newSquare;
 
-                                continue;
-                            }
+				if (!board.IsChecking(!board.whiteOnMove))
+				{
+					temp.Add(newSquare);
+				}
 
-                            this.temp.Add(sq);
-                        }
-                    }
-                    else if (this.currentSquare.column - 2 >= 0 && sq.column == this.currentSquare.column - 2)
-                    {
-                        if (sq.row == this.currentSquare.row + 1 || sq.row == this.currentSquare.row - 1)
-                        {
-                            if (sq.GetComponent<Square>().occupied)
-                            {
-                                if (sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
-                                {
-                                    this.temp.Add(sq.gameObject.GetComponent<Square>());
-                                }
+				if (originalPieceOnNewSquare != null)
+				{
+					originalPieceOnNewSquare.currentSquare = newSquare;
+				}
+				originalSquare.occupied = true;
+				originalSquare.currentPiece = this;
 
-                                continue;
-                            }
+				newSquare.currentPiece = originalPieceOnNewSquare;
+				newSquare.occupied = newSquareOriginallyOccupied;
+				this.currentSquare = originalSquare;
 
-                            this.temp.Add(sq);
-                        }
-                    }
-                }
-                break;
-            #endregion
-            #region Rook
-            case PieceType.Rook:
-                foreach (Transform sq in board.children)
-                {
-                    //This magnitude gives squares top, bottom, left and right (relative to current)
-                    if ((sq.position - this.transform.position).sqrMagnitude <= 150f)
-                    {
-                        if (sq.GetComponent<Square>().occupied)
-                        {
-                            if (sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
-                            {
-                                this.temp.Add(sq.GetComponent<Square>());
-                            }
+			}
+			legalSquares.Clear();
+		}
 
-                            continue;
-                        }
-                        this.legalSquares.Add(sq.gameObject.GetComponent<Square>());
-                    }
-                }
+		foreach (Square sq in temp)
+		{
+			legalSquares.Add(sq);
+		}
+		temp.Clear();
 
-                foreach (Square sq in legalSquares)
-                {
-                    //If legal move is on the edge, it's the last in piece direction anyway, so sort it out here
-                    //Four possibilities: piece square is top, left, bottom or right relatively to here
-                    if (sq.row == this.currentSquare.row)
-                    {
-                        if (sq.column > this.currentSquare.column && sq.column != 7)
-                        {
-                            //Case right
-                            int i = 1;
-                            //Math.Abs is translation from chess notation (squares being counted from bottom-left) to normal notation (from top-left)
-                            //Basically while is iterating through legal moves (while condition indicates legal)
-                            //Ifs are checking if the sq is occupied, then if its diffrent color than current piece
-                            // if yes, then we add it to legal then break
-                            // if no, then we just break
-                            while (sq.column + i < 8)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
-                                    }
-
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
-                                i++;
-                            }
-                        }
-                        else if (sq.column != 0)
-                        {
-                            //Case left
-                            int i = -1;
-                            while (sq.column + i >= 0)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7), sq.column + i].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
-                                    }
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7), sq.column + i]);
-                                i--;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (sq.row > this.currentSquare.row && sq.row != 7)
-                        {
-                            //Case up
-                            int i = 1;
-                            while (sq.row + i < 8)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
-                                    }
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
-                                i++;
-                            }
-                        }
-                        else if (sq.row != 0)
-                        {
-                            //Case bottom
-                            int i = -1;
-                            while (sq.row + i >= 0)
-                            {
-                                if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].occupied)
-                                {
-                                    if (board.squares[Mathf.Abs(sq.row - 7) - i, sq.column].currentPiece.white != this.white || !calcFullKing)
-                                    {
-                                        this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
-                                    }
-                                    break;
-                                }
-                                this.temp.Add(board.squares[Mathf.Abs(sq.row - 7) - i, sq.column]);
-                                i--;
-                            }
-                        }
-                    }
-                }
-
-                break;
-            #endregion
-            #region Pawn
-            case PieceType.Pawn:
-                int j = 0;
-                foreach (Transform sq in board.children)
-                {
-                    if (this.white)
-                    {
-                        //If first move (you can move 2 squares)
-                        //If pawn is in second row (can double move), second square !occupied, it's actually the square 2 ahead,                                it's in the same column                                         the square 1 ahead is not occupied
-                        //Overall: can move two squares ahead
-                        if (calcFullKing) // also check if we arent calling it from enemy king, in which case dont calc moves directly ahead
-                        {
-                            if (this.currentSquare.row == 1 && !sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().row == this.currentSquare.row + 2 && sq.GetComponent<Square>().column == this.currentSquare.column && !board.children[j + 8].GetComponent<Square>().occupied)
-                            {
-                                this.legalSquares.Add(sq.GetComponent<Square>());
-                            }
-                            //Square's one ahead,                                               it's in the same column,                                        is not occupied
-                            if (sq.GetComponent<Square>().row == this.currentSquare.row + 1 && sq.GetComponent<Square>().column == this.currentSquare.column && !sq.GetComponent<Square>().occupied)
-                            {
-                                this.legalSquares.Add(sq.GetComponent<Square>());
-                            }
-                        }
-
-                        //Taking pieces
-                        if (sq.GetComponent<Square>().row == this.currentSquare.row + 1 && (sq.GetComponent<Square>().column == this.currentSquare.column + 1 || sq.GetComponent<Square>().column == this.currentSquare.column - 1))
-                        {
-                            if (sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
-                            {
-                                this.legalSquares.Add(sq.GetComponent<Square>());
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (calcFullKing) // also check if we arent calling it from enemy king, in which case dont calc moves directly ahead
-                        {
-                            //Look above basically
-                            if (this.currentSquare.row == 6 && !sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().row == this.currentSquare.row - 2 && sq.GetComponent<Square>().column == this.currentSquare.column && !board.children[j - 8].GetComponent<Square>().occupied)
-                            {
-                                this.legalSquares.Add(sq.GetComponent<Square>());
-                            }
-                            if (sq.GetComponent<Square>().row == this.currentSquare.row - 1 && sq.GetComponent<Square>().column == this.currentSquare.column && !sq.GetComponent<Square>().occupied)
-                            {
-                                this.legalSquares.Add(sq.GetComponent<Square>());
-                            }
-                        }
-                        if (sq.GetComponent<Square>().row == this.currentSquare.row - 1 && (sq.GetComponent<Square>().column == this.currentSquare.column + 1 || sq.GetComponent<Square>().column == this.currentSquare.column - 1))
-                        {
-                            if (sq.GetComponent<Square>().occupied && sq.GetComponent<Square>().currentPiece.white != this.white || !calcFullKing)
-                            {
-                                this.legalSquares.Add(sq.GetComponent<Square>());
-                            }
-                        }
-                    }
-
-                    j++;
-                }
-
-                break;
-                #endregion
-        }
-
-        foreach (Square sq in temp)
-        {
-            legalSquares.Add(sq);
-        }
-
-        temp.Clear();
-
-        return legalSquares;
-    }
+		return legalSquares;
+	}
 }

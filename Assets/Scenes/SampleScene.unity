@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 11706851}
   - component: {fileID: 11706852}
   m_Layer: 8
-  m_Name: w_Bishop_q
+  m_Name: w_Bishop_k
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -402,7 +402,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11706848}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25, y: 15, z: 0}
+  m_LocalPosition: {x: 15, y: -35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 112323394}
@@ -476,7 +476,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &11706852
 BoxCollider2D:
@@ -831,7 +830,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127442340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35, y: -5, z: 0}
+  m_LocalPosition: {x: -35, y: -25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 112323394}
@@ -905,7 +904,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &127442344
 BoxCollider2D:
@@ -946,7 +944,7 @@ GameObject:
   - component: {fileID: 171422082}
   - component: {fileID: 171422083}
   m_Layer: 8
-  m_Name: b_Knight_k
+  m_Name: b_Knight_q
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1034,7 +1032,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &171422083
 BoxCollider2D:
@@ -1329,7 +1326,7 @@ GameObject:
   - component: {fileID: 232932212}
   - component: {fileID: 232932211}
   m_Layer: 8
-  m_Name: w_Bishop_k
+  m_Name: w_Bishop_q
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1392,7 +1389,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!212 &232932213
 SpriteRenderer:
@@ -1927,7 +1923,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &288552452
 BoxCollider2D:
@@ -1982,7 +1977,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300207267}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25, y: -15, z: 0}
+  m_LocalPosition: {x: 25, y: -25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 112323394}
@@ -2056,7 +2051,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &300207271
 BoxCollider2D:
@@ -2993,7 +2987,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &391790890
 BoxCollider2D:
@@ -3967,7 +3960,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &566534399
 BoxCollider2D:
@@ -4931,7 +4923,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &673655363
 BoxCollider2D:
@@ -5053,7 +5044,7 @@ RectTransform:
   - {fileID: 605542731}
   - {fileID: 1375120590}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5340,7 +5331,7 @@ GameObject:
   - component: {fileID: 706669440}
   - component: {fileID: 706669441}
   m_Layer: 8
-  m_Name: b_Rook_k
+  m_Name: b_Rook_q
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5354,7 +5345,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 706669437}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25, y: -15, z: 0}
+  m_LocalPosition: {x: -35, y: 35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 389683639}
@@ -5428,7 +5419,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &706669441
 BoxCollider2D:
@@ -5469,7 +5459,7 @@ GameObject:
   - component: {fileID: 718336535}
   - component: {fileID: 718336536}
   m_Layer: 8
-  m_Name: w_Knight_q
+  m_Name: w_Knight_k
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5557,7 +5547,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &718336536
 BoxCollider2D:
@@ -5739,7 +5728,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 739083595}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: -15, z: 0}
+  m_LocalPosition: {x: 5, y: 25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 389683639}
@@ -5788,7 +5777,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!212 &739083599
 SpriteRenderer:
@@ -5854,7 +5842,7 @@ GameObject:
   - component: {fileID: 754782207}
   - component: {fileID: 754782208}
   m_Layer: 8
-  m_Name: b_Bishop_k
+  m_Name: b_Bishop_q
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5942,7 +5930,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &754782208
 BoxCollider2D:
@@ -6071,7 +6058,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &769267954
 BoxCollider2D:
@@ -6327,7 +6313,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &811979612
 BoxCollider2D:
@@ -6763,7 +6748,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891201139}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 5, z: 0}
+  m_LocalPosition: {x: -5, y: -35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 112323394}
@@ -6837,7 +6822,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 1
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &891201143
 BoxCollider2D:
@@ -7310,7 +7294,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1044344849
 GameObject:
@@ -7833,7 +7817,7 @@ GameObject:
   - component: {fileID: 1142360437}
   - component: {fileID: 1142360436}
   m_Layer: 8
-  m_Name: b_Rook_q
+  m_Name: b_Rook_k
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7896,7 +7880,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!212 &1142360438
 SpriteRenderer:
@@ -8304,7 +8287,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1292567679
 BoxCollider2D:
@@ -8345,7 +8327,7 @@ GameObject:
   - component: {fileID: 1298946611}
   - component: {fileID: 1298946610}
   m_Layer: 8
-  m_Name: b_Knight_q
+  m_Name: b_Knight_k
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8408,7 +8390,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!212 &1298946612
 SpriteRenderer:
@@ -9069,7 +9050,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1376335187}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15, y: 15, z: 0}
+  m_LocalPosition: {x: 5, y: -25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 112323394}
@@ -9143,7 +9124,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1376335191
 BoxCollider2D:
@@ -9272,7 +9252,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1379248782
 BoxCollider2D:
@@ -9567,7 +9546,7 @@ GameObject:
   - component: {fileID: 1441894311}
   - component: {fileID: 1441894312}
   m_Layer: 8
-  m_Name: w_Rook_k
+  m_Name: w_Rook_q
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9655,7 +9634,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1441894312
 BoxCollider2D:
@@ -9937,52 +9915,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &1513069137
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1513069139}
-  - component: {fileID: 1513069138}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1513069138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513069137}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3c0c032fada41e4eb5452de5f59dc51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  board: {fileID: 2001880198}
-  bTile: {fileID: 8011939680749605223, guid: 61f6911cfda49954ba19bcb3cf85cecc, type: 3}
-  wTile: {fileID: 2208331622126091336, guid: f840656870bc4a94bbcbfe459cfc80b9, type: 3}
---- !u!4 &1513069139
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513069137}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1547671697
 GameObject:
   m_ObjectHideFlags: 0
@@ -10084,7 +10016,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1547671701
 BoxCollider2D:
@@ -10140,7 +10071,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579968251}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 35, z: 0}
+  m_LocalPosition: {x: -5, y: 35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 389683639}
@@ -10189,7 +10120,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 1
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1579968255
 BoxCollider2D:
@@ -10281,7 +10211,7 @@ GameObject:
   - component: {fileID: 1598379282}
   - component: {fileID: 1598379283}
   m_Layer: 8
-  m_Name: w_Knight_k
+  m_Name: w_Knight_q
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10369,7 +10299,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 3
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1598379283
 BoxCollider2D:
@@ -10498,7 +10427,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1614313479
 BoxCollider2D:
@@ -11188,7 +11116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780927517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: -35, z: 0}
+  m_LocalPosition: {x: 5, y: -35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 112323394}
@@ -11237,7 +11165,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 0
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!212 &1780927521
 SpriteRenderer:
@@ -11303,7 +11230,7 @@ GameObject:
   - component: {fileID: 1786523483}
   - component: {fileID: 1786523482}
   m_Layer: 8
-  m_Name: w_Rook_q
+  m_Name: w_Rook_k
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11366,7 +11293,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 4
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!212 &1786523484
 SpriteRenderer:
@@ -11520,7 +11446,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1796728129
 BoxCollider2D:
@@ -12030,7 +11955,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 5
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &1948499435
 BoxCollider2D:
@@ -12068,7 +11992,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2001880199}
   - component: {fileID: 2001880200}
-  - component: {fileID: 2001880201}
   m_Layer: 8
   m_Name: Board
   m_TagString: Untagged
@@ -12152,7 +12075,7 @@ Transform:
   - {fileID: 571951132}
   - {fileID: 1207985173}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2001880200
 MonoBehaviour:
@@ -12269,25 +12192,12 @@ MonoBehaviour:
   whiteOnMove: 1
   transitionSpeed: 100
   lastFrameWhiteOnMove: 1
+  check: 0
   legalColor: {r: 0.092196584, g: 1, b: 0, a: 0.49803922}
   legalTakeColor: {r: 0, g: 0.3630929, b: 1, a: 0.49803922}
+  illegalKingMoveColor: {r: 1, g: 0.3669502, b: 0, a: 0.49803922}
   disableForcedColorMoves: 0
   disableTurnBoard: 0
---- !u!114 &2001880201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001880198}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3c0c032fada41e4eb5452de5f59dc51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  board: {fileID: 2001880198}
-  bTile: {fileID: 609444401909757953, guid: dbae4d654fda9e04094ffa5208e5342f, type: 3}
-  wTile: {fileID: 6260443326413802525, guid: 95afc3e9ea24e4342a249c66bac018e5, type: 3}
 --- !u!1 &2011586233
 GameObject:
   m_ObjectHideFlags: 0
@@ -12301,7 +12211,7 @@ GameObject:
   - component: {fileID: 2011586236}
   - component: {fileID: 2011586237}
   m_Layer: 8
-  m_Name: b_Bishop_q
+  m_Name: b_Bishop_k
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12315,7 +12225,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2011586233}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35, y: -5, z: 0}
+  m_LocalPosition: {x: 15, y: 35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 389683639}
@@ -12389,7 +12299,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 2
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &2011586237
 BoxCollider2D:
@@ -12701,7 +12610,7 @@ Transform:
   - {fileID: 112323394}
   - {fileID: 389683639}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2072622946
 GameObject:
@@ -12731,7 +12640,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072622946}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: -5, z: 0}
+  m_LocalPosition: {x: 5, y: 35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 389683639}
@@ -12831,7 +12740,6 @@ MonoBehaviour:
   board: {fileID: 2001880200}
   type: 0
   currentSquare: {fileID: 0}
-  legalSquares: []
   illegalSquares: []
 --- !u!61 &2072622951
 BoxCollider2D:
