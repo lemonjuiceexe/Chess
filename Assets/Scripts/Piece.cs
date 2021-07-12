@@ -24,6 +24,7 @@ public class Piece : MonoBehaviour
 	//bool selected = false;
 	public Square currentSquare;
 	[SerializeField] List<Square> illegalSquares = new List<Square>();
+	List<Square> castleMove = new List<Square>();
 
 	private float big = 0f;
 
@@ -91,6 +92,7 @@ public class Piece : MonoBehaviour
 
 			// pass the legalSquares for board to color instead of doing it yourself
 			board.ColorLegal(legalSquares);
+			board.ColorSquares(castleMove, Color.blue);
 		}
 	}
 
@@ -139,10 +141,56 @@ public class Piece : MonoBehaviour
 		catch { return null; }
 	}
 
+	private bool IsCastlingLegal(bool kingside, out Square mvsq)
+	{
+		mvsq = null;
+		if(type != PieceType.King)
+		{
+			Debug.LogError("Method `IsCastlingLegal` should only be called on king");
+			return false;
+		}
+		if (hasMoved)
+		{
+			return false;
+		}
+		if (white)
+		{
+			if (kingside) 
+			{
+				//White kingside rook
+				Piece rook = board.pieces[6];
+				Square p1 = board.children[61].GetComponent<Square>();
+				Square p2 = board.children[62].GetComponent<Square>();
+				mvsq = p2;
+				return (!rook.hasMoved && 
+						!p1.occupied && !p2.occupied && 
+						!p1.IsSquareAttacked(!white) && !p2.IsSquareAttacked(!white) && 
+						(!board.check || (board.check && !board.IsChecking(!white))));
+			}
+			else 
+			{
+				return false;
+			}
+		}
+		else
+		{
+			if (kingside) 
+			{
+				return false;
+			}
+			else 
+			{
+				return false;
+			}
+		}
+	}
+
 	public List<Square> CalculateLegalMoves(bool calcFullKing = true)
 	{
 		List<Square> temp = new List<Square>();
 		List<Square> legalSquares = new List<Square>();
+
+		castleMove.Clear();
 
 		if (currentSquare == null)
 		{
@@ -166,7 +214,6 @@ public class Piece : MonoBehaviour
 						}
 					}
 
-
 					List<Square> tempT = new List<Square>();
 
 					if (calcFullKing)
@@ -189,6 +236,11 @@ public class Piece : MonoBehaviour
 							}
 						}
 						tempT.Clear();
+					}
+					//Castling
+					if (IsCastlingLegal(true, out Square castlemove))
+					{
+						castleMove.Add(castlemove);
 					}
 				}
 				break;

@@ -159,4 +159,25 @@ public class Square : MonoBehaviour
 			return false;
 		}
 	}
+
+	public bool IsSquareAttacked(bool attackingColor) 
+	{
+		for (int i = (attackingColor ? 0 : 16); i < (attackingColor ? 16 : 32); i++)
+		{
+			Piece p = board.pieces[i]; //shorthand
+
+			if (p == null) continue;
+
+			List<Square> tempT = p.CalculateLegalMoves(false);
+			foreach (Square s in tempT)
+			{
+				if (s == this)
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
 }
