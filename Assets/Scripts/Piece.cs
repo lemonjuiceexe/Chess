@@ -104,6 +104,15 @@ public class Piece : MonoBehaviour
 	public void DestroyPiece()
 	{
 		//TODO: Add some safeguards, maybe some checks before doing the Destroy
+		//TODO: gotta insert something instead of this object into board.pieces, so the indexes in the list won't move
+		for(int i = 0; i < board.pieces.Length; i++)
+		{
+			if(board.pieces[i] == GetComponent<Piece>())
+			{
+				board.pieces[i] = null;
+				Debug.Log("asdljbnl");
+			}
+		}
 		Destroy(this.gameObject);
 	}
 
@@ -153,36 +162,58 @@ public class Piece : MonoBehaviour
 		{
 			return false;
 		}
+		//a is index of rook in the board.pieces; b, c, d are indexes of squares which king goes through 
+		int a, b, c, d = 0;
+
 		if (white)
 		{
 			if (kingside) 
 			{
 				//White kingside rook
-				Piece rook = board.pieces[6];
-				Square p1 = board.children[61].GetComponent<Square>();
-				Square p2 = board.children[62].GetComponent<Square>();
-				mvsq = p2;
-				return (!rook.hasMoved && 
-						!p1.occupied && !p2.occupied && 
-						!p1.IsSquareAttacked(!white) && !p2.IsSquareAttacked(!white) && 
-						(!board.check || (board.check && !board.IsChecking(!white))));
+				a = 6;
+				b = 61;
+				c = 62;
 			}
 			else 
 			{
-				return false;
+				a = 7;
+				b = 59;
+				c = 58;
+				d = 57;
 			}
 		}
 		else
 		{
 			if (kingside) 
 			{
-				return false;
+				a = 22;
+				b = 5;
+				c = 6;
 			}
 			else 
 			{
-				return false;
+				a = 23;
+				b = 3;
+				c = 2;
+				d = 1;
 			}
 		}
+
+		Piece rook = board.pieces[a];
+		Square p1 = board.children[b].GetComponent<Square>();
+		Square p2 = board.children[c].GetComponent<Square>();
+		bool temp = true;
+		if(d != 0)
+		{
+			Square p3 = board.children[d].GetComponent<Square>();
+			temp = !p3.occupied;
+		}
+		mvsq = p2;
+		return (!rook.hasMoved &&
+				!p1.occupied && !p2.occupied &&
+				!p1.IsSquareAttacked(!white) && !p2.IsSquareAttacked(!white) &&
+				(!board.check || (board.check && !board.IsChecking(!white))) &&
+				temp);
 	}
 
 	public List<Square> CalculateLegalMoves(bool calcFullKing = true)
@@ -236,11 +267,17 @@ public class Piece : MonoBehaviour
 							}
 						}
 						tempT.Clear();
-					}
-					//Castling
-					if (IsCastlingLegal(true, out Square castlemove))
-					{
-						castleMove.Add(castlemove);
+
+
+						//Castling
+						if (IsCastlingLegal(true, out Square castlemove))
+						{
+							castleMove.Add(castlemove);
+						}
+						if (IsCastlingLegal(false, out castlemove))
+						{
+							castleMove.Add(castlemove);
+						}
 					}
 				}
 				break;
