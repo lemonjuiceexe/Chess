@@ -111,7 +111,7 @@ public class Square : MonoBehaviour
 			MovePiece();
 		}
 		//Castle
-		else if (board.selectedPiece.castleMove.Contains(this))
+		else if (board.selectedPiece && board.selectedPiece.castleMove.Contains(this))
 		{
 			Piece castleRook;
 			Square rookDest;
