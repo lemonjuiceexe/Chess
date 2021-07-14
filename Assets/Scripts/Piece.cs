@@ -24,7 +24,7 @@ public class Piece : MonoBehaviour
 	//bool selected = false;
 	public Square currentSquare;
 	[SerializeField] List<Square> illegalSquares = new List<Square>();
-	List<Square> castleMove = new List<Square>();
+	public List<Square> castleMove = new List<Square>();
 
 	private float big = 0f;
 
@@ -104,13 +104,11 @@ public class Piece : MonoBehaviour
 	public void DestroyPiece()
 	{
 		//TODO: Add some safeguards, maybe some checks before doing the Destroy
-		//TODO: gotta insert something instead of this object into board.pieces, so the indexes in the list won't move
 		for(int i = 0; i < board.pieces.Length; i++)
 		{
 			if(board.pieces[i] == GetComponent<Piece>())
 			{
 				board.pieces[i] = null;
-				Debug.Log("asdljbnl");
 			}
 		}
 		Destroy(this.gameObject);
@@ -156,7 +154,6 @@ public class Piece : MonoBehaviour
 		if(type != PieceType.King)
 		{
 			Debug.LogError("Method `IsCastlingLegal` should only be called on king");
-			return false;
 		}
 		if (hasMoved)
 		{
@@ -208,7 +205,15 @@ public class Piece : MonoBehaviour
 			Square p3 = board.children[d].GetComponent<Square>();
 			temp = !p3.occupied;
 		}
-		mvsq = p2;
+		
+		if((!rook.hasMoved &&
+				!p1.occupied && !p2.occupied &&
+				!p1.IsSquareAttacked(!white) && !p2.IsSquareAttacked(!white) &&
+				(!board.check || (board.check && !board.IsChecking(!white))) &&
+				temp))
+		{
+			mvsq = p2;
+		}
 		return (!rook.hasMoved &&
 				!p1.occupied && !p2.occupied &&
 				!p1.IsSquareAttacked(!white) && !p2.IsSquareAttacked(!white) &&

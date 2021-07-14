@@ -105,8 +105,69 @@ public class Square : MonoBehaviour
 
 	private void OnMouseDown()
 	{
+		//Normal move
 		if (legalForSelectedPiece)
 		{
+			MovePiece();
+		}
+		//Castle
+		else if (board.selectedPiece.castleMove.Contains(this))
+		{
+			Piece castleRook;
+			Square rookDest;
+			//White kingside
+			if (column == 6 && row == 0)
+			{
+				castleRook = board.pieces[6];
+				rookDest = board.children[61].GetComponent<Square>();
+			}
+			//Black kingside
+			else if (column == 6 && row == 7)
+			{
+				castleRook = board.pieces[22];
+				rookDest = board.children[5].GetComponent<Square>();
+			}
+			//White queenside
+			else if (column == 2 && row == 0)
+			{
+				castleRook = board.pieces[7];
+				rookDest = board.children[59].GetComponent<Square>();
+			}
+			//Black queenside
+			else if(column == 2 && row == 7)
+			{
+				castleRook = board.pieces[23];
+				rookDest = board.children[3].GetComponent<Square>();
+			}
+			else
+			{
+				Debug.LogError("Castlemove doesn't correspond to any of the four castling options");
+				return;
+			}
+
+			//Manual move of the rook
+			castleRook.hasMoved = true;
+			castleRook.currentSquare.occupied = false;
+			castleRook.currentSquare.currentPiece = null;
+			/*
+			#region Transition
+			//basically assigns every needed variable
+			startPos = castleRook.transform; //sets start and end positions
+			endPos = rookDest.transform;
+			transPiece = castleRook.gameObject; // keeps the piece in memory since its erased from selectedPiece now
+			startTime = Time.time; // time when we started moving
+			dist = Vector3.Distance(startPos.position, endPos.position); //calculates transition distance
+																		 // sets info that we can now move the piece
+			transitioning = true;
+			#endregion
+			*/
+			castleRook.transform.position = rookDest.transform.position;
+
+			rookDest.occupied = true;
+			castleRook.currentSquare = rookDest;
+			rookDest.currentPiece = castleRook;
+
+			//King move
 			MovePiece();
 		}
 	}
