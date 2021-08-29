@@ -11,6 +11,9 @@ public class Square : MonoBehaviour
 	public bool occupied = false;
 	public bool legalForSelectedPiece = false;
 	public Piece currentPiece;
+	//En passant 'able
+	public bool epable;
+	int epCountdown = 0;
 
 	public Board board;
 
@@ -93,6 +96,20 @@ public class Square : MonoBehaviour
 		}
 	}
 
+	private void Update()
+	{
+		if(board.lastFrameWhiteOnMove != board.whiteOnMove && epable && epCountdown < 1)
+		{
+			GetComponent<SpriteRenderer>().color = Color.blue;
+			epCountdown++;
+		}
+		if(epCountdown >= 1)
+		{
+			epCountdown = 0;
+			epable = false;
+		}
+	}
+
 	private void FixedUpdate()
 	{
 		if (transitioning)
@@ -163,6 +180,9 @@ public class Square : MonoBehaviour
 				return;
 			}
 
+			//King move
+			MovePiece();
+
 			//Manual move of the rook
 			castleRook.hasMoved = true;
 			castleRook.currentSquare.occupied = false;
@@ -184,9 +204,6 @@ public class Square : MonoBehaviour
 			rookDest.occupied = true;
 			castleRook.currentSquare = rookDest;
 			rookDest.currentPiece = castleRook;
-
-			//King move
-			MovePiece();
 		}
 	}
 
@@ -196,6 +213,8 @@ public class Square : MonoBehaviour
 		//If selected piece's on move (or if testing is disabled)
 		if (board.whiteOnMove == board.selectedPiece.white || board.disableForcedColorMoves)
 		{
+			int srcRow = board.selectedPiece.currentSquare.row;
+
 			if (!board.selectedPiece.hasMoved)
 			{
 				board.selectedPiece.hasMoved = true;
@@ -221,6 +240,24 @@ public class Square : MonoBehaviour
 			this.occupied = true;
 			board.selectedPiece.currentSquare = this;
 			this.currentPiece = board.selectedPiece;
+
+			//Check if that was a double pawn move
+			if((int)board.selectedPiece.type == 5 && Mathf.Abs(this.row - srcRow) == 2)
+			{
+				int indx = 0;
+				Debug.Log(this);
+				Debug.Log("----------");
+				for(int i = 0; i < 64; i++)
+				{
+					if(board.children[i] == this.transform)
+					{
+						indx = i;
+					}
+				}
+				int offs = board.whiteOnMove ? 1 : -1;
+				Square e = board.children[indx + (8 * offs)].GetComponent<Square>();
+				e.epable = true;
+			}
 
 			board.selectedPiece = null;
 

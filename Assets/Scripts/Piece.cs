@@ -59,6 +59,10 @@ public class Piece : MonoBehaviour
 		{
 			currentSquare.occupied = true;
 		}
+
+		/*
+		if((board.whiteOnMove != board.lastFrameWhiteOnMove) &&
+		   (type == PieceType.Pawn && Mathf.Abs(currentSquare.row - ))*/
 	}
 
 	private void OnMouseDown()
