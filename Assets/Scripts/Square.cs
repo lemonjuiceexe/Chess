@@ -15,11 +15,17 @@ public class Square : MonoBehaviour
 	public Board board;
 
 	bool transitioning = false;
+	bool rookTransitioning = false;
 	Transform startPos;
+	Transform rookStartPos;
 	Transform endPos;
+	Transform rookEndPos;
 	private float startTime;
+	private float rookStartTime;
 	private float dist;
+	private float rookDist;
 	GameObject transPiece;
+	GameObject transRook;
 
 	private void Start()
 	{
@@ -101,6 +107,18 @@ public class Square : MonoBehaviour
 				transPiece.transform.position = new Vector3(Mathf.Round(transPiece.transform.position.x), Mathf.Round(transPiece.transform.position.y), 0f);
 			}
 		}
+		if(rookTransitioning)
+		{
+			float rookDistCovered = (Time.time - rookStartTime) * board.transitionSpeed;
+			float rookDistFraction = rookDistCovered / rookDist;
+			transRook.transform.position = Vector3.Lerp(rookStartPos.position, rookEndPos.position, rookDistFraction);
+
+			if(Vector3.Distance(transRook.transform.position, rookEndPos.position) < 0.01f)
+			{
+				rookTransitioning = false;
+				transRook.transform.position = new Vector3(Mathf.Round(transRook.transform.position.x), Mathf.Round(transRook.transform.position.y), 0f);
+			}
+		}
 	}
 
 	private void OnMouseDown()
@@ -149,19 +167,19 @@ public class Square : MonoBehaviour
 			castleRook.hasMoved = true;
 			castleRook.currentSquare.occupied = false;
 			castleRook.currentSquare.currentPiece = null;
-			/*
+			
 			#region Transition
 			//basically assigns every needed variable
-			startPos = castleRook.transform; //sets start and end positions
-			endPos = rookDest.transform;
-			transPiece = castleRook.gameObject; // keeps the piece in memory since its erased from selectedPiece now
-			startTime = Time.time; // time when we started moving
-			dist = Vector3.Distance(startPos.position, endPos.position); //calculates transition distance
+			rookStartPos = castleRook.currentSquare.transform; //sets start and end positions
+			rookEndPos = rookDest.transform;
+			transRook = castleRook.gameObject; // keeps the piece in memory since its erased from selectedPiece now
+			rookStartTime = Time.time; // time when we started moving
+			rookDist = Vector3.Distance(rookStartPos.position, rookEndPos.position); //calculates transition distance
 																		 // sets info that we can now move the piece
-			transitioning = true;
+			rookTransitioning = true;
 			#endregion
-			*/
-			castleRook.transform.position = rookDest.transform.position;
+			
+			//castleRook.transform.position = rookDest.transform.position;
 
 			rookDest.occupied = true;
 			castleRook.currentSquare = rookDest;

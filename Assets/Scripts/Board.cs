@@ -16,7 +16,7 @@ public class Board : MonoBehaviour
 	[Header("Game management")]
 	public Piece selectedPiece;
 	public bool whiteOnMove = true;
-	public float transitionSpeed = 0.1f;
+	public float transitionSpeed;
 	//If it differs, the move happened in the very previous frame
 	public bool lastFrameWhiteOnMove = true;
 	public bool check = false;
