@@ -15,11 +15,17 @@ public class Square : MonoBehaviour
 	public Board board;
 
 	bool transitioning = false;
+	bool rookTransitioning = false;
 	Transform startPos;
+	Transform rookStartPos;
 	Transform endPos;
+	Transform rookEndPos;
 	private float startTime;
+	private float rookStartTime;
 	private float dist;
+	private float rookDist;
 	GameObject transPiece;
+	GameObject transRook;
 
 	private void Start()
 	{
@@ -101,12 +107,85 @@ public class Square : MonoBehaviour
 				transPiece.transform.position = new Vector3(Mathf.Round(transPiece.transform.position.x), Mathf.Round(transPiece.transform.position.y), 0f);
 			}
 		}
+		if(rookTransitioning)
+		{
+			float rookDistCovered = (Time.time - rookStartTime) * board.transitionSpeed;
+			float rookDistFraction = rookDistCovered / rookDist;
+			transRook.transform.position = Vector3.Lerp(rookStartPos.position, rookEndPos.position, rookDistFraction);
+
+			if(Vector3.Distance(transRook.transform.position, rookEndPos.position) < 0.01f)
+			{
+				rookTransitioning = false;
+				transRook.transform.position = new Vector3(Mathf.Round(transRook.transform.position.x), Mathf.Round(transRook.transform.position.y), 0f);
+			}
+		}
 	}
 
 	private void OnMouseDown()
 	{
+		//Normal move
 		if (legalForSelectedPiece)
 		{
+			MovePiece();
+		}
+		//Castle
+		else if (board.selectedPiece && board.selectedPiece.castleMove.Contains(this))
+		{
+			Piece castleRook;
+			Square rookDest;
+			//White kingside
+			if (column == 6 && row == 0)
+			{
+				castleRook = board.pieces[6];
+				rookDest = board.children[61].GetComponent<Square>();
+			}
+			//Black kingside
+			else if (column == 6 && row == 7)
+			{
+				castleRook = board.pieces[22];
+				rookDest = board.children[5].GetComponent<Square>();
+			}
+			//White queenside
+			else if (column == 2 && row == 0)
+			{
+				castleRook = board.pieces[7];
+				rookDest = board.children[59].GetComponent<Square>();
+			}
+			//Black queenside
+			else if(column == 2 && row == 7)
+			{
+				castleRook = board.pieces[23];
+				rookDest = board.children[3].GetComponent<Square>();
+			}
+			else
+			{
+				Debug.LogError("Castlemove doesn't correspond to any of the four castling options");
+				return;
+			}
+
+			//Manual move of the rook
+			castleRook.hasMoved = true;
+			castleRook.currentSquare.occupied = false;
+			castleRook.currentSquare.currentPiece = null;
+			
+			#region Transition
+			//basically assigns every needed variable
+			rookStartPos = castleRook.currentSquare.transform; //sets start and end positions
+			rookEndPos = rookDest.transform;
+			transRook = castleRook.gameObject; // keeps the piece in memory since its erased from selectedPiece now
+			rookStartTime = Time.time; // time when we started moving
+			rookDist = Vector3.Distance(rookStartPos.position, rookEndPos.position); //calculates transition distance
+																		 // sets info that we can now move the piece
+			rookTransitioning = true;
+			#endregion
+			
+			//castleRook.transform.position = rookDest.transform.position;
+
+			rookDest.occupied = true;
+			castleRook.currentSquare = rookDest;
+			rookDest.currentPiece = castleRook;
+
+			//King move
 			MovePiece();
 		}
 	}
@@ -158,5 +237,26 @@ public class Square : MonoBehaviour
 
 			return false;
 		}
+	}
+
+	public bool IsSquareAttacked(bool attackingColor) 
+	{
+		for (int i = (attackingColor ? 0 : 16); i < (attackingColor ? 16 : 32); i++)
+		{
+			Piece p = board.pieces[i]; //shorthand
+
+			if (p == null) continue;
+
+			List<Square> tempT = p.CalculateLegalMoves(false);
+			foreach (Square s in tempT)
+			{
+				if (s == this)
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 }

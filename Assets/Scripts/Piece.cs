@@ -24,6 +24,7 @@ public class Piece : MonoBehaviour
 	//bool selected = false;
 	public Square currentSquare;
 	[SerializeField] List<Square> illegalSquares = new List<Square>();
+	public List<Square> castleMove = new List<Square>();
 
 	private float big = 0f;
 
@@ -91,6 +92,7 @@ public class Piece : MonoBehaviour
 
 			// pass the legalSquares for board to color instead of doing it yourself
 			board.ColorLegal(legalSquares);
+			board.ColorSquares(castleMove, Color.blue);
 		}
 	}
 
@@ -102,6 +104,13 @@ public class Piece : MonoBehaviour
 	public void DestroyPiece()
 	{
 		//TODO: Add some safeguards, maybe some checks before doing the Destroy
+		for(int i = 0; i < board.pieces.Length; i++)
+		{
+			if(board.pieces[i] == GetComponent<Piece>())
+			{
+				board.pieces[i] = null;
+			}
+		}
 		Destroy(this.gameObject);
 	}
 
@@ -139,10 +148,85 @@ public class Piece : MonoBehaviour
 		catch { return null; }
 	}
 
+	private bool IsCastlingLegal(bool kingside, out Square mvsq)
+	{
+		mvsq = null;
+		if(type != PieceType.King)
+		{
+			Debug.LogError("Method `IsCastlingLegal` should only be called on king");
+		}
+		if (hasMoved)
+		{
+			return false;
+		}
+		//a is index of rook in the board.pieces; b, c, d are indexes of squares which king goes through 
+		int a, b, c, d = 0;
+
+		if (white)
+		{
+			if (kingside) 
+			{
+				//White kingside rook
+				a = 6;
+				b = 61;
+				c = 62;
+			}
+			else 
+			{
+				a = 7;
+				b = 59;
+				c = 58;
+				d = 57;
+			}
+		}
+		else
+		{
+			if (kingside) 
+			{
+				a = 22;
+				b = 5;
+				c = 6;
+			}
+			else 
+			{
+				a = 23;
+				b = 3;
+				c = 2;
+				d = 1;
+			}
+		}
+
+		Piece rook = board.pieces[a];
+		Square p1 = board.children[b].GetComponent<Square>();
+		Square p2 = board.children[c].GetComponent<Square>();
+		bool temp = true;
+		if(d != 0)
+		{
+			Square p3 = board.children[d].GetComponent<Square>();
+			temp = !p3.occupied;
+		}
+		
+		if((!rook.hasMoved &&
+				!p1.occupied && !p2.occupied &&
+				!p1.IsSquareAttacked(!white) && !p2.IsSquareAttacked(!white) &&
+				(!board.check || (board.check && !board.IsChecking(!white))) &&
+				temp))
+		{
+			mvsq = p2;
+		}
+		return (!rook.hasMoved &&
+				!p1.occupied && !p2.occupied &&
+				!p1.IsSquareAttacked(!white) && !p2.IsSquareAttacked(!white) &&
+				(!board.check || (board.check && !board.IsChecking(!white))) &&
+				temp);
+	}
+
 	public List<Square> CalculateLegalMoves(bool calcFullKing = true)
 	{
 		List<Square> temp = new List<Square>();
 		List<Square> legalSquares = new List<Square>();
+
+		castleMove.Clear();
 
 		if (currentSquare == null)
 		{
@@ -166,7 +250,6 @@ public class Piece : MonoBehaviour
 						}
 					}
 
-
 					List<Square> tempT = new List<Square>();
 
 					if (calcFullKing)
@@ -189,6 +272,17 @@ public class Piece : MonoBehaviour
 							}
 						}
 						tempT.Clear();
+
+
+						//Castling
+						if (IsCastlingLegal(true, out Square castlemove))
+						{
+							castleMove.Add(castlemove);
+						}
+						if (IsCastlingLegal(false, out castlemove))
+						{
+							castleMove.Add(castlemove);
+						}
 					}
 				}
 				break;
