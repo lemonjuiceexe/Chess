@@ -11,6 +11,10 @@ public class Square : MonoBehaviour
 	public bool occupied = false;
 	public bool legalForSelectedPiece = false;
 	public Piece currentPiece;
+	//En passant 'able
+	public bool epable;
+	public Piece epPawn;
+	int epCountdown = 0;
 
 	public Board board;
 
@@ -93,6 +97,21 @@ public class Square : MonoBehaviour
 		}
 	}
 
+	private void Update()
+	{
+		if(board.lastFrameWhiteOnMove != board.whiteOnMove && epable && epCountdown < 2)
+		{
+			//GetComponent<SpriteRenderer>().color = Color.blue;
+			epCountdown++;
+		}
+		if(epCountdown >= 2)
+		{
+			epCountdown = 0;
+			epable = false;
+			epPawn = null;
+		}
+	}
+
 	private void FixedUpdate()
 	{
 		if (transitioning)
@@ -126,6 +145,10 @@ public class Square : MonoBehaviour
 		//Normal move
 		if (legalForSelectedPiece)
 		{
+			if(epable && (int)board.selectedPiece.type == 5)
+			{
+				epPawn.DestroyPiece(true);
+			}
 			MovePiece();
 		}
 		//Castle
@@ -163,6 +186,9 @@ public class Square : MonoBehaviour
 				return;
 			}
 
+			//King move
+			MovePiece();
+
 			//Manual move of the rook
 			castleRook.hasMoved = true;
 			castleRook.currentSquare.occupied = false;
@@ -184,18 +210,17 @@ public class Square : MonoBehaviour
 			rookDest.occupied = true;
 			castleRook.currentSquare = rookDest;
 			rookDest.currentPiece = castleRook;
-
-			//King move
-			MovePiece();
 		}
 	}
 
-	//Return value indicates if piece was actually moved
+	//Returned value indicates if piece was actually moved
 	public bool MovePiece()
 	{
 		//If selected piece's on move (or if testing is disabled)
 		if (board.whiteOnMove == board.selectedPiece.white || board.disableForcedColorMoves)
 		{
+			int srcRow = board.selectedPiece.currentSquare.row;
+
 			if (!board.selectedPiece.hasMoved)
 			{
 				board.selectedPiece.hasMoved = true;
@@ -215,17 +240,34 @@ public class Square : MonoBehaviour
 			transitioning = true;
 			#endregion
 
-			//Check detection, board and pieces rotation
+			//Board and pieces rotation
 			board.AfterMove();
 
 			this.occupied = true;
 			board.selectedPiece.currentSquare = this;
+
+			//Check if that was a double pawn move
+			if((int)board.selectedPiece.type == 5 && Mathf.Abs(this.row - srcRow) == 2)
+			{
+				int indx = 0;
+				for(int i = 24; i < 40; i++)
+				{
+					if(board.children[i] == this.transform)
+					{
+						indx = i;
+						break;
+					}
+				}
+				int offs = board.whiteOnMove ? 1 : -1;
+				Square e = board.children[indx + (8 * offs)].GetComponent<Square>();
+				e.epable = true;
+				e.epPawn = board.selectedPiece;
+			}
+			//Debug.Log("set current piece of " + this + " to " + board.selectedPiece);
 			this.currentPiece = board.selectedPiece;
 
 			board.selectedPiece = null;
-
 			board.ClearLegal();
-
 			board.whiteOnMove = !board.whiteOnMove;
 
 			return true;
@@ -259,4 +301,22 @@ public class Square : MonoBehaviour
 
 		return false;
 	}
+/*
+	public void SetCurrentPiece()
+	{
+		Debug.Log("METHOD CALLED ON " + this);
+		foreach(Piece p in board.pieces)
+		{
+			if(p == null){Debug.Log("no piece - taken"); continue;}
+			float dist = (new Vector2(this.transform.position.x, this.transform.position.y) - new Vector2(p.transform.position.x, p.transform.position.y)).sqrMagnitude;
+			if(dist < 0.1f)
+			{
+				Debug.Log("FOUND PIECE " + p + " ; distance: " + dist);
+				currentPiece = p;
+				//Debug.Log("CURRENT PIECE OF " + this + " SET BY METHOD TO " + p);
+				break;
+			}
+			else{Debug.Log("no piece: " + p + " ; distance: " + dist);}
+		}
+	}*/
 }

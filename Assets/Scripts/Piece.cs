@@ -101,7 +101,7 @@ public class Piece : MonoBehaviour
 		board.ClearLegal();
 	}
 
-	public void DestroyPiece()
+	public void DestroyPiece(bool ep = false)
 	{
 		//TODO: Add some safeguards, maybe some checks before doing the Destroy
 		for(int i = 0; i < board.pieces.Length; i++)
@@ -111,6 +111,14 @@ public class Piece : MonoBehaviour
 				board.pieces[i] = null;
 			}
 		}
+		//because of en passant the current square not always will be occupied after the move
+		if(ep)
+		{
+			this.currentSquare.occupied = false;
+			this.currentSquare.currentPiece = null;
+			this.currentSquare = null;
+		}
+		
 		Destroy(this.gameObject);
 	}
 
@@ -126,6 +134,8 @@ public class Piece : MonoBehaviour
 
 		if (s.occupied)
 		{
+			//s.SetCurrentPiece();
+			//Debug.Log("bonk");
 			if (s.currentPiece.white != this.white || !calcFullKing)
 			{
 				return s;
@@ -604,13 +614,13 @@ public class Piece : MonoBehaviour
 					nR -= 1 * offset;
 					nC -= 1 * offset;
 					s = SquareExists(nR, nC);
-					if (s && ((s.occupied && s.currentPiece.white != white) || !calcFullKing))
+					if (s && (((s.occupied && s.currentPiece.white != white) || s.epable) || !calcFullKing))
 					{
 						legalSquares.Add(s);
 					}
 					nC += 2 * offset;
 					s = SquareExists(nR, nC);
-					if (s && ((s.occupied && s.currentPiece.white != white) || !calcFullKing))
+					if (s && (((s.occupied && s.currentPiece.white != white) || s.epable) || !calcFullKing))
 					{
 						legalSquares.Add(s);
 					}
@@ -618,7 +628,6 @@ public class Piece : MonoBehaviour
 				break;
 				#endregion
 		}
-
 		foreach (Square sq in temp)
 		{
 			legalSquares.Add(sq);
