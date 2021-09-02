@@ -17,8 +17,6 @@ public class Board : MonoBehaviour
 	public Piece selectedPiece;
 	public bool whiteOnMove = true;
 	public float transitionSpeed;
-	//If it differs, the move happened in the very previous frame
-	public bool lastFrameWhiteOnMove = true;
 	public bool check = false;
 
 	[Header("Colours")]
@@ -45,21 +43,10 @@ public class Board : MonoBehaviour
 		disableTurnBoard = PlayerPrefs.GetInt("disableBoardFlip", 0) == 1;
 	}
 
-	private void Update()
-	{
-		if (lastFrameWhiteOnMove != whiteOnMove)
-		{
-			check = IsChecking(!whiteOnMove);
-		}
-	}
-
-	private void LateUpdate()
-	{
-		lastFrameWhiteOnMove = whiteOnMove;
-	}
-
 	public void AfterMove()
 	{
+		check = IsChecking(!whiteOnMove);
+		
 		if (!disableTurnBoard)
 		{
 			cam.transform.Rotate(0, 0, 180);
@@ -70,6 +57,22 @@ public class Board : MonoBehaviour
 					p.transform.Rotate(0, 0, 180);
 				}
 				catch { continue; }
+			}
+			foreach (Transform ob in children)
+			{
+				Square s = ob.GetComponent<Square>();
+				s.epCountdown += (s.epable ? 1 : 0) * (s.epCountdown < 2 ? 1 : 0);
+				// if(s.epable && s.epCountdown < 2)
+				// {
+				// 	s.epCountdown++;
+				// }
+
+				if(s.epCountdown >= 2)
+				{
+					s.epCountdown = 0;
+					s.epable = false;
+					s.epPawn = null;
+				}
 			}
 		}
 	}

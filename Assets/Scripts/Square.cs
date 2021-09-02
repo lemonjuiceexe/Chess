@@ -14,7 +14,7 @@ public class Square : MonoBehaviour
 	//En passant 'able
 	public bool epable;
 	public Piece epPawn;
-	int epCountdown = 0;
+	public int epCountdown = 0;
 
 	public Board board;
 
@@ -94,21 +94,6 @@ public class Square : MonoBehaviour
 			default:
 				Debug.LogError("Square's y position is not correct");
 				break;
-		}
-	}
-
-	private void Update()
-	{
-		if(board.lastFrameWhiteOnMove != board.whiteOnMove && epable && epCountdown < 2)
-		{
-			//GetComponent<SpriteRenderer>().color = Color.blue;
-			epCountdown++;
-		}
-		if(epCountdown >= 2)
-		{
-			epCountdown = 0;
-			epable = false;
-			epPawn = null;
 		}
 	}
 
@@ -301,22 +286,4 @@ public class Square : MonoBehaviour
 
 		return false;
 	}
-/*
-	public void SetCurrentPiece()
-	{
-		Debug.Log("METHOD CALLED ON " + this);
-		foreach(Piece p in board.pieces)
-		{
-			if(p == null){Debug.Log("no piece - taken"); continue;}
-			float dist = (new Vector2(this.transform.position.x, this.transform.position.y) - new Vector2(p.transform.position.x, p.transform.position.y)).sqrMagnitude;
-			if(dist < 0.1f)
-			{
-				Debug.Log("FOUND PIECE " + p + " ; distance: " + dist);
-				currentPiece = p;
-				//Debug.Log("CURRENT PIECE OF " + this + " SET BY METHOD TO " + p);
-				break;
-			}
-			else{Debug.Log("no piece: " + p + " ; distance: " + dist);}
-		}
-	}*/
 }

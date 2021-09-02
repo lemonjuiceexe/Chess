@@ -21,7 +21,6 @@ public class Piece : MonoBehaviour
 
 	public PieceType type;
 
-	//bool selected = false;
 	public Square currentSquare;
 	[SerializeField] List<Square> illegalSquares = new List<Square>();
 	public List<Square> castleMove = new List<Square>();
@@ -134,8 +133,6 @@ public class Piece : MonoBehaviour
 
 		if (s.occupied)
 		{
-			//s.SetCurrentPiece();
-			//Debug.Log("bonk");
 			if (s.currentPiece.white != this.white || !calcFullKing)
 			{
 				return s;
