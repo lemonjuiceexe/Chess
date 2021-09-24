@@ -13,7 +13,7 @@ public class Square : MonoBehaviour
 	//En passant 'able
 	public bool epable;
 	public Piece epPawn;
-	int epCountdown = 0;
+	public int epCountdown = 0;
 
 	public Board board;
 
@@ -96,20 +96,6 @@ public class Square : MonoBehaviour
 		}
 	}
 
-	private void Update()
-	{
-		if(board.lastFrameWhiteOnMove != board.whiteOnMove && epable && epCountdown < 2)
-		{
-			epCountdown++;
-		}
-		if(epCountdown >= 2)
-		{
-			epCountdown = 0;
-			epable = false;
-			epPawn = null;
-		}
-	}
-
 	private void FixedUpdate()
 	{
 		if (transitioning)
@@ -143,7 +129,7 @@ public class Square : MonoBehaviour
 		//Normal move
 		if (legalForSelectedPiece)
 		{
-			if(epable && (int)board.selectedPiece.type == 5)
+			if(epable && (int)board.selectedPiece.type == 5 && board.selectedPiece.white != epPawn.white)
 			{
 				epPawn.DestroyPiece(true);
 			}
