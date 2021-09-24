@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Square : MonoBehaviour
 {
-	//Column, row
 	public int column;
 	public int row;
 
@@ -248,9 +247,8 @@ public class Square : MonoBehaviour
 				e.epable = true;
 				e.epPawn = board.selectedPiece;
 			}
-			//Debug.Log("set current piece of " + this + " to " + board.selectedPiece);
-			this.currentPiece = board.selectedPiece;
 
+			this.currentPiece = board.selectedPiece;
 			board.selectedPiece = null;
 			board.ClearLegal();
 			board.whiteOnMove = !board.whiteOnMove;
