@@ -72,7 +72,7 @@ public class Piece : MonoBehaviour
 			return;
 		}
 
-		ClearLegal();
+		board.ClearLegal();
 
 		big = 0.1f;
 
@@ -89,15 +89,10 @@ public class Piece : MonoBehaviour
 			//Actual calculating legal moves
 			List<Square> legalSquares = CalculateLegalMoves();
 
-			// pass the legalSquares for board to color instead of doing it yourself
+			// pass the legalSquares to board to color instead of doing it yourself
 			board.ColorLegal(legalSquares);
 			board.ColorSquares(castleMove, Color.blue);
 		}
-	}
-
-	public void ClearLegal()
-	{
-		board.ClearLegal();
 	}
 
 	public void DestroyPiece(bool ep = false)
@@ -611,13 +606,13 @@ public class Piece : MonoBehaviour
 					nR -= 1 * offset;
 					nC -= 1 * offset;
 					s = SquareExists(nR, nC);
-					if (s && (((s.occupied && s.currentPiece.white != white) || s.epable) || !calcFullKing))
+					if (s && (((s.occupied && s.currentPiece.white != white) || (s.epable && s.epPawn.white != white)) || !calcFullKing))
 					{
 						legalSquares.Add(s);
 					}
 					nC += 2 * offset;
 					s = SquareExists(nR, nC);
-					if (s && (((s.occupied && s.currentPiece.white != white) || s.epable) || !calcFullKing))
+					if (s && (((s.occupied && s.currentPiece.white != white) || (s.epable && s.epPawn.white != white)) || !calcFullKing))
 					{
 						legalSquares.Add(s);
 					}

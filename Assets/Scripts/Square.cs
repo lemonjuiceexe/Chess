@@ -130,7 +130,7 @@ public class Square : MonoBehaviour
 		//Normal move
 		if (legalForSelectedPiece)
 		{
-			if(epable && (int)board.selectedPiece.type == 5)
+			if(epable && (int)board.selectedPiece.type == 5 && board.selectedPiece.white != epPawn.white)
 			{
 				epPawn.DestroyPiece(true);
 			}
