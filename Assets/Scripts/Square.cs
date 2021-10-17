@@ -17,6 +17,7 @@ public class Square : MonoBehaviour
 	public int epCountdown = 0;
 
 	public Board board;
+	[SerializeField] private GameObject pawnPromoteUI;
 
 	bool transitioning = false;
 	bool rookTransitioning = false;
@@ -231,6 +232,7 @@ public class Square : MonoBehaviour
 			this.occupied = true;
 			board.selectedPiece.currentSquare = this;
 
+			//En passant
 			//Check if that was a double pawn move
 			if((int)board.selectedPiece.type == 5 && Mathf.Abs(this.row - srcRow) == 2)
 			{
@@ -248,9 +250,17 @@ public class Square : MonoBehaviour
 				e.epable = true;
 				e.epPawn = board.selectedPiece;
 			}
-			//Debug.Log("set current piece of " + this + " to " + board.selectedPiece);
 			this.currentPiece = board.selectedPiece;
 
+			//Pawn promotion
+			//if pawn and moved to the promote row
+			if(board.selectedPiece.type == PieceType.Pawn && this.row == (board.selectedPiece.white ? 7 : 0))
+			{
+				//pawnPromoteUI.white = board.selectedPiece.white;
+				pawnPromoteUI.SetActive(true);
+			}
+
+			//Clearing variables
 			board.selectedPiece = null;
 			board.ClearLegal();
 			board.whiteOnMove = !board.whiteOnMove;

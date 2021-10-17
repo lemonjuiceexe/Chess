@@ -62,10 +62,6 @@ public class Board : MonoBehaviour
 			{
 				Square s = ob.GetComponent<Square>();
 				s.epCountdown += (s.epable ? 1 : 0) * (s.epCountdown < 2 ? 1 : 0);
-				// if(s.epable && s.epCountdown < 2)
-				// {
-				// 	s.epCountdown++;
-				// }
 
 				if(s.epCountdown >= 2)
 				{

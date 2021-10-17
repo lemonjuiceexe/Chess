@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PieceType
+{
+	King,
+	Queen,
+	Bishop,
+	Knight,
+	Rook,
+	Pawn
+}
+
 public class Piece : MonoBehaviour
 {
-	public enum PieceType
-	{
-		King,
-		Queen,
-		Bishop,
-		Knight,
-		Rook,
-		Pawn
-	}
 	//0 - black, 1 - white
 	public bool white;
 	public bool hasMoved = false;
-
 	public Board board;
 
 	public PieceType type;
