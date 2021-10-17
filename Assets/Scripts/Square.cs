@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Square : MonoBehaviour
 {
-	//Column, row
 	public int column;
 	public int row;
 
