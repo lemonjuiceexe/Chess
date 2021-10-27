@@ -255,7 +255,6 @@ public class Square : MonoBehaviour
 			//if pawn and moved to the promote row
 			if(board.selectedPiece.type == PieceType.Pawn && this.row == (board.selectedPiece.white ? 7 : 0))
 			{
-				//pawnPromoteUI.white = board.selectedPiece.white;
 				pawnPromoteUI.SetActive(true);
 			}
 

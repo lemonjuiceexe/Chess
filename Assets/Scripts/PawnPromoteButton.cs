@@ -9,6 +9,7 @@ public class PawnPromoteButton : MonoBehaviour
     public bool white;
     public float change = 0.2f;
     private bool big = false;
+    //Initial scale for buttons
     private float[] initial = new float[3];
     [SerializeField] private Sprite whiteSprite;
     [SerializeField] private Sprite blackSprite;
@@ -23,7 +24,6 @@ public class PawnPromoteButton : MonoBehaviour
     }
     void OnEnable()
     {
-        transform.rotation = board.cam.transform.rotation;
         GetComponent<SpriteRenderer>().sprite = board.selectedPiece.white ? whiteSprite : blackSprite;
     }
     void OnMouseOver()
