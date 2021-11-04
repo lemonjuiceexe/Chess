@@ -18,6 +18,42 @@ public class PawnPromoteUI : MonoBehaviour
     {
         transform.rotation = board.cam.transform.rotation;
         Transform s = board.selectedPiece.transform; //shorthand
-        transform.position = new Vector3(s.position.x > horizontalParent ? horizontalParent : (s.position.x < horizontalParent ? -horizontalParent : s.position.x), board.whiteOnMove ? verticalParent : -verticalParent, 0f);
-    }
+
+		float posX = 0f;
+		float posY = 0f;
+		float posZ = -2f;
+
+		if (s.position.x > horizontalParent)
+		{
+			posX = horizontalParent;
+		}
+		else if (s.position.x < -horizontalParent)
+		{
+			posX = -horizontalParent;
+		}
+		else
+		{
+			posX = s.position.x;
+		}
+
+		if (board.whiteOnMove)
+		{
+			posY = verticalParent;
+		}
+		else
+		{
+			posY = -verticalParent; ;
+		}
+
+		transform.position = new Vector3(
+			posX,
+			posY,
+			posZ
+		);
+		triangle.position = new Vector3(
+			s.position.x,
+			board.whiteOnMove ? posY + 4.95f : posY - 4.95f,
+			posZ
+		);
+	}
 }
