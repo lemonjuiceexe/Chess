@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -134,10 +134,10 @@ public class Square : MonoBehaviour
 			castleRook.hasMoved = true;
 			castleRook.currentSquare.occupied = false;
 			castleRook.currentSquare.currentPiece = null;
-			
+
 			#region Transition
 			//basically assigns every needed variable
-			rookStartPos = castleRook.currentSquare.transform; //sets start and end positions
+			rookStartPos = castleRook.transform; //sets start and end positions
 			rookEndPos = rookDest.transform;
 			transRook = castleRook.gameObject; // keeps the piece in memory since its erased from selectedPiece now
 			rookStartTime = Time.time; // time when we started moving
