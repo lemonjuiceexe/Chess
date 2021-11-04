@@ -76,7 +76,7 @@ public class UIManager : MonoBehaviour
 	private Texture2D MakeTex(Color col)
 	{
 		Color32[] px = new Color32[4];
-		for (sbyte i = 0; i < 4; i++)
+		for (byte i = 0; i < 4; i++)
 		{
 			px[i] = col;
 		}
