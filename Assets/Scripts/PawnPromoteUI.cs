@@ -8,32 +8,31 @@ public class PawnPromoteUI : MonoBehaviour
 
     //Limits for visualising the pawn promotion popup
     private const float horizontalParent = 14.5f; //Global scale
-    private const float verticalParent = 21.7f; //Global scale
-    private const float horizontal = 20f; //Local scale
-    // private const float vertical = 4.5f; //Local scale
+	private const float verticalParent = 21.7f; //Global scale
 
-    [SerializeField] private Transform triangle;
-
-    void OnEnable()
+	[SerializeField] private Transform triangle;
+	[SerializeField] private GameObject enabler;
+	public void ShowUI(Vector3 pos)
     {
-        transform.rotation = board.cam.transform.rotation;
-        Transform s = board.selectedPiece.transform; //shorthand
+		enabler.SetActive(true);
+
+		transform.rotation = board.cam.transform.rotation;
 
 		float posX = 0f;
 		float posY = 0f;
 		float posZ = -2f;
 
-		if (s.position.x > horizontalParent)
+		if (pos.x > horizontalParent)
 		{
 			posX = horizontalParent;
 		}
-		else if (s.position.x < -horizontalParent)
+		else if (pos.x < -horizontalParent)
 		{
 			posX = -horizontalParent;
 		}
 		else
 		{
-			posX = s.position.x;
+			posX = pos.x;
 		}
 
 		if (board.whiteOnMove)
@@ -51,7 +50,7 @@ public class PawnPromoteUI : MonoBehaviour
 			posZ
 		);
 		triangle.position = new Vector3(
-			s.position.x,
+			pos.x,
 			board.whiteOnMove ? posY + 4.95f : posY - 4.95f,
 			posZ
 		);
