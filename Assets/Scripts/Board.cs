@@ -58,17 +58,18 @@ public class Board : MonoBehaviour
 				}
 				catch { continue; }
 			}
-			foreach (Transform ob in children)
-			{
-				Square s = ob.GetComponent<Square>();
-				s.epCountdown += (s.epable ? 1 : 0) * (s.epCountdown < 2 ? 1 : 0);
+		}
 
-				if(s.epCountdown >= 2)
-				{
-					s.epCountdown = 0;
-					s.epable = false;
-					s.epPawn = null;
-				}
+		foreach (Transform ob in children)
+		{
+			Square s = ob.GetComponent<Square>();
+			s.epCountdown += (s.epable ? 1 : 0) * (s.epCountdown < 2 ? 1 : 0);
+
+			if (s.epCountdown >= 2)
+			{
+				s.epCountdown = 0;
+				s.epable = false;
+				s.epPawn = null;
 			}
 		}
 	}
