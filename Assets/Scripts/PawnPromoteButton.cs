@@ -6,6 +6,7 @@ public class PawnPromoteButton : MonoBehaviour
 {
     public Board board;
     [SerializeField] private PieceType type;
+    [SerializeField] private GameObject enabler;
     public bool white;
     public float change = 0.2f;
     private bool big = false;
@@ -13,7 +14,6 @@ public class PawnPromoteButton : MonoBehaviour
     private float[] initial = new float[3];
     [SerializeField] private Sprite whiteSprite;
     [SerializeField] private Sprite blackSprite;
-
 
     void Awake()
     {
@@ -33,6 +33,17 @@ public class PawnPromoteButton : MonoBehaviour
             GetComponent<Transform>().localScale = new Vector3(initial[0] + change, initial[1] + change, initial[2]);
             big = true;
         }
+    }
+    private void OnMouseDown()
+    {
+        board.selectedPiece.type = type;
+        board.selectedPiece.GetComponent<SpriteRenderer>().sprite = board.selectedPiece.white ? whiteSprite : blackSprite;
+        enabler.SetActive(false);
+
+        board.AfterMove();
+        board.selectedPiece = null;
+        board.ClearLegal();
+        board.whiteOnMove = !board.whiteOnMove;
     }
     void OnMouseExit()
     {

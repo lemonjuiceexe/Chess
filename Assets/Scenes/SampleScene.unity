@@ -12615,6 +12615,7 @@ MonoBehaviour:
   whiteOnMove: 1
   transitionSpeed: 100
   check: 0
+  promoteType: -1
   legalColor: {r: 0.092196584, g: 1, b: 0, a: 0.49803922}
   legalTakeColor: {r: 0, g: 0.3630929, b: 1, a: 0.49803922}
   illegalKingMoveColor: {r: 1, g: 0.3669502, b: 0, a: 0.49803922}
@@ -13613,6 +13614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   board: {fileID: 2001880200}
   type: 3
+  enabler: {fileID: 919926149305102691}
   white: 0
   change: 0.2
   whiteSprite: {fileID: -1198618621536590455, guid: a61603c3bc3653048b42d8a3dd3cbbea,
@@ -13796,6 +13798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   board: {fileID: 2001880200}
   type: 4
+  enabler: {fileID: 919926149305102691}
   white: 0
   change: 0.2
   whiteSprite: {fileID: -8631227258802589507, guid: a61603c3bc3653048b42d8a3dd3cbbea,
@@ -13927,6 +13930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   board: {fileID: 2001880200}
   type: 2
+  enabler: {fileID: 919926149305102691}
   white: 0
   change: 0.2
   whiteSprite: {fileID: 5469966096983993070, guid: a61603c3bc3653048b42d8a3dd3cbbea,
@@ -14006,6 +14010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   board: {fileID: 2001880200}
   type: 1
+  enabler: {fileID: 919926149305102691}
   white: 0
   change: 0.2
   whiteSprite: {fileID: -6474158597144882791, guid: a61603c3bc3653048b42d8a3dd3cbbea,
@@ -14423,4 +14428,4 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0

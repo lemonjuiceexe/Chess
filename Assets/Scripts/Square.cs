@@ -225,6 +225,18 @@ public class Square : MonoBehaviour
 			transitioning = true;
 			#endregion
 
+			//Pawn promotion
+			//if pawn and moved to the promote row
+			if (board.selectedPiece.type == PieceType.Pawn && this.row == (board.selectedPiece.white ? 7 : 0))
+			{
+				pawnPromoteUI.GetComponent<PawnPromoteUI>().ShowUI(this.endPos.position);
+				board.ClearLegal();
+				this.occupied = true;
+				this.currentPiece = board.selectedPiece;
+				board.selectedPiece.currentSquare = this;
+				return true;
+			}
+
 			//Board and pieces rotation
 			board.AfterMove();
 
@@ -249,14 +261,8 @@ public class Square : MonoBehaviour
 				e.epable = true;
 				e.epPawn = board.selectedPiece;
 			}
+			
 			this.currentPiece = board.selectedPiece;
-
-			//Pawn promotion
-			//if pawn and moved to the promote row
-			if(board.selectedPiece.type == PieceType.Pawn && this.row == (board.selectedPiece.white ? 7 : 0))
-			{
-				pawnPromoteUI.GetComponent<PawnPromoteUI>().ShowUI(this.endPos.position);
-			}
 
 			//Clearing variables
 			board.selectedPiece = null;

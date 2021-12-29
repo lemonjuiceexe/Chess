@@ -52,12 +52,6 @@ public class Piece : MonoBehaviour
 		{
 			transform.localScale = new Vector2(1f, 1f);
 		}
-
-		// TODO: Move this, this just seems like a janky way to try to fix some problems
-		if (!currentSquare.occupied)
-		{
-			currentSquare.occupied = true;
-		}
 	}
 
 	private void OnMouseDown()
