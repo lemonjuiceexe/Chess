@@ -40,14 +40,10 @@ public class UIManager : MonoBehaviour
 				PushSettingsToBoard();
 			}
 			//Colorful boxes for forced moves
-			if (!board.disableForcedColorMoves)
-			{
-				GUI.Box(new Rect(185, 30, 20, 20), " ", green);
-			}
-			else
-			{
-				GUI.Box(new Rect(185, 30, 20, 20), " ", red);
-			}
+			GUI.Box(new Rect(185, 30, 20, 20), " ", (!board.disableForcedColorMoves ? green : red));
+			
+			
+			
 
 			//Button for board flip
 			if (GUI.Button(new Rect(12, 55, 160, 20), "Board flip"))
@@ -55,15 +51,10 @@ public class UIManager : MonoBehaviour
 				disableBoardFlip = !disableBoardFlip;
 				PushSettingsToBoard();
 			}
+			
 			//Colorful boxes for board flip
-			if (!board.disableTurnBoard)
-			{
-				GUI.Box(new Rect(185, 55, 20, 20), " ", green);
-			}
-			else
-			{
-				GUI.Box(new Rect(185, 55, 20, 20), " ", red);
-			}
+			GUI.Box(new Rect(185, 55, 20, 20), " ", (!board.disableTurnBoard? green : red));
+			
 		}
 	}
 
@@ -84,7 +75,7 @@ public class UIManager : MonoBehaviour
 	private Texture2D MakeTex(Color col)
 	{
 		Color32[] px = new Color32[4];
-		for (int i = 0; i < 4; i++)
+		for (byte i = 0; i < 4; i++)
 		{
 			px[i] = col;
 		}
