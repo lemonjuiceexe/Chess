@@ -9,7 +9,6 @@ public class UIManager : MonoBehaviour
 	private Board board;
 	private bool disableForcedColorMoves = false;
 	private bool disableBoardFlip = false;
-	//public float timeToBoardPush = 5f;
 
 	private void Update()
 	{

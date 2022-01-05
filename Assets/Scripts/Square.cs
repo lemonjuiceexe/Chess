@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +16,7 @@ public class Square : MonoBehaviour
 	public int epCountdown = 0;
 
 	public Board board;
+	[SerializeField] private GameObject pawnPromoteUI;
 
 	bool transitioning = false;
 	bool rookTransitioning = false;
@@ -177,10 +178,10 @@ public class Square : MonoBehaviour
 			castleRook.hasMoved = true;
 			castleRook.currentSquare.occupied = false;
 			castleRook.currentSquare.currentPiece = null;
-			
+
 			#region Transition
 			//basically assigns every needed variable
-			rookStartPos = castleRook.currentSquare.transform; //sets start and end positions
+			rookStartPos = castleRook.transform; //sets start and end positions
 			rookEndPos = rookDest.transform;
 			transRook = castleRook.gameObject; // keeps the piece in memory since its erased from selectedPiece now
 			rookStartTime = Time.time; // time when we started moving
@@ -224,12 +225,25 @@ public class Square : MonoBehaviour
 			transitioning = true;
 			#endregion
 
+			//Pawn promotion
+			//if pawn and moved to the promote row
+			if (board.selectedPiece.type == PieceType.Pawn && this.row == (board.selectedPiece.white ? 7 : 0))
+			{
+				pawnPromoteUI.GetComponent<PawnPromoteUI>().ShowUI(this.endPos.position);
+				board.ClearLegal();
+				this.occupied = true;
+				this.currentPiece = board.selectedPiece;
+				board.selectedPiece.currentSquare = this;
+				return true;
+			}
+
 			//Board and pieces rotation
 			board.AfterMove();
 
 			this.occupied = true;
 			board.selectedPiece.currentSquare = this;
 
+			//En passant
 			//Check if that was a double pawn move
 			if((int)board.selectedPiece.type == 5 && Mathf.Abs(this.row - srcRow) == 2)
 			{
@@ -247,8 +261,10 @@ public class Square : MonoBehaviour
 				e.epable = true;
 				e.epPawn = board.selectedPiece;
 			}
-
+			
 			this.currentPiece = board.selectedPiece;
+
+			//Clearing variables
 			board.selectedPiece = null;
 			board.ClearLegal();
 			board.whiteOnMove = !board.whiteOnMove;

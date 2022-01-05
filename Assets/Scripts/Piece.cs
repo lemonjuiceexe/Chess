@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PieceType
+{
+	King,
+	Queen,
+	Bishop,
+	Knight,
+	Rook,
+	Pawn
+}
+
 public class Piece : MonoBehaviour
 {
-	public enum PieceType
-	{
-		King,
-		Queen,
-		Bishop,
-		Knight,
-		Rook,
-		Pawn
-	}
 	//0 - black, 1 - white
 	public bool white;
 	public bool hasMoved = false;
-
 	public Board board;
 
 	public PieceType type;
@@ -51,12 +51,6 @@ public class Piece : MonoBehaviour
 		else
 		{
 			transform.localScale = new Vector2(1f, 1f);
-		}
-
-		// TODO: Move this, this just seems like a janky way to try to fix some problems
-		if (!currentSquare.occupied)
-		{
-			currentSquare.occupied = true;
 		}
 	}
 
@@ -201,6 +195,12 @@ public class Piece : MonoBehaviour
 		Piece rook = board.pieces[a];
 		Square p1 = board.children[b].GetComponent<Square>();
 		Square p2 = board.children[c].GetComponent<Square>();
+
+		if (!rook || !p1 || !p2)
+		{
+			return false;
+		}
+
 		bool temp = true;
 		if(d != 0)
 		{
