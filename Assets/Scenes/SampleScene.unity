@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 2
   row: 6
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -1134,7 +1134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 0
   row: 0
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -1266,7 +1266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 7
   row: 1
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -1528,7 +1528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 1
   row: 0
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -2641,7 +2641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 6
   row: 7
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -2905,7 +2905,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 0
   row: 6
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -3213,7 +3213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 0
   row: 7
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -3345,7 +3345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 1
   row: 6
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -3477,7 +3477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 1
   row: 7
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -3609,7 +3609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 6
   row: 1
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -3824,7 +3824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 3
   row: 6
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -3956,7 +3956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 1
   row: 1
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -4218,7 +4218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 6
   row: 0
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -4689,7 +4689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 4
   row: 0
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -4821,7 +4821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 3
   row: 1
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -4953,7 +4953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 7
   row: 6
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -6376,7 +6376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 4
   row: 7
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -6770,7 +6770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 3
   row: 0
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -6902,7 +6902,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 5
   row: 0
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -7626,7 +7626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 2
   row: 7
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -7758,7 +7758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 7
   row: 7
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -7890,7 +7890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 0
   row: 1
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -8416,7 +8416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 7
   row: 0
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -8940,7 +8940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 5
   row: 6
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -9072,7 +9072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 5
   row: 1
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -10065,7 +10065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 2
   row: 0
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -11008,7 +11008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 4
   row: 1
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -11404,7 +11404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 2
   row: 1
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -12190,7 +12190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 4
   row: 6
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -12615,7 +12615,6 @@ MonoBehaviour:
   whiteOnMove: 1
   transitionSpeed: 100
   check: 0
-  promoteType: -1
   legalColor: {r: 0.092196584, g: 1, b: 0, a: 0.49803922}
   legalTakeColor: {r: 0, g: 0.3630929, b: 1, a: 0.49803922}
   illegalKingMoveColor: {r: 1, g: 0.3669502, b: 0, a: 0.49803922}
@@ -12798,7 +12797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 3
   row: 7
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -13251,7 +13250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 5
   row: 7
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
@@ -13383,7 +13382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 6
   row: 6
-  occupied: 0
+  occupied: 1
   legalForSelectedPiece: 0
   currentPiece: {fileID: 0}
   epable: 0
